@@ -1,0 +1,32 @@
+<form>
+  <div class="form-group">
+    <div class="container">
+      <label for="nombre">Nombres: {{peticion.nombres}}</label>
+      <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
+    </div>
+    <div class="container">
+      <label for="aprendiz">Soy aprendiz del SENA:</label>
+      <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
+    </div>
+    <div class="container" *ngIf="peticion.sena">
+      <div class="form-check" >
+        <input class="form-check-input" type="radio" value="lectiva" name="etapa" id="lectiva"
+          [(ngModel)]="peticion.etapa">
+        <label class="form-check-label" for="lectiva">
+          Etapa Lectiva
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="productiva" name="etapa" id="productiva"
+          [(ngModel)]="peticion.etapa">
+        <label class="form-check-label" for="productiva">
+          Etapa Productiva
+        </label>
+      </div>
+    </div>
+    <div class="container" *ngIf="!peticion.sena">
+      <label for="salario">Salario Base: </label>
+      <input class="form-control" type="number" id="salario" name="salario">
+    </div>
+  </div>
+</form>

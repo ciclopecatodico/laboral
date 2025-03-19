@@ -1,17 +1,22 @@
 <div class="turnoDiv">
     <div class="row">
         <div class="col">
-            <h4>{{nombre}}</h4>
+            <h4>{{turno.nombre}}</h4>
+        </div>
+        <div class="col-auto">
+            <div class="btn btn-danger" (click)="eliminarTurno(turno.id)">
+                Eliminar {{turno.id}} 
+            </div> 
         </div>
     </div>
     <div class="row">
         <div class="col">
             <label for="horaInicio">Hora Inicio:</label>
-            <time-picker id="horaInicio" [time]="horaInicio" (setTime)="setHoraInicio($event)"></time-picker>
+            <time-picker id="horaInicio" [time]="turno.inicio" (setTime)="setHoraInicio($event)"></time-picker>
         </div>
-        <div class="col">
+        <div ngClass="{{invalidFin?'col validationError':'col'}}">
             <label for="horaFin">Hora Fin:</label>
-            <time-picker id="horaFin" [time]="horaFin" [invalid]="invalidFin"
+            <time-picker id="horaFin" [time]="turno.fin" [invalid]="invalidFin"
                 (setTime)="setHoraFin($event)"></time-picker>
         </div>
         <div class="col">

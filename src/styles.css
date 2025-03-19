@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.validationError {
+    border-color: #e2bfc3;
+    background-color: #f7d7da;
+    border-radius: 5pt;
+}

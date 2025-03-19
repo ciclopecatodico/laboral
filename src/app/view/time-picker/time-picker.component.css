@@ -1,9 +1,5 @@
 
-.timeSelector {
-    
-}
-
-.timeInput{
+.timeInput {
     display: block;
     width: 100%;
     padding: 0.375rem 0.75rem;
@@ -49,16 +45,8 @@
     float: left;
 }
 
-.minuteItem{
-
-}
-
-
 .ampm {
     max-width: 30px;
     float: right;
 }
 
-.ampmItem{
-
-}

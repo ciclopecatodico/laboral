@@ -13,7 +13,7 @@
       <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
     </div>
     <div class="container" *ngIf="peticion.sena">
-      <div class="form-check" >
+      <div class="form-check">
         <input class="form-check-input" type="radio" value="lectiva" name="etapa" id="lectiva"
           [(ngModel)]="peticion.etapa">
         <label class="form-check-label" for="lectiva">
@@ -32,13 +32,24 @@
       <label for="salario">Salario Base: </label>
       <input class="form-control" type="number" id="salario" name="salario">
     </div>
+    <div class="container">
+      <label for="domingos">Domingos que trabajas al año (0-52):</label>
+      <input class="form-control" type="number" id="domingos" name="domingos">
+    </div>
+    <div class="container">
+      <label for="festivos">Festivos que trabajas al año (0 - 18):</label>
+      <input class="form-control" type="number" id="festivos" name="festivos">
+    </div>
     <br>
     <div class="container">
       <h3>Cuál es tu jornada laboral?</h3>
       <p>Agrega los bloques de horas:</p>
       <br>
-      <div>
-        <app-turno [nombre]="nombreTurno" [id]="idTurno" (turnoEmitter)="setTurno($event)"></app-turno>
+      <div class="turnoCard" *ngFor="let item of turnos">
+        <app-turno [turno]="item" (turnoChange)="setTurno($event)" (deleteEmitter)="deleteTurno($event)"></app-turno>
+      </div>
+      <div class="deleteTurno">
+        <div class="btn btn-success" (click)="addTurno()">Agregar Turno</div>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
-<div class="timeSelector">
-    <div ngClass="{{invalid?'timeInput alert alert-danger':'timeInput'}}" (click)="showPanel=!showPanel">{{hour}}:{{minute}} {{ampm}}</div>
+<div>
+    <div class="timeInput" (click)="showPanel=!showPanel">{{hour}}:{{minute}} {{ampm}}</div>
     <div class="panel" *ngIf="showPanel">
         <div class="hour">
             <div *ngFor="let item of list.horas_12">
@@ -8,12 +8,12 @@
         </div>
         <div class="minute">
             <div *ngFor="let item of list.minutos">
-                <div class="minuteItem" (click)="setMinute(item.id)">{{item.label}}</div>
+                <div (click)="setMinute(item.id)">{{item.label}}</div>
             </div>
         </div>
         <div class="ampm">
             <div *ngFor="let item of list.amPm">
-                <div class="ampmItem" (click)="setAmpm(item.id)">{{item.label}}</div>
+                <div (click)="setAmpm(item.id)">{{item.label}}</div>
             </div>
         </div>
     </div>

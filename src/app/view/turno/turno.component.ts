@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { List } from '../../model/listas/list';
 import { SelectItem } from '../../model/selectItem/SelectItem';
 import moment, { duration } from 'moment';
@@ -10,44 +10,53 @@ import { Turno } from '../../model/turno/turno';
   templateUrl: './turno.component.html',
   styleUrl: './turno.component.css'
 })
-export class TurnoComponent {
+export class TurnoComponent implements OnInit {
 
-  @Input() 
-  nombre = 'Turno 1';
-  @Input() 
-  id = '1';
-  @Output() 
-  turnoEmitter = new EventEmitter<Turno>();
-
+  private turno_ : Turno;
   public lista = new List();
-  public horaInicio = '8:00 AM';
-  public horaFin = '1:00 PM';
   public horas = '05:00';
   public horasTurno = '00:00';
   public days: SelectItem[] = new Array<SelectItem>();
   public invalidFin = false;
 
-  public inicio = moment(this.horaInicio, 'hh:mm a');
-  public fin = moment(this.horaFin, 'hh:mm a');
+  @Output()
+  turnoChange = new EventEmitter<Turno>();
+  
+  @Output()
+  deleteEmitter = new EventEmitter<number>();
+
+  constructor(){
+    this.turno_ = new Turno(1, 'Turno 1', '08:00 AM', '12:00PM');
+  }
+
+  ngOnInit(): void {
+    if(this.turno){
+      
+    }
+  }
 
   public setHoraInicio(time: string) {
-    this.inicio = moment(time, 'hh:mm a');
+    this.turno_.inicio = time;
     this.setHoraFin(time);
-    this.horaFin = time;
+    this.turnoChange.emit(this.turno_);
   }
 
   public setHoraFin(time: string) {
-    this.fin = moment(time, 'hh:mm a');
-    if (this.fin.isBefore(this.inicio)) {
+    this.turno_.fin = time; 
+    let fin = moment(time, 'hh:mm a');
+    let inicio = moment(this.turno_.inicio, 'hh:mm a');
+    if (fin.isBefore(inicio)) {
+      console.log("isBefore!!");
       this.invalidFin = true;
     } else {
       this.invalidFin = false;
-      let hours = this.inicio.format('HH:mm:ss');
+      let hours = inicio.format('HH:mm:ss');
       let duration = moment.duration(hours);
-      let finAux = this.fin;
-      finAux.subtract(duration);
-      this.horas = finAux.format('HH:mm');
+      fin.subtract(duration);
+      this.horas = fin.format('HH:mm');
     }
+    this.turno_.fin = time;
+    this.turnoChange.emit(this.turno_);
   }
 
   public setDays(days: SelectItem[]) {
@@ -56,25 +65,34 @@ export class TurnoComponent {
   }
 
   public calcularHorasTurno() {
-    if(this.horas){
-      let mm = moment.duration(this.horas);
-      let turnoMs = mm.asMilliseconds();
-      let semanaMs = 0;
-      this.days.forEach( d => {
-        if(d.selected){
-          semanaMs = semanaMs + turnoMs;
+    this.turno_.dias = [];
+    if (this.horas) {
+      let baseMm = 0
+      let minutosTurno = moment.duration(this.horas).asMinutes();
+      this.days.forEach(d => {
+        if (d.selected) {
+          baseMm = baseMm + minutosTurno;
+          if (d.id) {
+            this.turno_.dias?.push(d.id);
+          }
         }
       })
-      let semana = moment.duration(semanaMs); 
-      this.horasTurno = semana.asHours()+"";
+      const duration = moment.duration(baseMm, 'minutes');
+      this.horasTurno = duration.asHours()+'';
     }
-    
-    let turno = new Turno();
-    turno.id = this.id;
-    turno.inicio = this.horaInicio;
-    turno.fin = this.horaFin;
-    turno.dias = this.days;
-    this.turnoEmitter.emit(turno);
+    this.turnoChange.emit(this.turno_);
   }
 
+  eliminarTurno(id: number) {
+    this.deleteEmitter.emit(id);
+  }
+
+  @Input()
+  set turno(turno:Turno) {
+    this.turno_ = turno;
+  }
+
+  get turno(){
+    return this.turno_;
+  }
 }

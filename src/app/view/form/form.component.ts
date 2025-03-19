@@ -79,10 +79,19 @@ export class FormComponent {
     let fin1 = moment(turno1.fin, 'hh:mm a');
     let fin2 = moment(turno2.fin, 'hh:mm a');
     let hourOverlap = false;
-    if (inicio1.isBefore(fin2) || inicio2.isBefore(fin1)) {
+    if (inicio1.isSame(inicio2) || fin1.isSame(fin2) ) {
       //si se sobreponen podrían ser inválidos
       hourOverlap = true;
     }
+    if (inicio1.isAfter(inicio2) && inicio1.isBefore(fin2) ) {
+      //si se sobreponen podrían ser inválidos
+      hourOverlap = true;
+    }
+    if (fin1.isAfter(inicio2) && fin1.isBefore(fin2)) {
+      //si se sobreponen podrían ser inválidos
+      hourOverlap = true;
+    }
+
     //verificamos que los días no se sobrepongan
     let dayOverlap = false;
     if (turno1.dias && turno2.dias) {

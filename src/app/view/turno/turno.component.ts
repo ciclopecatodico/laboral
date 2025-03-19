@@ -26,7 +26,7 @@ export class TurnoComponent implements OnInit {
   deleteEmitter = new EventEmitter<number>();
 
   constructor(){
-    this.turno_ = new Turno(1, 'Turno 1', '08:00 AM', '12:00PM');
+    this.turno_ = new Turno(1, 'Turno 1', '08:00 AM', '12:00PM', true);
   }
 
   ngOnInit(): void {

@@ -8,6 +8,7 @@ export class Turno {
         public nombre :string,
         public inicio : string,
         public fin : string, 
+        public valido : boolean,
         public dias ?: string[]
     ){}
 

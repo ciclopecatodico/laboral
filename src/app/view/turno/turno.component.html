@@ -1,4 +1,4 @@
-<div class="turnoDiv">
+<div ngClass="{{turno.valido?'turnoDiv':'turnoDiv validationError'}}">
     <div class="row">
         <div class="col">
             <h4>{{turno.nombre}}</h4>
@@ -33,6 +33,12 @@
         <div class="col">
             <label for="horasTurno">Horas totales a la semana:</label>
             <input type="text" id="horasTurno" disabled="true" class="form-control" [(ngModel)]="horasTurno">
+        </div>
+    </div>
+    <div class="row" *ngIf="!turno.valido">
+        <div class="col textError" >
+            <br>
+            Error la ficha se sobrepone con otra ficha!
         </div>
     </div>
 </div>

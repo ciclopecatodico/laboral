@@ -1,0 +1,33 @@
+<div class="turnoDiv">
+    <div class="row">
+        <div class="col">
+            <h4>{{nombre}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="horaInicio">Hora Inicio:</label>
+            <time-picker id="horaInicio" [time]="horaInicio" (setTime)="setHoraInicio($event)"></time-picker>
+        </div>
+        <div class="col">
+            <label for="horaFin">Hora Fin:</label>
+            <time-picker id="horaFin" [time]="horaFin" [invalid]="invalidFin"
+                (setTime)="setHoraFin($event)"></time-picker>
+        </div>
+        <div class="col">
+            <label for="horas">Horas turno:</label>
+            <input type="text" id="horas" disabled="true" class="form-control" [(ngModel)]="horas">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <day-picker (days)="setDays($event)"></day-picker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="horasTurno">Horas totales a la semana:</label>
+            <input type="text" id="horasTurno" disabled="true" class="form-control" [(ngModel)]="horasTurno">
+        </div>
+    </div>
+</div>

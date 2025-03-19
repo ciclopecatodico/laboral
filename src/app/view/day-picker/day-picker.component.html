@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col">
+        <label for="dayPicker">Seleciona los días:</label>
+        <div id="dayPicker" class="dayPicker">
+            <div *ngFor="let day of daysList" class="dayElement">
+                <div ngClass="{{day.selected?'btn btn-warning':'btn btn-success'}}" (click)="selectDay(day)">
+                    {{day.label}}
+                </div>
+            </div>
+            <div class="dayElement">
+                <div class="btn btn-info limpiar" (click)="clear()">
+                    Limpiar
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,11 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './view/form/form.component';
 import { FormsModule } from '@angular/forms';
+import { TurnoComponent } from './view/turno/turno.component';
+import { TimePickerComponent } from './view/time-picker/time-picker.component';
+import { DayPickerComponent } from './view/day-picker/day-picker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    TurnoComponent,
+    TimePickerComponent,
+    DayPickerComponent
   ],
   imports: [
     BrowserModule,

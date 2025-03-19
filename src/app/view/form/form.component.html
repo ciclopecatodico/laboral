@@ -1,3 +1,7 @@
+<div class="container">
+  <h1> Calculadora Salarial</h1>
+  <h2>Ajustada a la reforma laboral</h2>
+</div>
 <form>
   <div class="form-group">
     <div class="container">
@@ -27,6 +31,15 @@
     <div class="container" *ngIf="!peticion.sena">
       <label for="salario">Salario Base: </label>
       <input class="form-control" type="number" id="salario" name="salario">
+    </div>
+    <br>
+    <div class="container">
+      <h3>Cuál es tu jornada laboral?</h3>
+      <p>Agrega los bloques de horas:</p>
+      <br>
+      <div>
+        <app-turno [nombre]="nombreTurno" [id]="idTurno" (turnoEmitter)="setTurno($event)"></app-turno>
+      </div>
     </div>
   </div>
 </form>

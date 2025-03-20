@@ -1,0 +1,44 @@
+[
+    {
+        "name": "lunes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "martes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "miercoles",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "jueves",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "viernes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "sabado",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    },
+    {
+        "name": "domingo",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0
+    }
+]

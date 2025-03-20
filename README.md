@@ -1,18 +1,21 @@
 # Laboral
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+Este proyecto fue generado usando Angular [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
 
 ## Development server
 
-To start a local development server, run:
+Para iniciar el servidor local ejecute: 
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Una vez el servidor está corriendo abra en su navegador `http://localhost:4200/`. 
+La aplicación va a recargarse automáticamente cada vez que modifiques el código fuente.  
+
 
 ## Code scaffolding
+
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
@@ -62,3 +65,14 @@ For more information on using the Angular CLI, including detailed command refere
 ## Deploy on GH pages: 
 
 ng deploy laboral --base-href=/laboral/
+
+
+
+## Fuentes
+
+Reforma laboral Uribe: 
+https://razonpublica.com/horas-extras-y-jornada-nocturna-vale-la-pena-volver-al-sistema-de-antes/
+
+Parámetros : 
+
+Reforma Laboral Petro

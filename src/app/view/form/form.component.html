@@ -1,34 +1,38 @@
 <div class="container">
-  <h1> Calculadora Salarial</h1>
+  <h1> Simuladora Salarial</h1>
   <h2>Ajustada a la reforma laboral</h2>
 </div>
 <form>
   <div class="form-group">
     <div class="container">
-      <label for="nombre">Nombres:</label>
+      <label for="nombre">Cómo te llamas?</label>
       <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
     </div>
     <div class="container">
-      <label for="edad">Edad:</label>
-      <input class="form-control" type="number" id="edad" name="edad">
+      <label for="edad">Cuál es tu edad?</label>
+      <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
     </div>
     <div class="container">
-      <label for="nombre">Sexo al nacer:</label>
+      <label for="experiencia">Hace cuantos años trabajas?</label>
+      <input class="form-control" type="number" id="experiencia" name="experiencia" [(ngModel)]="peticion.experiencia">
+    </div>
+    <div class="container">
+      <label for="nombre">Te pensionarás como?</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre">
+        <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre" [(ngModel)]="peticion.sexo">
         <label class="form-check-label" for="hombre">
-          Hombre
+          Hombre a los 62 años.
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer">
+        <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer" [(ngModel)]="peticion.sexo">
         <label class="form-check-label" for="mujer">
-          Mujer
+          Mujer a los 57 años.
         </label>
       </div>
     </div>
     <div class="container">
-      <label for="aprendiz">Soy aprendiz del SENA:</label>
+      <label for="aprendiz">Eres aprendiz del SENA?</label>
       <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
     </div>
     <div class="container" *ngIf="peticion.sena">
@@ -50,15 +54,15 @@
     </div>
     <div class="container" *ngIf="!peticion.sena">
       <label for="salario">Salario Base: </label>
-      <input class="form-control" type="number" id="salario" name="salario">
+      <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
     </div>
     <div class="container">
       <label for="domingos">Domingos que trabajas al año (0-52):</label>
-      <input class="form-control" type="number" id="domingos" name="domingos">
+      <input class="form-control" type="number" id="domingos" name="domingos" [(ngModel)]="peticion.domingos">
     </div>
     <div class="container">
       <label for="festivos">Festivos que trabajas al año (0 - 18):</label>
-      <input class="form-control" type="number" id="festivos" name="festivos">
+      <input class="form-control" type="number" id="festivos" name="festivos" [(ngModel)]="peticion.festivos">
     </div>
     <br>
     <div class="container">
@@ -68,8 +72,9 @@
       <div class="turnoCard" *ngFor="let item of turnos">
         <app-turno [turno]="item" (turnoChange)="setTurno($event)" (deleteEmitter)="deleteTurno($event)"></app-turno>
       </div>
-      <div class="deleteTurno">
+      <div >
         <div class="btn btn-success" (click)="addTurno()">Agregar Turno</div>
+        <div class="btn btn-outline-secondary" (click)="process()">Generar Simulación</div>
       </div>
     </div>
   </div>

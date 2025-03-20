@@ -180,6 +180,10 @@ export class List {
             id:'45',
             label:'45'
         },
+        {
+            id:'59',
+            label:'59'
+        },
     ];
 
 
@@ -224,6 +228,66 @@ export class List {
         {
             id:'domingo',
             label:'Domingo'
+        }
+    ];
+
+
+    public configuracion : Item[] = [
+        {
+            id:'jornadaDiurnaInicio',
+            label:'Inicio Jornada Diurna'
+        },
+        {
+            id:'jornadaDiurnaFin',
+            label:'Fin Jornada Diurna'
+        },
+        {
+            id:'jornadaNocturnaInicio',
+            label:'Inicio Jornada Nocturna'
+        },
+        {
+            id:'jornadaNocturnaFin',
+            label:'Fin Jornada Nocturna'
+        },
+        {
+            id:'jornadaLaboralDiaria',
+            label:'Jornada Laboral Diaria'
+        },
+        {
+            id:'jornadaLaboralSemanal',
+            label:'Jornada Laboral Semanal'
+        }, 
+        {
+            id:'horasDiurnas',
+            label:'Horas Diurnas'
+        },
+        {
+            id:'horasNocturnas',
+            label:'Horas Nocturnas'
+        }, 
+        {
+            id:'horasDiurnaDominicalesOFestivos',
+            label:'Horas Diurnas Dominicales o Festivos'
+        },
+        {
+            id:'horasNocturnasDominicalesFestivos',
+            label:'Horas Nocturnas Dominicales o Festivos'
+        },
+        {
+            id:'horasExtrasDiurnas',
+            label:'Horas Extras Diurnas'
+        },
+        {
+            id:'horasExtrasNocturnas',
+            label:'Horas Extras Nocturnas'
+        },
+        {
+            id:'horasExtrasDiurnasDominicalesOFestivos',
+            label:'Horas Extras Diurnas Dominicales o Festivos'
+        },
+        {
+            id:'horasExtrasNocturnasDominicalesOFestivos',
+            label:'Horas Extras Nocturnas Dominicales o Festivos'
         }
     ];
 }

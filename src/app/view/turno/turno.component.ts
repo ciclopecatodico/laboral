@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { List } from '../../model/listas/list';
 import { SelectItem } from '../../model/selectItem/SelectItem';
-import moment, { duration } from 'moment';
+import moment, { Duration, duration } from 'moment';
 import { Turno } from '../../model/turno/turno';
 
 @Component({
@@ -77,8 +77,10 @@ export class TurnoComponent implements OnInit {
           }
         }
       })
-      const duration = moment.duration(baseMm, 'minutes');
-      this.horasTurno = duration.asHours()+'';
+      const duration = moment.duration(baseMm, 'minutes').asMinutes();
+      const horas =  Math.floor(duration / 60);
+      const minutos = duration % 60;
+      this.horasTurno = horas+':'+minutos;
     }
     this.turnoChange.emit(this.turno_);
   }

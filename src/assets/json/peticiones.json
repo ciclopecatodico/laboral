@@ -1,0 +1,15 @@
+[
+    {
+        "nombres": "Juan Camilo",
+        "salario": 1430000,
+        "valorHora": 0,
+        "edad": 25,
+        "experiencia": 4,
+        "sexo": "hombre",
+        "sena": false,
+        "etapa": null,
+        "domingos": 0,
+        "festivos": 0,
+        "turnos": null
+    }
+]

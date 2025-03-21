@@ -5,7 +5,8 @@ import { Peticion } from '../../model/peticion/peticion.model';
 import * as parametrosConf from '../../../assets/json/parametros.json';
 import * as peticionesConf from '../../../assets/json/peticiones.json';
 import * as semanaConf from '../../../assets/json/semana.json';
-import { Dia } from '../../model/dia/dia';
+import { Horas } from '../../model/horas/horas';
+
 
 
 @Injectable({
@@ -23,7 +24,9 @@ export class ConfigurationService {
     return (peticionesConf as any).default;
   }
 
-  get semana(): Array<Dia> {
+  get semana(): Array<Horas> {
     return (semanaConf as any).default;
   }
+
+
 }

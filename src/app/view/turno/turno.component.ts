@@ -3,6 +3,7 @@ import { List } from '../../model/listas/list';
 import { SelectItem } from '../../model/selectItem/SelectItem';
 import moment, { Duration, duration } from 'moment';
 import { Turno } from '../../model/turno/turno';
+import { CONST } from '../../model/conf/conf';
 
 @Component({
   selector: 'app-turno',
@@ -12,50 +13,62 @@ import { Turno } from '../../model/turno/turno';
 })
 export class TurnoComponent implements OnInit {
 
-  private turno_ : Turno;
+  public turno_ : Turno;
   public lista = new List();
-  public horas = '05:00';
-  public horasTurno = '00:00';
+  public horas;
+  public horasTurno;
   public days: SelectItem[] = new Array<SelectItem>();
   public invalidFin = false;
 
+  public horaInicio;
+  public horaFin;
+  public medianoche = false;
+
   @Output()
-  turnoChange = new EventEmitter<Turno>();
+  public turnoChange = new EventEmitter<Turno>();
   
   @Output()
-  deleteEmitter = new EventEmitter<number>();
+  public deleteEmitter = new EventEmitter<number>();
 
   constructor(){
-    this.turno_ = new Turno(1, 'Turno 1', '08:00 AM', '12:00PM', true);
+    this.turno_ = new Turno(1, 'Turno 1', CONST.turnoInicio, CONST.turnoFin, true);
+    this.horas = CONST.turnoHoras;
+    this.horasTurno = CONST.turnoHoras;
+    this.horaInicio = CONST.turnoInicio;
+    this.horaFin = CONST.turnoFin;
   }
 
   ngOnInit(): void {
-    if(this.turno){
+    if(this.turno_){
       
     }
   }
 
-  public setHoraInicio(time: string) {
-    this.turno_.inicio = time;
-    this.setHoraFin(time);
-    this.turnoChange.emit(this.turno_);
+  public setHoraInicio() {
+    this.turno_.inicio = this.horaInicio;
+    this.horaFin = this.horaInicio;
+    this.setHoraFin();
   }
 
-  public setHoraFin(time: string) {
-    this.turno_.fin = time; 
-    let fin = moment(time, 'hh:mm a');
-    let inicio = moment(this.turno_.inicio, 'hh:mm a');
+  public setHoraFin(){
+    let fin = moment(this.horaFin, 'HH:mm');
+    let turnoFin = this.horaFin;
+    if(this.medianoche){
+      fin = moment('00:00', 'HH:mm').add(1, 'd');
+      turnoFin = CONST.mediaNoche;
+      this.horaFin = '00:00';
+    }
+    let inicio = moment(this.horaInicio,  'HH:mm');
     if (fin.isBefore(inicio)) {
-      console.log("isBefore!!");
       this.invalidFin = true;
     } else {
       this.invalidFin = false;
-      let hours = inicio.format('HH:mm:ss');
+      let hours = inicio.format('HH:mm');
       let duration = moment.duration(hours);
       fin.subtract(duration);
       this.horas = fin.format('HH:mm');
     }
-    this.turno_.fin = time;
+    this.turno_.fin = turnoFin;
     this.turnoChange.emit(this.turno_);
   }
 
@@ -91,10 +104,14 @@ export class TurnoComponent implements OnInit {
 
   @Input()
   set turno(turno:Turno) {
-    this.turno_ = turno;
+    //TODO calcular las horas del turno 
+    this.turno_ =  turno;
+    this.horaInicio = turno.inicio;
+    this.horaFin = turno.fin;
   }
 
   get turno(){
     return this.turno_;
   }
+
 }

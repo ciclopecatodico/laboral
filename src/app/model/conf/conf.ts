@@ -1,4 +1,3 @@
-
 export const CONST = {
 
     jornadaDiurnaInicio:
@@ -71,6 +70,11 @@ export const CONST = {
     },
     diasSemanaLaboral: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
     diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-    diaDomingo: ['domingo']
+    diaDomingo: ['domingo'],
+    mediaNoche: '24:00',
+    turnoNombrePrefix: 'Turno',
+    turnoInicio: '00:00',
+    turnoFin: '12:00',
+    turnoHoras: '12:00'
 
 }

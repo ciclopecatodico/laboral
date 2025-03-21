@@ -100,18 +100,10 @@ export class List {
         {
             id:'23',
             label:'23:00'
-        },
-        {
-            id:'24',
-            label:'23:59'
         }
     ];
 
     public horas_12 : Item[] = [
-        {
-            id:'0',
-            label:'00'
-        },
         {
             id:'1',
             label:'01'
@@ -179,11 +171,7 @@ export class List {
         {
             id:'45',
             label:'45'
-        },
-        {
-            id:'59',
-            label:'59'
-        },
+        }
     ];
 
 
@@ -197,8 +185,6 @@ export class List {
             label:'PM'
         }
     ];
-
-
 
     public dias : Item[] = [
         {
@@ -230,7 +216,6 @@ export class List {
             label:'Domingo'
         }
     ];
-
 
     public configuracion : Item[] = [
         {

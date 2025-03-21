@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Dia } from '../../model/dia/dia';
+import { Horas } from '../../model/horas/horas';
 import { Peticion } from '../../model/peticion/peticion.model';
 import { Parametros } from '../../model/parametros/parametros';
 import moment from 'moment';
 import { ConfigurationService } from '../configuration/configuration.service';
 import { Turno } from '../../model/turno/turno';
+import { List } from '../../model/listas/list';
+import { CONST } from '../../model/conf/conf';
 
 
 
@@ -14,91 +16,108 @@ import { Turno } from '../../model/turno/turno';
 })
 export class SemanaService {
 
-  public configurationService : ConfigurationService;
-  public semana : Dia[];
+  public configurationService: ConfigurationService;
+  public list = new List();
+  public horas: Horas[];
 
-  constructor(configurationService : ConfigurationService) { 
-    this.configurationService = configurationService; 
-    this.semana = configurationService.semana;
+  constructor(configurationService: ConfigurationService) {
+    this.configurationService = configurationService;
+    this.horas = configurationService.semana;
   }
 
-  public calcularSemana(peticion: Peticion, parametro: Parametros): Dia[] {
-    this.semana = structuredClone(this.configurationService.semana);
+  public calcularSemana(peticion: Peticion, parametro: Parametros): Horas[] {
+    this.horas = structuredClone(this.configurationService.semana);
     if (peticion.turnos) {
       for (let turno of peticion.turnos) {
-        if (turno.dias) {
-          console.log("Turno :",JSON.stringify(turno));
+        if (turno.dias != null && turno.dias.length > 0) {
           this.calcularTiposDeHoras(turno, parametro);
-          console.log("Semana :", JSON.stringify(this.semana));
+          //console.log("Semana :", JSON.stringify(this.horas));
         }
       }
     }
-    return this.semana;
+    return this.horas;
   }
 
 
   private calcularTiposDeHoras(turno: Turno, parametro: Parametros) {
     let horario = [turno.inicio, turno.fin];
+    console.log("Turno : [" + turno.inicio + "-" + turno.fin + "]");
     let jornadaDiurna = [parametro.diaInicio, parametro.diaFin];
-    let jornadaNocturna1 = ["12:00 AM", parametro.nocheFin];
-    let jornadaNocturna2 = [parametro.nocheInicio, "11:59 PM"];
+    let jornadaNocturna1 = ["00:00", parametro.nocheFin];
+    let jornadaNocturna2 = [parametro.nocheInicio, CONST.mediaNoche];
     let horasDiurnas = 0;
     let horasExtrasDiurnas = 0;
     let horasNocturnas = 0;
     let horasExtraNocturnas = 0;
     //calculo las horas nocturnas en la madrugada
     let horasNocturnas1 = this.calcularHorasDentroDelTurno(horario, jornadaNocturna1);
-    console.log("horasNocturnas1:"+horasNocturnas1);
+    console.log("horasNocturnas1: " + horasNocturnas1);
     horasNocturnas = horasNocturnas1;
+    console.log("horasNocturnas>>>: " + horasNocturnas);
     //calculo las horas del turno de dia
     let horasDiurnas1 = this.calcularHorasDentroDelTurno(horario, jornadaDiurna);
-    console.log("horasDiurnas1:"+horasDiurnas1);
+    console.log("horasDiurnas1: " + horasDiurnas1);
     let horasTotales = horasNocturnas1 + horasDiurnas1;
     if (horasTotales > parametro.jornadaLaboralDiaria) {
       //Habría horas extras diurnas así: 
       horasExtrasDiurnas = horasTotales - parametro.jornadaLaboralDiaria;
       horasDiurnas = horasDiurnas1 - horasExtrasDiurnas;
-    }else{
+    } else {
       horasDiurnas = horasDiurnas1;
     }
+    console.log("horasNocturnas>>>: " + horasNocturnas);
     //calculo las horas nocturnas en la noche
     let horasNocturnas2 = this.calcularHorasDentroDelTurno(horario, jornadaNocturna2);
-    console.log("horasNocturnas2:"+horasNocturnas2);
+    console.log("horasNocturnas2: " + horasNocturnas2);
     horasTotales = horasNocturnas1 + horasDiurnas1 + horasNocturnas2;
+    console.log("horasTotales: " + horasTotales);
+    console.log("horasNocturnas>>>: " + horasNocturnas);
     if (horasTotales > parametro.jornadaLaboralDiaria) {
       horasExtraNocturnas = horasTotales - parametro.jornadaLaboralDiaria;
       horasExtraNocturnas = horasExtraNocturnas - horasExtrasDiurnas;
-    }else{
+      horasNocturnas = (horasNocturnas1 + horasNocturnas2) - horasExtraNocturnas;
+    } else {
+      console.log("horasNocturnas1>>>: " + horasNocturnas1 );
+      console.log("horasNocturnas2>>>: " + horasNocturnas2 );
       horasNocturnas = horasNocturnas1 + horasNocturnas2;
     }
+    console.log("horasDiurnas>>>: " + horasDiurnas);
 
     turno.dias?.forEach(
       dia => {
-        this.guardarDia(dia, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas);
+        this.guardarDia(dia, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria);
       }
     );
   }
 
-  public guardarDia(nombre: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna:number, horasExtraNocturna:number) {
+  public guardarDia(nombre: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria:number) {
     let horario = jornada[0] + "-" + jornada[1];
-    if (this.semana) {
-      let dia = this.semana.find(d => d.name === nombre);
-      if (dia) {
+    let horas = this.horas.find(d => d.name === nombre);
+    if (this.horas) {
+      if (horas) {
         //verificar si existe el horario
-        let element = dia.horarios.find( k => k === horario);
-        if(!element){
+        let element = horas.horarios.find(k => k === horario);
+        if (!element) {
           //si no ha sido guardado lo agregamos
-          dia.horarios.push(horario); //agregamos el horario 
+          horas.horarios.push(horario); //agregamos el horario 
         }
-        dia.horasDiurnas += horasDiurnas; 
-        dia.horasExtraDiurna += horasExtraDiurna; 
-        dia.horasNocturnas += horasNocturnas; 
-        dia.horasExtraNocturna += horasExtraNocturna; 
-        dia.totalHoras = dia.horasDiurnas + dia.horasNocturnas + dia.horasExtraDiurna + dia.horasExtraNocturna;
+        //Casos especiales en el acumulador de horas  //TODO here
+        horas.horasDiurnas += horasDiurnas;
+        horas.horasExtraDiurna += horasExtraDiurna;
+        horas.horasNocturnas += horasNocturnas;
+        horas.horasExtraNocturna += horasExtraNocturna;
+        horas.totalHoras = horas.horasDiurnas + horas.horasNocturnas + horas.horasExtraDiurna + horas.horasExtraNocturna;
       } else {
-        let totalHoras = horasDiurnas+horasNocturnas+horasExtraDiurna+horasExtraNocturna;
-        dia = new Dia(nombre, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, totalHoras);
-        this.semana.push(dia);
+        let totalHoras = horasDiurnas + horasNocturnas + horasExtraDiurna + horasExtraNocturna;
+        //TODO cambiar nombre por label!
+        let dia = this.list.dias.find(d => d.id === nombre);
+        let label = nombre;
+        if (dia) {
+          console.log("LABEL >>>>", label);
+          label = dia.label + '';
+        }
+        horas = new Horas(nombre, label, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+        this.horas.push(horas);
       }
     }
   }
@@ -110,11 +129,18 @@ export class SemanaService {
    * @returns Horas del horario dento de la jornada, para los ejemplos 4horas ['02:00 PM','06:00 PM']
    * las horas posteriores al turno deberán ser contadas por otro llamado que cuente las horas en jornada nocturna ['06:00 PM','06:00 AM']
    */
-  public calcularHorasDentroDelTurno(horario: string[], jornada: string[]) : number{
+  public calcularHorasDentroDelTurno(horario: string[], jornada: string[]): number {
     let horarioInicio = moment(horario[0], 'hh:mm a');
-    let horarioFin = moment(horario[1], 'hh:mm a');
+    let horarioFin;
+    if (horario[1] === CONST.mediaNoche) {
+      horarioFin = moment('00:00', 'hh:mm').add(1, 'd');
+    } else {
+      horarioFin = moment(horario[1], 'hh:mm a');
+    }
     let jornadaInicio = moment(jornada[0], 'hh:mm a');
     let jornadaFin = moment(jornada[1], 'hh:mm a');
+
+
     //Horas  del turno estan dentro de la jornada diurna
     let horas = 0;
     if (horarioInicio.isAfter(jornadaInicio)) {
@@ -127,6 +153,8 @@ export class SemanaService {
       if (horarioFin.isAfter(jornadaFin)) {
         horas = jornadaFin.diff(jornadaInicio, 'hours');
       } else {
+        // console.log("jornadaInicio:", JSON.stringify(jornadaInicio));
+        // console.log("horarioFin:", JSON.stringify(horarioFin));
         horas = horarioFin.diff(jornadaInicio, 'hours');
       }
     }
@@ -137,7 +165,6 @@ export class SemanaService {
     }
     return 0;
   }
-
 
 
 }

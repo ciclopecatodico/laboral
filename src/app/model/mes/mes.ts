@@ -1,11 +1,11 @@
-import { Dia } from "../dia/dia";
+import { Horas } from "../horas/horas";
 import { Hora } from "../hora/hora";
 
 export class Mes {
 
     constructor(
         public name: string,
-        public semana: Dia[],
+        public semana: Horas[],
         public horas: Hora[],
     ) { }
 

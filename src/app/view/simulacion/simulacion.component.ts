@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Dia } from '../../model/dia/dia';
+import { Horas } from '../../model/horas/horas';
 
 @Component({
   selector: 'app-simulacion',
@@ -10,6 +10,6 @@ import { Dia } from '../../model/dia/dia';
 export class SimulacionComponent {
 
   @Input()
-  semana = Array<Dia>();
+  semana = Array<Horas>();
 
 }

@@ -5,19 +5,25 @@
         </div>
         <div class="col-auto">
             <div class="btn btn-danger" (click)="eliminarTurno(turno.id)">
-                Eliminar {{turno.id}} 
-            </div> 
+                Eliminar {{turno.id}}
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <label for="horaInicio">Hora Inicio:</label>
-            <time-picker id="horaInicio" [time]="turno.inicio" (setTime)="setHoraInicio($event)"></time-picker>
+            <input class="form-control" type="time" step="900" name="horaInicio" id="horaInicio" [(ngModel)]="horaInicio"
+                (change)="setHoraInicio()">
         </div>
         <div ngClass="{{invalidFin?'col validationError':'col'}}">
-            <label for="horaFin">Hora Fin:</label>
-            <time-picker id="horaFin" [time]="turno.fin" [invalid]="invalidFin"
-                (setTime)="setHoraFin($event)"></time-picker>
+            <label for="horaFin">Hora Fin: 
+                <input class="" type="checkbox" name="medianoche" id="medianoche" (change)="setHoraFin()" [(ngModel)]="medianoche">
+                <label class="" for="medianoche">
+                  Medianoche?
+                </label>
+            </label>
+            <input class="form-control" disabled="{{medianoche}}" type="time" step="900" name="horaFin" id="horaFin" [(ngModel)]="horaFin"
+                (change)="setHoraFin()">
         </div>
         <div class="col">
             <label for="horas">Horas turno:</label>
@@ -36,7 +42,7 @@
         </div>
     </div>
     <div class="row" *ngIf="!turno.valido">
-        <div class="col textError" >
+        <div class="col textError">
             <br>
             Error la ficha se sobrepone con otra ficha!
         </div>

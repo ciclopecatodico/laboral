@@ -15,10 +15,10 @@
         "horasNocturnas": 1.1,
         "horasDiurnasDominicalesOFestivos": 1.5,
         "horasNocturnasDominicalesFestivos": 1.75,
-        "extrasDiurno" : 1.1,
-        "extrasNocturno" : 1.25,
-        "extrasDiurnasDominicalesFestivos" : 1.5,
-        "extrasNocturnasDominicalesFestivos" : 1.75
+        "horasExtrasDiurnas" : 1.1,
+        "horasExtrasNocturnas" : 1.25,
+        "horasExtrasDiurnasDominicalesFestivas" : 1.5,
+        "horasExtrasNocturnasDominicalesFestivas" : 1.75
     }, 
     {
         "id" : 2,
@@ -36,10 +36,10 @@
         "horasNocturnas": 1.1,
         "horasDiurnasDominicalesOFestivos": 1.5,
         "horasNocturnasDominicalesFestivos": 1.75,
-        "extrasDiurno" : 1.1,
-        "extrasNocturno" : 1.25,
-        "extrasDiurnasDominicalesFestivos" : 1.5,
-        "extrasNocturnasDominicalesFestivos" : 1.75
+        "horasExtrasDiurnas" : 1.1,
+        "horasExtrasNocturnas" : 1.25,
+        "horasExtrasDiurnasDominicalesFestivas" : 1.5,
+        "horasExtrasNocturnasDominicalesFestivas" : 1.75
     },
     {
         "id" : 3,
@@ -57,9 +57,9 @@
         "horasNocturnas": 1.1,
         "horasDiurnasDominicalesOFestivos": 1.5,
         "horasNocturnasDominicalesFestivos": 1.75,
-        "extrasDiurno" : 1.1,
-        "extrasNocturno" : 1.25,
-        "extrasDiurnasDominicalesFestivos" : 1.5,
-        "extrasNocturnasDominicalesFestivos" : 1.75
+        "horasExtrasDiurnas" : 1.1,
+        "horasExtrasNocturnas" : 1.25,
+        "horasExtrasDiurnasDominicalesFestivas" : 1.5,
+        "horasExtrasNocturnasDominicalesFestivas" : 1.75
     }
 ]

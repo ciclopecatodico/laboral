@@ -9,7 +9,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let dia of semana">    
-            <th scope="row">{{dia.name}}</th>
+            <th scope="row">{{dia.label}}</th>
             <td scope="row"><div [innerHTML]="dia.horarios.join('\<br/>')"></div> </td>
             <td scope="row">{{dia.horasDiurnas}}</td>
             <td scope="row">{{dia.horasNocturnas}}</td>

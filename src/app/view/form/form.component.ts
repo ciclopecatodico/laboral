@@ -4,7 +4,8 @@ import { Turno } from '../../model/turno/turno';
 import moment from 'moment';
 import { LiquidadorService } from '../../service/liquidador/liquidador.service';
 import { ConfigurationService } from '../../service/configuration/configuration.service';
-import { Dia } from '../../model/dia/dia';
+import { Horas } from '../../model/horas/horas';
+import { CONST } from '../../model/conf/conf';
 
 
 
@@ -26,8 +27,14 @@ export class FormComponent {
     this.liquidador = liquidadorService;
     this.configurationService = configurationService;
     this.peticion = configurationService.peticiones[0];
-    let turno = new Turno(1, 'Bloque 1', '8:00 AM', '1:00 PM', true);
+    let turno = new Turno(1, CONST.turnoNombrePrefix+' 1', CONST.turnoInicio, CONST.turnoFin, true);
+    let turno2 = new Turno(2, CONST.turnoNombrePrefix+' 2', '12:00', '23:00', true);
+    let turno3 = new Turno(3, CONST.turnoNombrePrefix+' 3', '08:00', '13:00', true);
+    let turno4 = new Turno(4, CONST.turnoNombrePrefix+' 4', '14:00', '19:00', true);
     this.turnos.push(turno);
+    this.turnos.push(turno2);
+    this.turnos.push(turno3);
+    this.turnos.push(turno4);
   }
 
   public addTurno() {
@@ -44,7 +51,7 @@ export class FormComponent {
       id = id + 1;
     }
     if (this.turnos.length < 5) {
-      let turno = new Turno(id, 'Bloque ' + id, '8:00 AM', '1:00 PM', true);
+      let turno = new Turno(id, CONST.turnoNombrePrefix + ' ' + id, CONST.turnoInicio, CONST.turnoFin, true);
       this.turnos.push(turno);
     } else {
       alert("Máximo de turnos alcanzado");
@@ -84,10 +91,10 @@ export class FormComponent {
 
   public validarTurnos(turno1: Turno, turno2: Turno) {
     //verificamos que los horarios no se sobrepongan
-    let inicio1 = moment(turno1.inicio, 'hh:mm a');
-    let inicio2 = moment(turno2.inicio, 'hh:mm a');
-    let fin1 = moment(turno1.fin, 'hh:mm a');
-    let fin2 = moment(turno2.fin, 'hh:mm a');
+    let inicio1 = moment(turno1.inicio, 'HH:mm');
+    let inicio2 = moment(turno2.inicio, 'HH:mm');
+    let fin1 = moment(turno1.fin, 'HH:mm');
+    let fin2 = moment(turno2.fin, 'HH:mm');
     let hourOverlap = false;
     //si se sobreponen podrían ser inválidos
     if (inicio1.isSame(inicio2) || fin1.isSame(fin2)) {
@@ -124,7 +131,7 @@ export class FormComponent {
   }
 
 
-  semana = new Array<Dia>();
+  semana = new Array<Horas>();
   /**
    * Procesar la petición realizar todos los cálculos 
    */

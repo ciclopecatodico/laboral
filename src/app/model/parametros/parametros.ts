@@ -21,10 +21,10 @@ export class Parametros {
         public horasNocturnas: number,
         public horasDiurnasDominicalesOFestivos: number,
         public horasNocturnasDominicalesFestivos: number,
-        public extrasDiurno : number,
-        public extrasNocturno : number,
-        public extrasDiurnasDominicalesFestivos : number,
-        public extrasNocturnasDominicalesFestivos : number,
+        public horasExtrasDiurnas : number,
+        public horasExtrasNocturnas : number,
+        public horasExtrasDiurnasDominicalesFestivas : number,
+        public horasExtrasNocturnasDominicalesFestivas : number,
     ){}
 
 }

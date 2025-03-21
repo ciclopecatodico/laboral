@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Dia } from '../../model/dia/dia';
-import { CONST } from '../../model/conf/conf';
+import { Horas } from '../../model/horas/horas';
 import { List } from '../../model/listas/list';
+import { ConfigurationService } from '../../service/configuration/configuration.service';
+import { CONST } from '../../model/conf/conf';
 
 @Component({
   selector: 'horas-semana',
@@ -13,7 +14,7 @@ export class HorasSemanaComponent {
 
 
   @Input()
-  public semana = Array<Dia>();
+  public semana = Array<Horas>();
 
   public horasDiurnas = 0;
   public horasNocturnas = 0;

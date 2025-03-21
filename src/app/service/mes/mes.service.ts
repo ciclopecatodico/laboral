@@ -2,26 +2,32 @@ import { Injectable } from '@angular/core';
 import { Parametros } from '../../model/parametros/parametros';
 import { Hora } from '../../model/hora/hora';
 import { Mes } from '../../model/mes/mes';
-import { Dia } from '../../model/dia/dia';
+import { Horas } from '../../model/horas/horas';
+import { ConfigurationService } from '../configuration/configuration.service';
 import { CONST } from '../../model/conf/conf';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MesService {
 
+  public configurationService: ConfigurationService;
+
   public horas = new Array<Hora>();
-  public semana = new Array<Dia>();
+  public semana = new Array<Horas>();
 
 
-  constructor() { }
+  constructor(configurationService: ConfigurationService) {
+    this.configurationService = configurationService;
+  }
 
-  public calcular(semana: Dia[], parametros: Parametros, valorHora: number): Mes {
+  public calcular(semana: Horas[], parametros: Parametros, valorHora: number): Mes {
 
     this.semana = semana;
     let factor = parametros.horasDiurnas;
     let festivos = Array<number>();
-    
+
     console.log("valorHora:" + valorHora + " Factor:" + factor);
     this.liquidarHorasMesSinFestivos(CONST.horasDiurnas.id, CONST.horasDiurnas.label, true, CONST.diaDomingo, valorHora, factor, festivos);
 
@@ -31,7 +37,7 @@ export class MesService {
 
 
     factor = parametros.horasDiurnasDominicalesOFestivos;
-    this.liquidarHorasMesSinFestivos(CONST.horasDiurnasDominicalesOFestivos.id, CONST.horasDiurnasDominicalesOFestivos.label, true, CONST.diasSemanaLaboral, valorHora, factor , festivos);
+    this.liquidarHorasMesSinFestivos(CONST.horasDiurnasDominicalesOFestivos.id, CONST.horasDiurnasDominicalesOFestivos.label, true, CONST.diasSemanaLaboral, valorHora, factor, festivos);
 
 
     factor = parametros.horasNocturnasDominicalesFestivos;
@@ -43,15 +49,15 @@ export class MesService {
   }
 
 
-  private liquidarHorasMesSinFestivos(id: string, label: string, diurnas: boolean, diasAOmitir: string[], valorHora: number, factor: number, festivos:number[]) {
+  private liquidarHorasMesSinFestivos(id: string, label: string, diurnas: boolean, diasAOmitir: string[], valorHora: number, factor: number, festivos: number[]) {
     let horas = this.contarHorasSinFestivos(diasAOmitir, diurnas, festivos);
     let total = valorHora * horas;
     total = total + (total * factor);
-    let hora = this.horas.find( h => h.tipo === id);
-    if(hora == null){
+    let hora = this.horas.find(h => h.tipo === id);
+    if (hora == null) {
       hora = new Hora(id, label, horas, factor, total);
       this.horas.push(hora);
-    }else{
+    } else {
       hora.cantidad = horas;
       hora.factor = factor;
       hora.total = total;
@@ -59,15 +65,15 @@ export class MesService {
   }
 
 
-  private liquidarHorasMesSoloFestivos(id: string, label: string, diurnas: boolean, diasAOmitir: string[], valorHora: number, factor: number, festivos:number[]) {
+  private liquidarHorasMesSoloFestivos(id: string, label: string, diurnas: boolean, diasAOmitir: string[], valorHora: number, factor: number, festivos: number[]) {
     let horas = this.contarHorasSoloFestivos(diasAOmitir, diurnas, festivos);
     let total = valorHora * horas;
     total = total + (total * factor);
-    let hora = this.horas.find( h => h.tipo === id);
-    if(hora == null){
+    let hora = this.horas.find(h => h.tipo === id);
+    if (hora == null) {
       hora = new Hora(id, label, horas, factor, total);
       this.horas.push(hora);
-    }else{
+    } else {
       hora.cantidad = horas;
       hora.factor = factor;
       hora.total = total;
@@ -82,11 +88,11 @@ export class MesService {
    * @param diurnas True para contar horas diurnas, false para horas nocturnas
    * @returns las horas del mes que corresponden a los filtros. 
    */
-  private contarHorasSinFestivos(diasAOmitir: string[], diurnas: boolean, festivos : number[]) {
+  private contarHorasSinFestivos(diasAOmitir: string[], diurnas: boolean, festivos: number[]) {
     let horas = 0;
     for (let i = 0; i < 30; i++) {
-      let df = festivos.find( f => f == i);
-      if(df){ //Solo cuento los días NO festivos
+      let df = festivos.find(f => f == i);
+      if (df) { //Solo cuento los días NO festivos
         break;
       }
       let index = i % 7;
@@ -111,11 +117,11 @@ export class MesService {
    * @param festivos Dias festivos a contar en el mes
    * @returns las horas del mes que corresponden a los filtros. 
    */
-  private contarHorasSoloFestivos(diasAOmitir: string[], diurnas: boolean, festivos : number[]) {
+  private contarHorasSoloFestivos(diasAOmitir: string[], diurnas: boolean, festivos: number[]) {
     let horas = 0;
     for (let i = 0; i < 30; i++) {
-      let df = festivos.find( f => f == i);
-      if(!df){ //Solo cuento los días festivos
+      let df = festivos.find(f => f == i);
+      if (!df) { //Solo cuento los días festivos
         break;
       }
       let index = i % 7;

@@ -56,6 +56,7 @@
       <label for="salario">Salario Base: </label>
       <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
     </div>
+    <!--
     <div class="container">
       <label for="domingos">Domingos que trabajas al año (0-52):</label>
       <input class="form-control" type="number" id="domingos" name="domingos" [(ngModel)]="peticion.domingos">
@@ -64,17 +65,32 @@
       <label for="festivos">Festivos que trabajas al año (0 - 18):</label>
       <input class="form-control" type="number" id="festivos" name="festivos" [(ngModel)]="peticion.festivos">
     </div>
+    -->
     <br>
     <div class="container">
       <h3>Cuál es tu jornada laboral?</h3>
-      <p>Agrega los bloques de horas:</p>
-      <br>
+      <div>
+        <p>Agrega los bloques de horas que componen tu jornada laboral
+          <br>
+          Ej:
+        </p>
+        <ul>
+          <li>8:00 a 13:00 los Lunes, Martes, Miércoles, Jueves, Viernes, Sábado</li>
+          <li>14:00 a 18:00 los Lunes, Martes, Miércoles, Jueves, Viernes</li>
+        </ul>
+      </div>
       <div class="turnoCard" *ngFor="let item of turnos">
         <app-turno [turno]="item" (turnoChange)="setTurno($event)" (deleteEmitter)="deleteTurno($event)"></app-turno>
       </div>
-      <div >
-        <div class="btn btn-success" (click)="addTurno()">Agregar Turno</div>
-        <div class="btn btn-outline-secondary" (click)="process()">Generar Simulación</div>
+      <div class="row">
+        <div class="col">
+          <div class="spacer">
+            <button button type="button" class="btn btn-primary" (click)="addTurno()">Agregar Turno</button>
+          </div>
+          <div class="spacer">
+            <button button type="button" class="btn btn-success" (click)="process()">Generar Simulación</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

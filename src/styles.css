@@ -10,3 +10,9 @@
 .textError {
     color: #dc3546;
 }
+
+.spacer {
+    max-width: fit-content;
+    padding: 5px;
+    float: left;
+}

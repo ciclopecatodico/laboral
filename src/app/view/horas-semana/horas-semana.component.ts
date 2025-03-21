@@ -13,13 +13,21 @@ export class HorasSemanaComponent {
 
 
   @Input()
-  semana = Array<Dia>();
+  public semana = Array<Dia>();
+
+  public horasDiurnas = 0;
+  public horasNocturnas = 0;
+  public horasExtraDiurna = 0;
+  public horasExtraNocturna = 0;
+  public totalHoras = 0;
+
 
   public titulos = ['/'];
   public tiposHoras = ['Día', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
   constructor() {
     this.initHeaders();
+    this.calcularTotales();
   }
 
 
@@ -29,6 +37,23 @@ export class HorasSemanaComponent {
       if (d.label)
         this.titulos.push(d.label);
     });
+  }
+
+  calcularTotales(): boolean {
+    this.horasDiurnas = 0;
+    this.horasNocturnas = 0;
+    this.horasExtraDiurna = 0;
+    this.horasExtraNocturna = 0;
+    this.totalHoras = 0;
+
+    this.semana.forEach(dia => {
+      this.horasDiurnas += dia.horasDiurnas;
+      this.horasNocturnas += dia.horasNocturnas;
+      this.horasExtraDiurna += dia.horasExtraDiurna;
+      this.horasExtraNocturna += dia.horasExtraNocturna;
+      this.totalHoras += dia.totalHoras;
+    });
+    return true;
   }
 
 }

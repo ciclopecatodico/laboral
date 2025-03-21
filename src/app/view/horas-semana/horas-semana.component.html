@@ -15,7 +15,16 @@
             <td scope="row">{{dia.horasNocturnas}}</td>
             <td scope="row">{{dia.horasExtraDiurna}}</td>
             <td scope="row">{{dia.horasExtraNocturna}}</td>
-            <td scope="row">{{dia.totalHoras}}</td>
+            <th scope="row">{{dia.totalHoras}}</th>
+          </tr>
+          <tr *ngIf="calcularTotales()">    
+            <th scope="row">Totales</th>
+            <th scope="row"> </th>
+            <th scope="row">{{horasDiurnas}}</th>
+            <th scope="row">{{horasNocturnas}}</th>
+            <th scope="row">{{horasExtraDiurna}}</th>
+            <th scope="row">{{horasExtraNocturna}}</th>
+            <th scope="row">{{totalHoras}}</th>
           </tr>
         </tbody>
       </table>

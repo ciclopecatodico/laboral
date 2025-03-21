@@ -4,6 +4,7 @@ import { Turno } from '../../model/turno/turno';
 import moment from 'moment';
 import { LiquidadorService } from '../../service/liquidador/liquidador.service';
 import { ConfigurationService } from '../../service/configuration/configuration.service';
+import { Dia } from '../../model/dia/dia';
 
 
 
@@ -122,12 +123,14 @@ export class FormComponent {
     return JSON.stringify(t);
   }
 
+
+  semana = new Array<Dia>();
   /**
    * Procesar la petición realizar todos los cálculos 
    */
   public process(){
     this.peticion.turnos = this.turnos;
-    this.liquidador.liquidar(this.peticion);
+    this.semana = this.liquidador.liquidar(this.peticion);
   }
 
   

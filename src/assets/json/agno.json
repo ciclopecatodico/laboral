@@ -1,0 +1,104 @@
+[
+    {
+        "agno" : 2025,
+        "diaInicial": "miercoles",
+        "meses": [
+            {
+                "id" : 1,
+                "nombre" : "enero",
+                "label" : "Enero",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            },
+            {
+                "id" : 2,
+                "nombre" : "febrero",
+                "label" : "Febrero",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 28    
+            },
+            {
+                "id" : 3,
+                "nombre" : "marzo",
+                "label" : "Marzo",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            },
+            {
+                "id" : 1,
+                "nombre" : "abril",
+                "label" : "Abril",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 30    
+            },
+            {
+                "id" : 1,
+                "nombre" : "mayo",
+                "label" : "Mayo",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            },
+            {
+                "id" : 1,
+                "nombre" : "junio",
+                "label" : "Junio",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 30    
+            },{
+                "id" : 1,
+                "nombre" : "julio",
+                "label" : "Julio",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            }
+            ,{
+                "id" : 1,
+                "nombre" : "agosto",
+                "label" : "Agosto",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            }
+            ,{
+                "id" : 1,
+                "nombre" : "septiembre",
+                "label" : "Septiembre",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 30    
+            },
+            {
+                "id" : 1,
+                "nombre" : "octubre",
+                "label" : "Octubre",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            },
+            {
+                "id" : 1,
+                "nombre" : "noviembre",
+                "label" : "Noviembre",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 30    
+            },
+            {
+                "id" : 1,
+                "nombre" : "diciembre",
+                "label" : "Diciembre",
+                "diaInicial": "miercoles",
+                "festivos" : [1, 6],
+                "dias" : 31    
+            }
+        ]
+    }
+    
+]

@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { TurnoComponent } from './view/turno/turno.component';
 import { TimePickerComponent } from './view/time-picker/time-picker.component';
 import { DayPickerComponent } from './view/day-picker/day-picker.component';
+import { HorasSemanaComponent } from './view/horas-semana/horas-semana.component';
+import { SimulacionComponent } from './view/simulacion/simulacion.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { DayPickerComponent } from './view/day-picker/day-picker.component';
     FormComponent,
     TurnoComponent,
     TimePickerComponent,
-    DayPickerComponent
+    DayPickerComponent,
+    HorasSemanaComponent,
+    SimulacionComponent
   ],
   imports: [
     BrowserModule,

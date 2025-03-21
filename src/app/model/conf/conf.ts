@@ -70,6 +70,7 @@ export const CONST = {
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
     diasSemanaLaboral: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+    diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
     diaDomingo: ['domingo']
 
 }

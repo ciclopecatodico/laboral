@@ -58,3 +58,25 @@ Detalle de todos los parámetros a tener en cuenta en los cálculos del simulado
 | Hora Extra Nocturna Dominical o Festivos | 150% |
 
 ### Reforma Laboral Petro
+
+
+
+## Preguntas? 
+
+Cuando se liquida un día que tiene, por ejemplo jornadas:   
+Parámetros: 
+    Horas Jornada Dia: 8h
+    Jornada Diurna ['06:00 AM - 06:00 PM']
+    Jornada Nocturna ['06:00 PM - 06:00 AM']
+
+
+Horario del día: ['12:00 AM - 10:00 AM', '10:00 PM - 11:59 PM']
+
+
+Entonces tendríamos 
+6 horasNocturnas de ['12:00 AM - 06:00 AM']
+2 horasDiurnas  de ['06:00 AM - 08:00 AM']
+2 horasExtrasDiurnas  de ['08:00 AM - 10:00 AM']
+2 horasExtrasNocturnas  de ['10:00 PM - 11:59 PM']
+
+para un total de 12 horas 

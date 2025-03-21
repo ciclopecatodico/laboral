@@ -7,6 +7,7 @@ import { SemanaService } from '../semana/semana.service';
 
 import { MesService } from '../mes/mes.service';
 import { ConfigurationService } from '../configuration/configuration.service';
+import { Dia } from '../../model/dia/dia';
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +27,17 @@ export class LiquidadorService {
     this.parametros = configurationService.parametros;
   }
 
-  public liquidar(peticion: Peticion) {
+  public liquidar(peticion: Peticion) : Array<Dia>{
     //console.log("Peticion:", JSON.stringify(peticion));
     //console.log("Parametros", JSON.stringify(parametros));
     let parametro = this.parametros[0];
     peticion.valorHora = Math.round(peticion.salario/ parametro.jornadaLaboralMensual);
     let semana = this.semanaService.calcularSemana(peticion, parametro);
-    //console.log("Semana: ", JSON.stringify(semana));
-    let mes = this.mesService.calcular(semana, parametro, peticion.valorHora);
-    console.log("Mes: ", JSON.stringify(mes));
+
+    
+    return semana;
+    //let mes = this.mesService.calcular(semana, parametro, peticion.valorHora);
+    //console.log("Mes: ", JSON.stringify(mes));
   }
   
 }

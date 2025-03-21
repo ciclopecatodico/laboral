@@ -3,42 +3,63 @@
         "name": "lunes",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "martes",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "miercoles",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "jueves",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "viernes",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "sabado",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     },
     {
         "name": "domingo",
         "horarios": [],
         "horasDiurnas": 0,
-        "horasNocturnas": 0
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
     }
 ]

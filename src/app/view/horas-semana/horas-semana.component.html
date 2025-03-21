@@ -1,0 +1,22 @@
+<h4> Liquidación Semana: </h4>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+          <tr >
+            <th scope="col" *ngFor="let tipo of tiposHoras">{{tipo}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dia of semana">    
+            <th scope="row">{{dia.name}}</th>
+            <td scope="row"><div [innerHTML]="dia.horarios.join('\<br/>')"></div> </td>
+            <td scope="row">{{dia.horasDiurnas}}</td>
+            <td scope="row">{{dia.horasNocturnas}}</td>
+            <td scope="row">{{dia.horasExtraDiurna}}</td>
+            <td scope="row">{{dia.horasExtraNocturna}}</td>
+            <td scope="row">{{dia.totalHoras}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

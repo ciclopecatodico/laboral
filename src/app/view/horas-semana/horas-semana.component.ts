@@ -20,9 +20,9 @@ export class HorasSemanaComponent {
   public total789 = Array<Horas>();
   public total2025 = Array<Horas>();
 
-  public showReforma1950 = true;
-  public showReforma789 = true;
-  public showReforma2025 = true;
+  public showReforma1950 = false;
+  public showReforma789 = false;
+  public showReforma2025 = false;
 
   public reforma1950 = CONST.reforma1950;
   public reforma789 = CONST.reforma789;

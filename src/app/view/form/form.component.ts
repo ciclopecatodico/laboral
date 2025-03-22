@@ -20,8 +20,8 @@ export class FormComponent {
 
   public peticion: Peticion;
   public turnos: Turno[] = new Array<Turno>();
-
   public semana = new Array<Horas>();
+  public mostrarSimulacion = false;
 
   public configurationService: ConfigurationService;
   public liquidador: LiquidadorService;
@@ -132,6 +132,7 @@ export class FormComponent {
   public process() {
     this.peticion.turnos = this.turnos;
     this.semana = this.liquidador.liquidar(this.peticion);
+    this.mostrarSimulacion = true;
   }
 
 
@@ -139,6 +140,7 @@ export class FormComponent {
     if (confirm("Eliminará todos los datos")) {
       this.reiniciarTurnos();
       this.peticion = this.configurationService.peticiones[1];
+      this.mostrarSimulacion = false; 
     }
   }
 

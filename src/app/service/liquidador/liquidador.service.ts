@@ -19,34 +19,56 @@ export class LiquidadorService {
   public mesService: MesService;
 
 
-  public configurationService : ConfigurationService;
+  public configurationService: ConfigurationService;
 
-  public semanaUribe = new Array<Horas>();
-  public semanaPetro = new Array<Horas>();
-  public semanaAntesUribe = new Array<Horas>();
+  public semana789 = new Array<Horas>();
+  public semana2025 = new Array<Horas>();
+  public semana1950 = new Array<Horas>();
 
 
 
-  constructor(semanaService: SemanaService, mesService: MesService, configurationService : ConfigurationService) {
+  constructor(semanaService: SemanaService, mesService: MesService, configurationService: ConfigurationService) {
     this.semanaService = semanaService;
     this.mesService = mesService;
     this.configurationService = configurationService;
-    
-    
+
+
   }
 
-  public liquidar(peticion: Peticion) : Array<Horas>{    
-    this.semanaAntesUribe = this.semanaService.calcularSemana(peticion, CONST.paramsAntesDeUribe);
-    this.semanaUribe = this.semanaService.calcularSemana(peticion, CONST.paramsConUribe);
-    this.semanaPetro = this.semanaService.calcularSemana(peticion, CONST.paramsConPetro);
-    
+  public liquidar(peticion: Peticion): Array<Horas> {
+    this.semana1950 = this.semanaService.calcularSemana(peticion, CONST.reforma1950.index);
+    this.semana789 = this.semanaService.calcularSemana(peticion, CONST.reforma789.index);
+    this.semana2025 = this.semanaService.calcularSemana(peticion, CONST.reforma2025.index);
+
+    this.calcularTotales(this.semana1950, CONST.reforma1950.style);
+    this.calcularTotales(this.semana789, CONST.reforma789.style);
+    this.calcularTotales(this.semana2025, CONST.reforma2025.style);
+
     let semana = new Array<Horas>();
-    for(let i = 0; i<this.semanaPetro.length; i++){
-      semana.push(this.semanaAntesUribe[i]);
-      semana.push(this.semanaUribe[i]);
-      semana.push(this.semanaPetro[i]);
+    for (let i = 0; i < this.semana2025.length; i++) {
+      semana.push(this.semana1950[i]);
+      semana.push(this.semana789[i]);
+      semana.push(this.semana2025[i]);
     }
     return semana;
   }
-  
+
+  public calcularTotales(semana: Array<Horas>, style : string) {
+    let horasDiurnas = 0;
+    let horasNocturnas = 0;
+    let horasExtraDiurna = 0;
+    let horasExtraNocturna = 0;
+    let totalHoras = 0;
+
+    semana.forEach(dia => {
+      horasDiurnas += dia.horasDiurnas;
+      horasNocturnas += dia.horasNocturnas;
+      horasExtraDiurna += dia.horasExtraDiurna;
+      horasExtraNocturna += dia.horasExtraNocturna;
+      totalHoras += dia.totalHoras;
+    });
+    let total = new Horas("total", "Total", semana[0].reforma, style,[], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+    semana.push(total);
+  }
+
 }

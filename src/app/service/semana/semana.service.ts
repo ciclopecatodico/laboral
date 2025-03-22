@@ -31,12 +31,14 @@ export class SemanaService {
     let parametros = this.parametros[parametroId];
     peticion.valorHora = Math.round(peticion.salario / parametros.jornadaLaboralMensual);
     this.horasList = structuredClone(this.configurationService.semana);
-    this.horasList.forEach( h => h.reforma = parametros.reforma);
+    this.horasList.forEach(h => { 
+      h.reforma = parametros.reforma;
+      h.style = parametros.style;
+    });
     if (peticion.turnos) {
       for (let turno of peticion.turnos) {
         if (turno.dias != null && turno.dias.length > 0) {
           this.calcularTiposDeHoras(turno, parametros);
-          //console.log("Semana :", JSON.stringify(this.horas));
         }
       }
     }
@@ -78,12 +80,12 @@ export class SemanaService {
     }
     turno.dias?.forEach(
       dia => {
-        this.guardarDia(dia, parametro.reforma,  horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
+        this.guardarDia(dia, parametro.reforma, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
       }
     );
   }
 
-  public guardarDia(nombre: string, reforma: string,jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
+  public guardarDia(nombre: string, reforma: string, style: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
     let horario = jornada[0] + "-" + jornada[1];
     let horas = this.horasList.find(d => d.name === nombre);
     if (horas) {
@@ -143,7 +145,7 @@ export class SemanaService {
       if (dia) {
         label = dia.label + '';
       }
-      horas = new Horas(nombre, label, reforma, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+      horas = new Horas(nombre, label, reforma, style, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
       this.horasList.push(horas);
     }
 

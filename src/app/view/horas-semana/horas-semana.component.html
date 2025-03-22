@@ -1,32 +1,67 @@
-<h4> Liquidación Semana: </h4>
+<h4> Liquidación simulada para la semana: </h4>
+<br>
+<div class="row">
+  <div class="col">
+    <div class="jornada titulos">
+      <div>
+        Ver simulación laboral para:
+      </div>
+      <div>
+        <br> Jornada Diurna:
+        <br> Jornada Nocturna:
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <button ngClass="{{(showReforma1950?'btn btn-':'btn btn-outline-')+reforma1950.style}}" id="1950"
+      (click)="toogle('1950')">
+      1950     </button>
+    <div>
+      <br>[06:00 AM - 06:00 PM]
+      <br>[06:00 PM - 06:00 AM]
+    </div>
+  </div>
+  <div class="col">
+    <button ngClass="{{(showReforma789?'btn btn-':'btn btn-outline-')+reforma789.style}}" id="789" (click)="toogle('789')">
+      789 
+    </button>
+    <div>
+      <br>[06:00 AM - 10:00 PM]
+      <br>[10:00 PM - 06:00 AM]
+    </div>
+  </div>
+  <div class="col">
+    <button ngClass="{{(showReforma2025?'btn btn-':'btn btn-outline-')+reforma2025.style}}" ir="2025"
+      (click)="toogle('2025')">
+      2025
+    </button>
+    <div>
+      <br>[06:00 AM - 07:00 PM]
+      <br>[07:00 PM - 06:00 AM]
+    </div>
+  </div>
+</div>
 
 <div class="table-responsive">
-    <table class="table align-middle">
-        <thead>
-          <tr >
-            <th scope="col" *ngFor="let tipo of tiposHoras">{{tipo}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let dia of semana">    
-            <th scope="row">{{dia.label}}</th>
-            <th scope="row">{{dia.reforma}}</th>
-            <td scope="row"><div [innerHTML]="dia.horarios.join('\<br/>')"></div> </td>
-            <td scope="row">{{dia.horasDiurnas}}</td>
-            <td scope="row">{{dia.horasNocturnas}}</td>
-            <td scope="row">{{dia.horasExtraDiurna}}</td>
-            <td scope="row">{{dia.horasExtraNocturna}}</td>
-            <th scope="row">{{dia.totalHoras}}</th>
-          </tr>
-          <tr *ngIf="calcularTotales()">    
-            <th scope="row">Totales</th>
-            <th scope="row"> </th>
-            <th scope="row">{{horasDiurnas}}</th>
-            <th scope="row">{{horasNocturnas}}</th>
-            <th scope="row">{{horasExtraDiurna}}</th>
-            <th scope="row">{{horasExtraNocturna}}</th>
-            <th scope="row">{{totalHoras}}</th>
-          </tr>
-        </tbody>
-      </table>
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let tipo of tiposHoras">{{tipo}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dia of semana" ngClass="{{'table-'+dia.style}}" [hidden]="hidden(dia)">
+        <th scope="row">{{dia.label}}</th>
+        <td scope="row">{{dia.reforma}}</td>
+        <td scope="row">
+          <div [innerHTML]="dia.horarios.join('\<br/>')"></div>
+        </td>
+        <td scope="row">{{dia.horasDiurnas}}</td>
+        <td scope="row">{{dia.horasNocturnas}}</td>
+        <td scope="row">{{dia.horasExtraDiurna}}</td>
+        <td scope="row">{{dia.horasExtraNocturna}}</td>
+        <th scope="row">{{dia.totalHoras}}</th>
+      </tr>
+    </tbody>
+  </table>
 </div>

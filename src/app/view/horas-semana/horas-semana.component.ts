@@ -16,19 +16,24 @@ export class HorasSemanaComponent {
   @Input()
   public semana = Array<Horas>();
 
-  public horasDiurnas = 0;
-  public horasNocturnas = 0;
-  public horasExtraDiurna = 0;
-  public horasExtraNocturna = 0;
-  public totalHoras = 0;
+  public total1950 = Array<Horas>();
+  public total789 = Array<Horas>();
+  public total2025 = Array<Horas>();
+
+  public showReforma1950 = true;
+  public showReforma789 = true;
+  public showReforma2025 = true;
+
+  public reforma1950 = CONST.reforma1950;
+  public reforma789 = CONST.reforma789;
+  public reforma2025 = CONST.reforma2025;
 
 
   public titulos = ['/'];
-  public tiposHoras = ['Día', 'Reforma','Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
+  public tiposHoras = ['Día', 'Reforma', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
   constructor() {
     this.initHeaders();
-    this.calcularTotales();
   }
 
 
@@ -40,21 +45,38 @@ export class HorasSemanaComponent {
     });
   }
 
-  calcularTotales(): boolean {
-    this.horasDiurnas = 0;
-    this.horasNocturnas = 0;
-    this.horasExtraDiurna = 0;
-    this.horasExtraNocturna = 0;
-    this.totalHoras = 0;
 
-    this.semana.forEach(dia => {
-      this.horasDiurnas += dia.horasDiurnas;
-      this.horasNocturnas += dia.horasNocturnas;
-      this.horasExtraDiurna += dia.horasExtraDiurna;
-      this.horasExtraNocturna += dia.horasExtraNocturna;
-      this.totalHoras += dia.totalHoras;
-    });
-    return true;
+  toogle(reforma: string) {
+    switch (reforma) {
+      case "1950":
+        this.showReforma1950 = !this.showReforma1950;
+        break;
+      case "789":
+        this.showReforma789 = !this.showReforma789;
+        break;
+      case "2025":
+        this.showReforma2025 = !this.showReforma2025;
+        break;
+    }
   }
 
+
+  hidden(dia: Horas) {
+    //console.log("Reforma:", reforma);
+    if(dia.name === 'total'){
+      return false;
+    }
+    let reforma = dia.reforma;
+    switch (reforma) {
+      case "1950":
+        return !this.showReforma1950;
+
+      case "789":
+        return !this.showReforma789;
+
+      case "2025":
+        return !this.showReforma2025;
+    }
+    return false;
+  }
 }

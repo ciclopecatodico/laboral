@@ -75,9 +75,21 @@ export const CONST = {
     turnoNombrePrefix: 'Turno',
     turnoInicio: '00:00',
     turnoFin: '12:00',
-    turnoHoras: '12:00',
-    paramsAntesDeUribe : 0,
-    paramsConUribe : 1,
-    paramsConPetro : 2
+    turnoHoras: '12:00', 
+    reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
+        index : 0,
+        reforma : '950',
+        style : 'primary'
+    },
+    reforma789: {
+        index : 1,
+        reforma : '789',
+        style: 'secondary'
+    },
+    reforma2025: {
+        index : 2,
+        reforma : '1950',
+        style: 'success'
+    }
 
 }

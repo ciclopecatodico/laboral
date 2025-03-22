@@ -8,6 +8,7 @@ export class Parametros {
         public id : number,
         public name : string,
         public reforma : string,
+        public style : string,
         public descripcion : string,
         public diasMes : number,
         public diaInicio :string,

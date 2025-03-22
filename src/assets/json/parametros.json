@@ -2,7 +2,8 @@
     {
         "id" : 1,
         "name" : "Antes de URIBE",
-        "reforma" : "A_AUV",
+        "reforma" : "1950",
+        "style" : "primary", 
         "descripcion" : "Valores para calcular antes de la reforma laboral de URIBE en 2004",
         "diasMes" : 30,
         "diaInicio" :"06:00 AM",
@@ -25,7 +26,8 @@
     {
         "id" : 2,
         "name" : "Después de URIBE",
-        "reforma" : "D_AUV",
+        "reforma" : "789",
+        "style" : "secondary",
         "descripcion" : "Valores para calcular después de la reforma laboral de URIBE en 2004",
         "diasMes" : 30,
         "diaInicio" :"06:00 AM",
@@ -48,7 +50,8 @@
     {
         "id" : 3,
         "name" : "Reforma PETRO",
-        "reforma" : "PETRO",
+        "reforma" : "2025",
+        "style" : "success",
         "descripcion" : "Valores para calcular con la reforma laboral de PETRO en 2025",
         "diasMes" : 30,
         "diaInicio" :"06:00 AM",

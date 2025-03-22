@@ -2,92 +2,93 @@
   <h1> Simuladora Salarial</h1>
   <h2>Ajustada a la reforma laboral</h2>
 </div>
-<form>
-  <div class="form-group">
-    <div class="container">
-      <label for="nombre">Cómo te llamas?</label>
-      <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
+<div class="form-group" *ngIf="mostrarFormulario">
+  <div class="container">
+    <label for="nombre">Cómo te llamas?</label>
+    <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
+  </div>
+  <div class="container" *ngIf="false">
+    <label for="edad">Cuál es tu edad?</label>
+    <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
+  </div>
+  <div class="container" *ngIf="false">
+    <label for="experiencia">Hace cuantos años trabajas?</label>
+    <input class="form-control" type="number" id="experiencia" name="experiencia" [(ngModel)]="peticion.experiencia">
+  </div>
+  <div class="container" *ngIf="false">
+    <label for="nombre">Te pensionarás como?</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre" [(ngModel)]="peticion.sexo">
+      <label class="form-check-label" for="hombre">
+        Hombre a los 62 años.
+      </label>
     </div>
-    <div class="container" *ngIf="false">
-      <label for="edad">Cuál es tu edad?</label>
-      <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
-    </div>
-    <div class="container" *ngIf="false">
-      <label for="experiencia">Hace cuantos años trabajas?</label>
-      <input class="form-control" type="number" id="experiencia" name="experiencia" [(ngModel)]="peticion.experiencia">
-    </div>
-    <div class="container" *ngIf="false">
-      <label for="nombre">Te pensionarás como?</label>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre" [(ngModel)]="peticion.sexo">
-        <label class="form-check-label" for="hombre">
-          Hombre a los 62 años.
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer" [(ngModel)]="peticion.sexo">
-        <label class="form-check-label" for="mujer">
-          Mujer a los 57 años.
-        </label>
-      </div>
-    </div>
-    <div class="container" *ngIf="false">
-      <label for="aprendiz">Eres aprendiz del SENA?</label>
-      <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
-    </div>
-    <div class="container" *ngIf="false && peticion.sena">
-      <label for="etapa">Etapa :</label>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="lectiva" name="etapa" id="lectiva"
-          [(ngModel)]="peticion.etapa">
-        <label class="form-check-label" for="lectiva">
-          Etapa Lectiva
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="productiva" name="etapa" id="productiva"
-          [(ngModel)]="peticion.etapa">
-        <label class="form-check-label" for="productiva">
-          Etapa Productiva
-        </label>
-      </div>
-    </div>
-    <div class="container" *ngIf="false && !peticion.sena">
-      <label for="salario">Salario Base: </label>
-      <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
-    </div>
-    <br>
-    <div class="container">
-      <h3>Cuál es tu jornada laboral?</h3>
-      <div>
-        <p>Agrega los bloques de horas que componen tu jornada laboral
-          <br>
-          Ej:
-        </p>
-        <ul>
-          <li>8:00 a 13:00 los Lunes, Martes, Miércoles, Jueves, Viernes, Sábado</li>
-          <li>14:00 a 18:00 los Lunes, Martes, Miércoles, Jueves, Viernes</li>
-        </ul>
-      </div>
-      <div class="turnoCard" *ngFor="let item of turnos">
-        <app-turno [turno]="item" (turnoChange)="setTurno($event)" (deleteEmitter)="deleteTurno($event)"></app-turno>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="spacer">
-            <button button type="button" class="btn btn-primary" (click)="addTurno()">Agregar Turno</button>
-          </div>
-          <div class="spacer">
-            <button button type="button" class="btn btn-danger" (click)="borrar()">Limpiar</button>
-          </div>
-          <div class="spacer">
-            <button button type="button" class="btn btn-success" (click)="process()">Emepezar Simulación</button>
-          </div>
-        </div>
-      </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer" [(ngModel)]="peticion.sexo">
+      <label class="form-check-label" for="mujer">
+        Mujer a los 57 años.
+      </label>
     </div>
   </div>
-</form>
+  <div class="container" *ngIf="false">
+    <label for="aprendiz">Eres aprendiz del SENA?</label>
+    <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
+  </div>
+  <div class="container" *ngIf="false && peticion.sena">
+    <label for="etapa">Etapa :</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="lectiva" name="etapa" id="lectiva"
+        [(ngModel)]="peticion.etapa">
+      <label class="form-check-label" for="lectiva">
+        Etapa Lectiva
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="productiva" name="etapa" id="productiva"
+        [(ngModel)]="peticion.etapa">
+      <label class="form-check-label" for="productiva">
+        Etapa Productiva
+      </label>
+    </div>
+  </div>
+  <div class="container" *ngIf="false && !peticion.sena">
+    <label for="salario">Salario Base: </label>
+    <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
+  </div>
+  <br>
+  <div class="container">
+    <h3>Cuál es tu jornada laboral?</h3>
+    <div>
+      <p>Agrega los bloques de horas que componen tu jornada laboral
+        <br>
+        Ej:
+      </p>
+      <ul>
+        <li>8:00 a 13:00 los Lunes, Martes, Miércoles, Jueves, Viernes, Sábado</li>
+        <li>14:00 a 18:00 los Lunes, Martes, Miércoles, Jueves, Viernes</li>
+      </ul>
+    </div>
+    <div class="turnoCard" *ngFor="let item of turnos">
+      <app-turno [turno]="item" (turnoChange)="setTurno($event)" (deleteEmitter)="deleteTurno($event)"></app-turno>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="spacer" *ngIf="mostrarAddTurno">
+      <button button type="button" class="btn btn-primary" (click)="agregarTurno()">Agregar Turno</button>
+    </div>
+    <div class="spacer" *ngIf="mostrarSimulacion">
+      <button button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
+    </div>
+    <div class="spacer" *ngIf="mostrarLimpiar">
+      <button button type="button" class="btn btn-danger" (click)="borrar()">Limpiar</button>
+    </div>
+    <div class="spacer" *ngIf="!mostrarSimulacion">
+      <button button type="button" class="btn btn-success" (click)="process()">Empezar Simulación</button>
+    </div>
+  </div>
+</div>
 <br>
 <app-simulacion [semana]="semana" *ngIf="mostrarSimulacion">
 

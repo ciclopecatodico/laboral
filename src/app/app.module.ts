@@ -9,6 +9,7 @@ import { TurnoComponent } from './view/turno/turno.component';
 import { DayPickerComponent } from './view/day-picker/day-picker.component';
 import { HorasSemanaComponent } from './view/horas-semana/horas-semana.component';
 import { SimulacionComponent } from './view/simulacion/simulacion.component';
+import { SemanaPieComponent } from './view/charts/semana-pie/semana-pie.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SimulacionComponent } from './view/simulacion/simulacion.component';
     TurnoComponent,
     DayPickerComponent,
     HorasSemanaComponent,
-    SimulacionComponent
+    SimulacionComponent,
+    SemanaPieComponent
   ],
   imports: [
     BrowserModule,

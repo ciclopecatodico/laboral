@@ -21,6 +21,11 @@ export class FormComponent {
   public peticion: Peticion;
   public turnos: Turno[] = new Array<Turno>();
   public semana = new Array<Horas>();
+
+
+  public mostrarAddTurno = true;
+  public mostrarLimpiar = true;
+  public mostrarFormulario = true;
   public mostrarSimulacion = false;
 
   public configurationService: ConfigurationService;
@@ -33,7 +38,7 @@ export class FormComponent {
     this.reiniciarTurnos();
   }
 
-  public addTurno() {
+  public agregarTurno() {
     let id = 0;
     if (this.turnos.length == 1) {
       id = this.turnos[0].id + 1;
@@ -133,6 +138,9 @@ export class FormComponent {
     this.peticion.turnos = this.turnos;
     this.semana = this.liquidador.liquidar(this.peticion);
     this.mostrarSimulacion = true;
+    this.mostrarFormulario = false;
+    this.mostrarAddTurno = false; 
+    this.mostrarLimpiar = false;
   }
 
 
@@ -156,5 +164,16 @@ export class FormComponent {
     // this.turnos.push(turno4);
   }
 
+
+  /**
+   * Botones para navegar:
+   */
+
+  volver(){
+    this.mostrarAddTurno = true;
+    this.mostrarFormulario = true;
+    this.mostrarLimpiar = true;
+    this.mostrarSimulacion = false; 
+  }
 
 }

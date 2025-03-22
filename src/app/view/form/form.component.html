@@ -8,15 +8,15 @@
       <label for="nombre">Cómo te llamas?</label>
       <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
     </div>
-    <div class="container">
+    <div class="container" *ngIf="false">
       <label for="edad">Cuál es tu edad?</label>
       <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
     </div>
-    <div class="container">
+    <div class="container" *ngIf="false">
       <label for="experiencia">Hace cuantos años trabajas?</label>
       <input class="form-control" type="number" id="experiencia" name="experiencia" [(ngModel)]="peticion.experiencia">
     </div>
-    <div class="container">
+    <div class="container" *ngIf="false">
       <label for="nombre">Te pensionarás como?</label>
       <div class="form-check">
         <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre" [(ngModel)]="peticion.sexo">
@@ -31,11 +31,11 @@
         </label>
       </div>
     </div>
-    <div class="container">
+    <div class="container" *ngIf="false">
       <label for="aprendiz">Eres aprendiz del SENA?</label>
       <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
     </div>
-    <div class="container" *ngIf="peticion.sena">
+    <div class="container" *ngIf="false && peticion.sena">
       <label for="etapa">Etapa :</label>
       <div class="form-check">
         <input class="form-check-input" type="radio" value="lectiva" name="etapa" id="lectiva"
@@ -52,20 +52,10 @@
         </label>
       </div>
     </div>
-    <div class="container" *ngIf="!peticion.sena">
+    <div class="container" *ngIf="false && !peticion.sena">
       <label for="salario">Salario Base: </label>
       <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
     </div>
-    <!--
-    <div class="container">
-      <label for="domingos">Domingos que trabajas al año (0-52):</label>
-      <input class="form-control" type="number" id="domingos" name="domingos" [(ngModel)]="peticion.domingos">
-    </div>
-    <div class="container">
-      <label for="festivos">Festivos que trabajas al año (0 - 18):</label>
-      <input class="form-control" type="number" id="festivos" name="festivos" [(ngModel)]="peticion.festivos">
-    </div>
-    -->
     <br>
     <div class="container">
       <h3>Cuál es tu jornada laboral?</h3>
@@ -91,14 +81,14 @@
             <button button type="button" class="btn btn-danger" (click)="borrar()">Limpiar</button>
           </div>
           <div class="spacer">
-            <button button type="button" class="btn btn-success" (click)="process()">Generar Simulación</button>
+            <button button type="button" class="btn btn-success" (click)="process()">Emepezar Simulación</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </form>
-
+<br>
 <app-simulacion [semana]="semana">
 
 </app-simulacion>

@@ -29,7 +29,7 @@ export class FormComponent {
   constructor(liquidadorService: LiquidadorService, configurationService: ConfigurationService) {
     this.liquidador = liquidadorService;
     this.configurationService = configurationService;
-    this.peticion = configurationService.peticiones[0];
+    this.peticion = configurationService.peticiones[1];
     this.reiniciarTurnos();
   }
 

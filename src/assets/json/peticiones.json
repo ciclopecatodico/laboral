@@ -11,5 +11,18 @@
         "domingos": 0,
         "festivos": 0,
         "turnos": null
+    },
+    {
+        "nombres": "",
+        "salario": 0,
+        "valorHora": 0,
+        "edad": 0,
+        "experiencia": 0,
+        "sexo": "hombre",
+        "sena": false,
+        "etapa": null,
+        "domingos": 0,
+        "festivos": 0,
+        "turnos": null
     }
 ]

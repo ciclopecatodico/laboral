@@ -24,7 +24,7 @@ export class HorasSemanaComponent {
 
 
   public titulos = ['/'];
-  public tiposHoras = ['Día', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
+  public tiposHoras = ['Día', 'Reforma','Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
   constructor() {
     this.initHeaders();

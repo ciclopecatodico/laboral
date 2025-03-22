@@ -75,6 +75,9 @@ export const CONST = {
     turnoNombrePrefix: 'Turno',
     turnoInicio: '00:00',
     turnoFin: '12:00',
-    turnoHoras: '12:00'
+    turnoHoras: '12:00',
+    paramsAntesDeUribe : 0,
+    paramsConUribe : 1,
+    paramsConPetro : 2
 
 }

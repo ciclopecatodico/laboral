@@ -6,6 +6,7 @@ import { LiquidadorService } from '../../service/liquidador/liquidador.service';
 import { ConfigurationService } from '../../service/configuration/configuration.service';
 import { Horas } from '../../model/horas/horas';
 import { CONST } from '../../model/conf/conf';
+import { Parametros } from '../../model/parametros/parametros';
 
 
 
@@ -20,21 +21,16 @@ export class FormComponent {
   public peticion: Peticion;
   public turnos: Turno[] = new Array<Turno>();
 
-  public configurationService : ConfigurationService;
-  public liquidador : LiquidadorService;
+  public semana = new Array<Horas>();
 
-  constructor(liquidadorService : LiquidadorService, configurationService : ConfigurationService) {
+  public configurationService: ConfigurationService;
+  public liquidador: LiquidadorService;
+
+  constructor(liquidadorService: LiquidadorService, configurationService: ConfigurationService) {
     this.liquidador = liquidadorService;
     this.configurationService = configurationService;
     this.peticion = configurationService.peticiones[0];
-    let turno = new Turno(1, CONST.turnoNombrePrefix+' 1', CONST.turnoInicio, CONST.turnoFin, true);
-    let turno2 = new Turno(2, CONST.turnoNombrePrefix+' 2', '12:00', '23:00', true);
-    let turno3 = new Turno(3, CONST.turnoNombrePrefix+' 3', '08:00', '13:00', true);
-    let turno4 = new Turno(4, CONST.turnoNombrePrefix+' 4', '14:00', '19:00', true);
-    this.turnos.push(turno);
-    this.turnos.push(turno2);
-    this.turnos.push(turno3);
-    this.turnos.push(turno4);
+    this.reiniciarTurnos();
   }
 
   public addTurno() {
@@ -130,16 +126,33 @@ export class FormComponent {
     return JSON.stringify(t);
   }
 
-
-  semana = new Array<Horas>();
   /**
    * Procesar la petición realizar todos los cálculos 
    */
-  public process(){
+  public process() {
     this.peticion.turnos = this.turnos;
     this.semana = this.liquidador.liquidar(this.peticion);
   }
 
-  
+
+  public borrar() {
+    if (confirm("Eliminará todos los datos")) {
+      this.reiniciarTurnos();
+      this.peticion = this.configurationService.peticiones[1];
+    }
+  }
+
+  public reiniciarTurnos() {
+    this.turnos = new Array<Turno>();
+    let turno = new Turno(1, CONST.turnoNombrePrefix + ' 1', CONST.turnoInicio, CONST.turnoFin, true);
+    // let turno2 = new Turno(2, CONST.turnoNombrePrefix+' 2', '12:00', '23:00', true);
+    // let turno3 = new Turno(3, CONST.turnoNombrePrefix+' 3', '08:00', '13:00', true);
+    // let turno4 = new Turno(4, CONST.turnoNombrePrefix+' 4', '14:00', '19:00', true);
+    this.turnos.push(turno);
+    // this.turnos.push(turno2);
+    // this.turnos.push(turno3);
+    // this.turnos.push(turno4);
+  }
+
 
 }

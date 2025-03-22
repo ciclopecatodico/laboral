@@ -4,6 +4,7 @@ export class Horas {
     constructor(
         public name: string,
         public label: string,
+        public reforma : string, //reforma con la que se liquidaron las horas
         public horarios: string[],
         public horasDiurnas: number,
         public horasNocturnas: number,

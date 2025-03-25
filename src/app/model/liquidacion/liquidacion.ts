@@ -1,25 +1,16 @@
-import { Hora } from "../hora/hora";
-import { Peticion } from "../peticion/peticion.model";
-
 export class Liquidacion {
 
         constructor(
             public id : number,
-            public name : string,
-            public descripcion : string,
-            public diaInicio :string,
-            public diaFin : string,
-            public nocheInicio : string,
-            public nocheFin : string,
-            public jornadaLaboralDiaria : number,
-            public jornadaLaboralSemanal : number,
-            public horasDiurnas : number,
-            public horasNocturnas: number,
-            public horasDiurnaDominicalesOFestivos: number,
-            public horasNocturnasDominicalesFestivos: number,
-            public horasExtrasDiurno : number,
-            public horasExtrasNocturno : number,
-            public horasExtrasDiurnasDominicalesFestivos : number,
-            public horasExtrasNocturnasDominicalesFestivos : number,
+            public valorHora : string,
+            public valorHorasDiurnas: number,
+            public valorHorasNocturnas: number,
+            public valorHorasExtraDiurna: number,
+            public valorHorasExtraNocturna: number,
+            public valorHorasDiurnasDominicalesOFestivos: number,
+            public valorHorasNocturnasDominicalesFestivos: number,
+            public valorHorasExtrasDiurnasDominicalesFestivas : number,
+            public valorHorasExtrasNocturnasDominicalesFestivas : number,
+            public totalHoras: number,
         ){}
 }

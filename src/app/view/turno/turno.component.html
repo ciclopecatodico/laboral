@@ -9,25 +9,29 @@
             </button>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <label for="horaInicio">Hora Inicio:</label>
-            <input class="form-control" type="time" step="900" name="horaInicio" id="horaInicio" [(ngModel)]="horaInicio"
-                (change)="setHoraInicio()">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label for="horaInicio">Inicio:</label>
+            <input class="form-control" type="time" step="900" name="horaInicio" id="horaInicio"
+                [(ngModel)]="horaInicio" (change)="setHoraInicio()">
         </div>
-        <div ngClass="{{invalidFin?'col validationError':'col'}}">
-            <label for="horaFin">Hora Fin: 
-                <input class="" type="checkbox" name="medianoche" id="medianoche" (change)="setHoraFin()" [(ngModel)]="medianoche">
-                <label class="" for="medianoche">
-                  Medianoche?
-                </label>
+        <div ngClass="{{invalidFin?'col-4 validationError':'col-4'}}">
+            <label for="horaFin">Final:
             </label>
-            <input class="form-control" disabled="{{medianoche}}" type="time" step="900" name="horaFin" id="horaFin" [(ngModel)]="horaFin"
-                (change)="setHoraFin()">
+            <input class="form-control" disabled="{{medianoche}}" type="time" step="900" name="horaFin" id="horaFin"
+                [(ngModel)]="horaFin" (change)="setHoraFin()">
         </div>
-        <div class="col">
-            <label for="horas">Horas turno:</label>
+        <div class="col-4">
+            <label for="horas">Horas:</label>
             <input type="text" id="horas" disabled="true" class="form-control" [(ngModel)]="horas">
+        </div>
+        <!--Fila inferior-->
+        <div class="col-4">
+            <input class="" type="checkbox" name="medianoche" id="medianoche" (change)="setHoraFin()"
+                [(ngModel)]="medianoche">
+            <label class="" for="medianoche">
+                Medianoche?
+            </label>
         </div>
     </div>
     <div class="row">

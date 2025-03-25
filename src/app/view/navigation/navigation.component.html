@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="float-start">
+            <h1> Simuladora Salarial</h1>
+            <h2>Ajustada a la reforma laboral</h2>
+        </div>
+        <div class="float-end">
+            <app-credits></app-credits>
+        </div>
+    </div>
+    <div class="row">
+        <div class="spacer" *ngIf="mostrarBotonVolver">
+            <button button type="button" class="btn btn-primary" (click)="volverA(volverAEtapa)">Volver</button>
+        </div>
+    </div>
+</div>
+
+<!--FORMULARIO inicial para ingresar el nombre y el horario de la persona -->
+<inicial-form [peticion]="peticion" *ngIf="mostrarInicialForm"
+(peticionHorarioChange)="simularSemana($event)"></inicial-form>
+
+
+<!--SIMULACION de la semana -->
+<semana-simulacion [semana]="semana" *ngIf="mostrarSimulacionSemana" [peticion]="peticion">
+</semana-simulacion>
+
+
+<!--FORMULARIO del Sena o salario -->
+<sena-form [peticion]="peticion" *ngIf="mostrarMesForm" (peticionSemanaChange)="simularMes($event)"></sena-form>
+
+
+<!--SIMULACION del mes con la configuración del sena o salario -->
+<mes-simulacion *ngIf="mostrarSimulacionMes" [peticion]="peticion"></mes-simulacion>
+
+
+<!--FORMULARIO de festivos para liquidar el año-->
+
+<!--SIMULACION del año con o sin festivos, si hay horario de domingos se liqudan -->
+
+<!--FORMULARIO de la eddad, sexo y años de experiencia laboral para liquidar lo que  ha perdido con la refoma  789 y lo que podría ganar con la reforma 2025-->
+
+<!--SIMULACION de la posible historia laboral  -->

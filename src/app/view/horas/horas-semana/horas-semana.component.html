@@ -12,25 +12,11 @@
       </div>
     </div>
   </div>
-  <div class="col">
-    1950
+  <div class="col" *ngFor="let reforma of reformas">
+    {{reforma.name}}
     <div>
-      <br>[06:00 AM - 06:00 PM]
-      <br>[06:00 PM - 06:00 AM]
-    </div>
-  </div>
-  <div class="col">
-    789
-    <div>
-      <br>[06:00 AM - 10:00 PM]
-      <br>[10:00 PM - 06:00 AM]
-    </div>
-  </div>
-  <div class="col">
-    2025
-    <div>
-      <br>[06:00 AM - 07:00 PM]
-      <br>[07:00 PM - 06:00 AM]
+      <br>{{reforma.diaInicio+ ' - ' + reforma.diaFin}}
+      <br>{{reforma.nocheInicio+ ' - ' + reforma.nocheFin}}
     </div>
   </div>
 </div>

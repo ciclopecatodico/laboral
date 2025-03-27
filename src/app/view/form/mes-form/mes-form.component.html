@@ -1,6 +1,6 @@
 <div class="container">
-    <h2>Deseas simular un mes?</h2>
-    <p>Para saber cómo se ve esto reflejado en un mes necesitamos los siguientes datos:</p>
+    <h2>Y cómo se ve esto en un año?</h2>
+    <p>Para saber cómo se ve esto reflejado en un año necesitamos los siguientes datos:</p>
     <div class="row">
         <div class="col">
             <label for="aprendiz">Eres aprendiz del SENA?</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="row">
         <div class="col" *ngIf="!peticion.sena">
-            <label for="salario">Salario Base: </label>
+            <label for="salario">Cuál es tu salario Base: </label>
             <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
         </div>
     </div>

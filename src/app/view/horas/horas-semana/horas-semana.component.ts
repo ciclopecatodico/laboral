@@ -3,6 +3,7 @@ import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-seman
 import { List } from '../../../model/listas/list';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { CONST } from '../../../model/const/CONST';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 
 @Component({
   selector: 'horas-semana',
@@ -28,11 +29,16 @@ export class HorasSemanaComponent {
   public reforma789 = CONST.reforma789;
   public reforma2025 = CONST.reforma2025;
 
+  public configurationService : ConfigurationService;
+
+  public reformas : Parametros[];
 
   public titulos = ['/'];
   public tiposHoras = ['Día', 'Reforma', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
-  constructor() {
+  constructor(configurationService : ConfigurationService) {
+    this.configurationService = configurationService;
+    this.reformas = configurationService.parametros;
     this.initHeaders();
   }
 

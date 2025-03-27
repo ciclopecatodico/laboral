@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import moment from 'moment';
 import { Peticion } from '../../../model/peticion/peticion.model';
 import { Turno } from '../../../model/turno/turno';
-import { Horas } from '../../../model/horas/horas';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { LiquidadorSemanaService } from '../../../service/liquidador/liquidador-semana/liquidador-semana.service';
-import { CONST } from '../../../model/conf/conf';
+import { CONST } from '../../../model/const/CONST';
 
 
 
@@ -156,7 +156,7 @@ export class InicialFormComponent {
   public reiniciarTurnos() {
     this.turnos = new Array<Turno>();
     let turno = new Turno(1, CONST.turnoNombrePrefix + ' 1', CONST.turnoInicio, CONST.turnoFin, true);
-    // let turno2 = new Turno(2, CONST.turnoNombrePrefix+' 2', '12:00', '23:00', true);
+    //let turno2 = new Turno(2, CONST.turnoNombrePrefix+' 2', '12:00', '23:00', true);
     // let turno3 = new Turno(3, CONST.turnoNombrePrefix+' 3', '08:00', '13:00', true);
     // let turno4 = new Turno(4, CONST.turnoNombrePrefix+' 4', '14:00', '19:00', true);
     this.turnos.push(turno);

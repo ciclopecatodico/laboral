@@ -5,6 +5,7 @@ export class Peticion {
     constructor(
         public nombres : string, 
         public salario : number,
+        public nocturna? : boolean,
         public valorHora ?:number,
         public edad ?: number,
         public experiencia ?: number,

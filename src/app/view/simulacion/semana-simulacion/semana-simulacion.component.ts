@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Horas } from '../../../model/horas/horas';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
-import { LiquidadorMesService } from '../../../service/liquidador/liquidador-mes/liquidador-mes.service';
+import { LiquidadorMesesService } from '../../../service/liquidador/liquidador-meses/liquidador-meses.service';
 
 @Component({
   selector: 'semana-simulacion',
@@ -13,7 +13,7 @@ export class SemanaSimulacionComponent {
 
 
   @Input()
-  public semana = Array<Horas>();
+  public semana = Array<HorasSemana>();
 
   @Output()
   public peticionSemanaChange = new EventEmitter<Peticion>;

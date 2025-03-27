@@ -2,13 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Peticion } from '../../../model/peticion/peticion.model';
 
 @Component({
-  selector: 'sena-form',
+  selector: 'app-agno-form',
   standalone: false,
-  templateUrl: './sena-form.component.html',
-  styleUrl: './sena-form.component.css'
+  templateUrl: './agno-form.component.html',
+  styleUrl: './agno-form.component.css'
 })
-export class SenaFormComponent {
-
+export class AgnoFormComponent {
 
   @Output()
   public peticionSemanaChange = new EventEmitter<Peticion>;
@@ -32,5 +31,6 @@ export class SenaFormComponent {
   get peticion() {
     return this.peticion_;
   }
+
 
 }

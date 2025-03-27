@@ -12,11 +12,12 @@ import { SemanaSimulacionComponent } from './view/simulacion/semana-simulacion/s
 import { HorasMesComponent } from './view/horas/horas-mes/horas-mes.component';
 
 import { InicialFormComponent } from './view/form/inicial-form/inicial-form.component';
-import { SenaFormComponent } from './view/form/sena-form/sena-form.component';
+import { MesFormComponent } from './view/form/mes-form/mes-form.component';
 import { NavigationComponent } from './view/navigation/navigation.component';
 import { MesSimulacionComponent } from './view/simulacion/mes-simulacion/mes-simulacion.component';
 import { AgnoSimulacionComponent } from './view/simulacion/agno-simulacion/agno-simulacion.component';
-import { CreditsComponent } from './view/credits/credits/credits.component';
+import { CreditsComponent } from './view/credits/credits.component';
+import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +28,12 @@ import { CreditsComponent } from './view/credits/credits/credits.component';
     HorasSemanaComponent,
     SemanaSimulacionComponent,
     HorasMesComponent,
-    SenaFormComponent,
+    MesFormComponent,
     NavigationComponent,
     MesSimulacionComponent,
     AgnoSimulacionComponent,
-    CreditsComponent
+    CreditsComponent,
+    AgnoFormComponent
   ],
   imports: [
     BrowserModule,

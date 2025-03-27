@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Horas } from '../../../model/horas/horas';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
-import { Parametros } from '../../../model/parametros/parametros';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import moment from 'moment';
 import { ConfigurationService } from '../../configuration/configuration.service';
 import { Turno } from '../../../model/turno/turno';
 import { List } from '../../../model/listas/list';
-import { CONST } from '../../../model/conf/conf';
+import { CONST } from '../../../model/const/CONST';
 
 
 /**
@@ -19,7 +19,7 @@ export class LiquidadorHorasService {
 
   public configurationService: ConfigurationService;
   public list = new List();
-  public horasList: Horas[];
+  public horasList: HorasSemana[];
   public parametros: Parametros[];
 
   constructor(configurationService: ConfigurationService) {
@@ -28,12 +28,12 @@ export class LiquidadorHorasService {
     this.parametros = configurationService.parametros;
   }
 
-  public calcularSemana(peticion: Peticion, parametroId: number): Horas[] {
+  public calcularSemana(peticion: Peticion, parametroId: number): HorasSemana[] {
     let parametros = this.parametros[parametroId];
-    peticion.valorHora = Math.round(peticion.salario / parametros.jornadaLaboralMensual);
     this.horasList = structuredClone(this.configurationService.semana);
     this.horasList.forEach(h => { 
-      h.reforma = parametros.reforma;
+      h.reformaName = parametros.reforma;
+      h.reformaLabel = parametros.name
       h.style = parametros.style;
     });
     if (peticion.turnos) {
@@ -81,12 +81,12 @@ export class LiquidadorHorasService {
     }
     turno.dias?.forEach(
       dia => {
-        this.guardarDia(dia, parametro.reforma, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
+        this.guardarDia(dia, parametro.reforma, parametro.name, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
       }
     );
   }
 
-  public guardarDia(nombre: string, reforma: string, style: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
+  public guardarDia(nombre: string, reformaName: string, reformaLabel:string, style: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
     let horario = jornada[0] + "-" + jornada[1];
     let horas = this.horasList.find(d => d.name === nombre);
     if (horas) {
@@ -146,7 +146,7 @@ export class LiquidadorHorasService {
       if (dia) {
         label = dia.label + '';
       }
-      horas = new Horas(nombre, label, reforma, style, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+      horas = new HorasSemana(nombre, label, reformaName, reformaLabel, style, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
       this.horasList.push(horas);
     }
 

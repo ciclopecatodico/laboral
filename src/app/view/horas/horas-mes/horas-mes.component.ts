@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Horas } from '../../../model/horas/horas';
-import { LiquidadorMesService } from '../../../service/liquidador/liquidador-mes/liquidador-mes.service';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
+import { LiquidadorMesesService } from '../../../service/liquidador/liquidador-meses/liquidador-meses.service';
 
 @Component({
   selector: 'horas-mes',
@@ -11,7 +11,7 @@ import { LiquidadorMesService } from '../../../service/liquidador/liquidador-mes
 export class HorasMesComponent {
 
   @Input()
-  semana = Array<Horas>();
+  semana = Array<HorasSemana>();
 
 
 

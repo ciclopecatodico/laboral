@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Horas } from '../../../model/horas/horas';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
 
 @Component({
@@ -17,7 +17,7 @@ export class MesSimulacionComponent {
 
 
 
-  public mes = new Array<Horas>();
+  public mes = new Array<HorasSemana>();
 
 
   constructor(){

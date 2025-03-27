@@ -1,6 +1,6 @@
-import { Mes } from "./mes";
+import { MesModel } from "./mes-model";
 
-describe('Mes', () => {
+describe('MesModel', () => {
   it('should create an instance', () => {
     //expect(new Mes()).toBeTruthy();
   });

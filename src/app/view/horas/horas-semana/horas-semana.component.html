@@ -50,9 +50,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let dia of semana" ngClass="{{'table-'+dia.style}}" [hidden]="hidden(dia)"
-        (click)="toogle(dia.reforma)">
+        (click)="toogle(dia.reformaName)">
         <th scope="row">{{dia.label}}</th>
-        <td scope="row">{{dia.reforma}}</td>
+        <td scope="row">{{dia.reformaLabel}}</td>
         <td scope="row">
           <div [innerHTML]="dia.horarios.join('\<br/>')"></div>
         </td>

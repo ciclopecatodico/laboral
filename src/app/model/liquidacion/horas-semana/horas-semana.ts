@@ -1,10 +1,11 @@
 
-export class Horas {
+export class HorasSemana {
 
     constructor(
         public name: string,
         public label: string,
-        public reforma : string, //reforma con la que se liquidaron las horas
+        public reformaName : string, //reforma con la que se liquidaron las horas
+        public reformaLabel: string, //Etiqueta a usar para la reforma
         public style : string,
         public horarios: string[],
         public horasDiurnas: number,

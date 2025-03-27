@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Horas } from '../../../model/horas/horas';
+import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { List } from '../../../model/listas/list';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
-import { CONST } from '../../../model/conf/conf';
+import { CONST } from '../../../model/const/CONST';
 
 @Component({
   selector: 'horas-semana',
@@ -14,11 +14,11 @@ export class HorasSemanaComponent {
 
 
   @Input()
-  public semana = Array<Horas>();
+  public semana = Array<HorasSemana>();
 
-  public total1950 = Array<Horas>();
-  public total789 = Array<Horas>();
-  public total2025 = Array<Horas>();
+  public total1950 = Array<HorasSemana>();
+  public total789 = Array<HorasSemana>();
+  public total2025 = Array<HorasSemana>();
 
   public showReforma1950 = false;
   public showReforma789 = false;
@@ -61,11 +61,11 @@ export class HorasSemanaComponent {
   }
 
 
-  hidden(dia: Horas) {
+  hidden(dia: HorasSemana) {
     if(dia.name === 'total'){
       return false;
     }
-    let reforma = dia.reforma;
+    let reforma = dia.reformaName;
     switch (reforma) {
       case "1950":
         return !this.showReforma1950;

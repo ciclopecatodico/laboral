@@ -1,0 +1,11 @@
+
+.contactDiv{
+    float: left;
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.icon {
+    width: 24;
+    height: 24;
+}

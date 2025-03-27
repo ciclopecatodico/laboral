@@ -68,17 +68,21 @@ export const CONST = {
         id: 'horasExtrasNocturnasDominicalesOFestivos',
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
-    diasSemanaLaboral: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+    diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+    diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado','domingo'],
     diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
     diaDomingo: ['domingo'],
+    diasMes : 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
-    turnoInicio: '00:00',
-    turnoFin: '12:00',
-    turnoHoras: '12:00', 
+    turnoInicio: '14:00',
+    turnoFin: '23:00',
+    turnoHoras: '9:00',
+    totalName: 'total',
+    totalLabel: 'Total', 
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
         index : 0,
-        reforma : '950',
+        reforma : '1950',
         style : 'primary'
     },
     reforma789: {
@@ -88,7 +92,7 @@ export const CONST = {
     },
     reforma2025: {
         index : 2,
-        reforma : '1950',
+        reforma : '2025',
         style: 'success'
     }
 

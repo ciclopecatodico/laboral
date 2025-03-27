@@ -80,3 +80,6 @@ Entonces tendríamos
 2 horasExtrasNocturnas  de ['10:00 PM - 11:59 PM']
 
 para un total de 12 horas 
+
+
+Se debe aplicar un criterio de continuidad en el paso de la noche a la madrugada cuando la persona trabaja más de 8 horas en el cambio de un día a otro 

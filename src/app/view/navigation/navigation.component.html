@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
-        <div class="float-start">
+        <div class="col">
             <h1> Simuladora Salarial</h1>
             <h2>Ajustada a la reforma laboral</h2>
         </div>
-        <div class="float-end">
+        <div class="appCredits">
             <app-credits></app-credits>
         </div>
     </div>
@@ -21,16 +21,16 @@
 
 
 <!--SIMULACION de la semana -->
-<semana-simulacion [semana]="semana" *ngIf="mostrarSimulacionSemana" [peticion]="peticion">
+<semana-simulacion [semana]="semana" *ngIf="mostrarSemanaSimulacion" [peticion]="peticion">
 </semana-simulacion>
 
 
 <!--FORMULARIO del Sena o salario -->
-<sena-form [peticion]="peticion" *ngIf="mostrarMesForm" (peticionSemanaChange)="simularMes($event)"></sena-form>
+<mes-form [peticion]="peticion" *ngIf="mostrarMesForm" (peticionSemanaChange)="simularMeses($event)"></mes-form>
 
 
 <!--SIMULACION del mes con la configuración del sena o salario -->
-<mes-simulacion *ngIf="mostrarSimulacionMes" [peticion]="peticion"></mes-simulacion>
+<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion"></mes-simulacion>
 
 
 <!--FORMULARIO de festivos para liquidar el año-->

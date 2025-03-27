@@ -3,7 +3,7 @@ import { List } from '../../model/listas/list';
 import { SelectItem } from '../../model/selectItem/SelectItem';
 import moment, { Duration, duration } from 'moment';
 import { Turno } from '../../model/turno/turno';
-import { CONST } from '../../model/conf/conf';
+import { CONST } from '../../model/const/CONST';
 
 @Component({
   selector: 'app-turno',

@@ -1,11 +1,16 @@
-
-.contactDiv{
+.contactDiv {
     float: left;
-    max-width: 32px;
-    max-height: 32px;
+    width: auto;
+    height: auto;
+    padding-left: 5px;
 }
 
-.icon {
-    width: 24;
-    height: 24;
+.contactImg {
+    width: 25px;
+    height: 25px;
+    transition: transform .2s
+}
+
+.contactImg:hover {
+    transform: scale(1.5);
 }

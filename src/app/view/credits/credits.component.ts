@@ -8,7 +8,5 @@ import { Component } from '@angular/core';
 })
 export class CreditsComponent {
 
-  public height = 24;
-  public width = 24;
 
 }

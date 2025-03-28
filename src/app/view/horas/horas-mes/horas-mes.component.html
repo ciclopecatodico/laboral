@@ -6,3 +6,43 @@
         esquina superior derecha están las formas de contacto</p>
 
 </div>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th scope="col" *ngFor="let tipo of tiposHoras">{{tipo}}</th>
+            </tr>
+        </thead>
+        <tbody><!-- ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)" -->
+            <ng-template ngFor let-i="index" let-c="count" let-mes [ngForOf]="meses">
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
+                    <th scope="row">{{mes.label}}</th>
+                    <td scope="row">{{mes.reformaLabel}}</td>
+                    <td scope="row">{{mes.horasDiurnas}}</td>
+                    <td scope="row">{{mes.horasExtraDiurna}}</td>
+                    <td scope="row">{{mes.horasNocturnas}}</td>
+                    <td scope="row">{{mes.horasExtraNocturna}}</td>
+                    <td scope="row">{{mes.horasDiurnasDominicalesOFestivos}}</td>
+                    <td scope="row">{{mes.horasExtrasDiurnasDominicalesFestivas}}</td>
+                    <td scope="row">{{mes.horasNocturnasDominicalesFestivos}}</td>
+                    <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas}}</td>
+                    <th scope="row">{{mes.totalHoras}}</th>
+                </tr>
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
+                    <td scope="row">Valor Hora:</td>
+                    <td scope="row">{{mes.valorHora | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasExtraDiurna | currency: '$' }}</td>
+                    <td scope="row">{{mes.valorHorasNocturnas | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasExtraNocturna | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasDiurnasDominicalesOFestivos | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasExtrasDiurnasDominicalesFestivas | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasNocturnasDominicalesFestivos | currency: '$'}}</td>
+                    <td scope="row">{{mes.valorHorasExtrasNocturnasDominicalesFestivas | currency: '$'}}</td>
+                    <th scope="row">{{mes.totalValorHoras | currency: '$'}}</th>
+                </tr>
+            </ng-template>
+        </tbody>
+    </table>
+</div>

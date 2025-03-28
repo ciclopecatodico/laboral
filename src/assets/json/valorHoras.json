@@ -1,0 +1,31 @@
+[
+    {
+        "id": 0,
+        "name": "mes",
+        "label": "Mes",
+        "reformaName": "reforma",
+        "reformaLabel": "Reforma",
+        "style": "style",
+        "festivos": 0,
+        "dominicales": 0,
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "horasDiurnasDominicalesOFestivos": 0,
+        "horasNocturnasDominicalesFestivos": 0,
+        "horasExtrasDiurnasDominicalesFestivas": 0,
+        "horasExtrasNocturnasDominicalesFestivas": 0,
+        "totalHoras": 0,
+        "valorHora": 0,
+        "valorHorasDiurnas": 0,
+        "valorHorasNocturnas": 0,
+        "valorHorasExtraDiurna": 0,
+        "valorHorasExtraNocturna": 0,
+        "valorHorasDiurnasDominicalesOFestivos": 0,
+        "valorHorasNocturnasDominicalesFestivos": 0,
+        "valorHorasExtrasDiurnasDominicalesFestivas": 0,
+        "valorHorasExtrasNocturnasDominicalesFestivas": 0,
+        "totalValorHoras": 0
+    }
+]

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
 import { LiquidadorMesesService } from '../../../service/liquidador/liquidador-meses/liquidador-meses.service';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
+import { ConfigurationService } from '../../../service/configuration/configuration.service';
 
 @Component({
   selector: 'semana-simulacion',
@@ -20,7 +22,10 @@ export class SemanaSimulacionComponent {
 
   public peticion_ : Peticion;
 
-  constructor(){
+   public reformas : Parametros[];
+
+  constructor(configurationService : ConfigurationService) {
+    this.reformas = configurationService.parametros;
     this.peticion_ = new Peticion('', 1);
   }
 

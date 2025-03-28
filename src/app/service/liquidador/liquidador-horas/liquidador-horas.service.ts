@@ -146,7 +146,7 @@ export class LiquidadorHorasService {
       if (dia) {
         label = dia.label + '';
       }
-      horas = new HorasSemana(nombre, label, reformaName, reformaLabel, style, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+      horas = new HorasSemana(nombre, label, reformaName, reformaLabel, style, [horario], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, totalHoras);
       this.horasList.push(horas);
     }
 

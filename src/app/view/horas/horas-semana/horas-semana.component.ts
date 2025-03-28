@@ -29,15 +29,12 @@ export class HorasSemanaComponent {
   public reforma789 = CONST.reforma789;
   public reforma2025 = CONST.reforma2025;
 
-  public configurationService : ConfigurationService;
-
   public reformas : Parametros[];
 
   public titulos = ['/'];
   public tiposHoras = ['Día', 'Reforma', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
   constructor(configurationService : ConfigurationService) {
-    this.configurationService = configurationService;
     this.reformas = configurationService.parametros;
     this.initHeaders();
   }

@@ -1,0 +1,17 @@
+
+@media (min-width:561px) {
+    .appCredits {
+        max-width: 180px;
+        float: right;
+        position: relative;
+    }
+}
+
+@media (max-width:560px) {
+    .appCredits {
+        max-width: 30px;
+        float: right;
+        position: relative;
+        padding-right: 40px;
+    }
+}

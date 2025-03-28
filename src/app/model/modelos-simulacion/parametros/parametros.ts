@@ -11,6 +11,8 @@ export class Parametros {
         public style : string,
         public descripcion : string,
         public smlv : number,
+        public smlvHora : number,
+        public subsidioTransporte: number, 
         public senaLectiva : number,
         public senaProductiva : number,
         public diasMes : number,

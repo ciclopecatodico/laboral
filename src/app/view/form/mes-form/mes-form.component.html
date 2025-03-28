@@ -1,9 +1,10 @@
 <div class="container">
     <h2>Y cómo se ve esto en un año?</h2>
+    <br>
     <p>Para saber cómo se ve esto reflejado en un año necesitamos los siguientes datos:</p>
     <div class="row">
         <div class="col">
-            <label for="aprendiz">Eres aprendiz del SENA?</label>
+            <label for="aprendiz" class="form-label">Eres aprendiz del SENA?</label>
             <input class="form-check-input" type="checkbox" id="aprendiz" name="aprendiz" [(ngModel)]="peticion.sena">
         </div>
         <div class="col" *ngIf="peticion.sena">
@@ -30,6 +31,7 @@
             <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col">
             <button button type="button" class="btn btn-success" (click)="calcularMes()">Simular mes</button>

@@ -7,6 +7,7 @@ import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-seman
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { LiquidadorSemanaService } from '../../../service/liquidador/liquidador-semana/liquidador-semana.service';
 import { CONST } from '../../../model/const/CONST';
+import { Credito } from '../../../model/credito/credito';
 
 
 
@@ -33,9 +34,12 @@ export class InicialFormComponent {
 
   public configurationService: ConfigurationService;
 
+  public contacto : Credito;
+
   constructor( configurationService: ConfigurationService) {
     this.configurationService = configurationService;
     this.peticion_ = configurationService.peticiones[1];
+    this.contacto = configurationService.creditos[0];
     this.reiniciarTurnos();
   }
 

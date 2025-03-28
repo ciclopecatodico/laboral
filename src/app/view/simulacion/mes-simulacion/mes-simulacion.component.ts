@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
+import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 
 @Component({
   selector: 'mes-simulacion',
@@ -15,10 +16,8 @@ export class MesSimulacionComponent {
 
   public peticion_ : Peticion;
 
-
-
-  public mes = new Array<HorasSemana>();
-
+  @Input()
+  public mes = Array<ValorHoras>();
 
   constructor(){
     this.peticion_ = new Peticion('', 1);
@@ -32,5 +31,9 @@ export class MesSimulacionComponent {
 
   get peticion(){
     return this.peticion_;
+  }
+
+  get verMes(){
+    return JSON.stringify(this.mes); 
   }
 }

@@ -3,7 +3,7 @@ export class HorasSemana {
 
     constructor(
         public name: string,
-        public label: string,
+        public label: string,    //si el dia es domingo o festivo sus horas serán especiales, se valida al liquidar el mes! 
         public reformaName : string, //reforma con la que se liquidaron las horas
         public reformaLabel: string, //Etiqueta a usar para la reforma
         public style : string,
@@ -12,10 +12,6 @@ export class HorasSemana {
         public horasNocturnas: number,
         public horasExtraDiurna: number,
         public horasExtraNocturna: number,
-        public horasDiurnasDominicalesOFestivos: number,
-        public horasNocturnasDominicalesFestivos: number,
-        public horasExtrasDiurnasDominicalesFestivas : number,
-        public horasExtrasNocturnasDominicalesFestivas : number,
         public totalHoras: number,
     ) { }
 

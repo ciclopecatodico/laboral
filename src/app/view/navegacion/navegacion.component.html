@@ -1,11 +1,14 @@
 <div class="container">
+    <div class="appCredits">
+        <app-credits></app-credits>
+    </div>
+    <div class="row">
+        <br><br>
+    </div>
     <div class="row">
         <div class="col">
-            <h1> Simuladora Salarial</h1>
-            <h2>Ajustada a la reforma laboral</h2>
-        </div>
-        <div class="appCredits">
-            <app-credits></app-credits>
+            <h1>Simulador Salarial</h1>
+            <h2>Ajustada a las reformas laborales</h2>
         </div>
     </div>
     <div class="row">
@@ -30,7 +33,7 @@
 
 
 <!--SIMULACION del mes con la configuración del sena o salario -->
-<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion"></mes-simulacion>
+<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [mes]="mes"></mes-simulacion>
 
 
 <!--FORMULARIO de festivos para liquidar el año-->

@@ -52,7 +52,7 @@ export class LiquidadorSemanaService {
       totalHoras += dia.totalHoras;
     });
 
-    let total = new HorasSemana("total", "Total", semana[0].reformaName, semana[0].reformaLabel, style,[], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, 0, 0, 0, 0, totalHoras);
+    let total = new HorasSemana("total", "Total", semana[0].reformaName, semana[0].reformaLabel, style,[], horasDiurnas, horasNocturnas, horasExtraDiurna, horasExtraNocturna, totalHoras);
     semana.push(total);
   }
 

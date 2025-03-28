@@ -1,10 +1,12 @@
 <div class="container">
+  <br>
   <div class="row">
     <div class="col">
-      <label for="nombre">Cómo te llamas?</label>
+      <label for="nombre" class="form-label">Cómo te llamas?</label>
       <input class="form-control" type="text" id="nombre" name="nombre" [(ngModel)]="peticion.nombres">
     </div>
   </div>
+  <br>
   <div class="row">
     <div class="col">
       <input class="form-check-input" type="checkbox" name="nocturna" id="nocturna" [(ngModel)]="peticion.nocturna">
@@ -15,10 +17,15 @@
   </div>
   <div *ngIf="peticion.nocturna">
     <br>
-    Hola {{peticion.nombres}}! el cálculo optimizado para jornada nocturna está en construcción, sin embargo puedes
-    hacerte una idea general
-    utilizando el modelo de Jornada Diurna existente.
+    <p>
+      Hola {{peticion.nombres}}, el cálculo para jornada nocturna aún no ha sido programado, sin embargo puedes
+      hacerte una idea general utilizando el modelo de Jornada Diurna existente.</p> <br>
+    <p>Si nos cuentas cómo es tu horario nocturno, envíandolo a nuestro correo <a
+        href="{{contacto.link}}">{{contacto.usuario}}</a> nos
+      sería de gran ayuda para tener una idea de los diferentes casos que se pueden presentar!
+    </p>
   </div>
+  <br>
   <div class="row">
     <div class="col">
       <h3>Cuál es tu jornada laboral?</h3>

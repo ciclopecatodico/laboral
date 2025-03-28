@@ -6,8 +6,13 @@ import * as parametrosConf from '../../../assets/json/parametros.json';
 import * as peticionesConf from '../../../assets/json/peticiones.json';
 import * as semanaConf from '../../../assets/json/semana.json';
 import * as agnoConf from '../../../assets/json/agno.json';
+import * as creditosConf from '../../../assets/json/creditos.json';
+import * as valorHorasConf from '../../../assets/json/valorHoras.json';
 import { HorasSemana } from '../../model/liquidacion/horas-semana/horas-semana';
 import { AgnoModel } from '../../model/modelos-simulacion/agno-model/agno-model';
+import { Credito } from '../../model/credito/credito';
+import { ValorHoras } from '../../model/liquidacion/valor-horas/valor-horas';
+
 
 
 
@@ -31,7 +36,19 @@ export class ConfigurationService {
   }
 
   get agnoModel(): AgnoModel {
-    return (agnoConf as any).default;
+    return (agnoConf as any).default[0];
   }
+
+  get creditos(): Array<Credito> {
+    return (creditosConf as any).default;
+  }
+
+  /**
+   * Inicializa un objeto de valor horas a ceros 
+   */
+  get valorHoras(): ValorHoras {
+    return (valorHorasConf as any).default[0];
+  }
+
 
 }

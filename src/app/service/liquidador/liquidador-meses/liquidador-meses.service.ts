@@ -5,6 +5,9 @@ import { CONST } from '../../../model/const/CONST';
 import { Peticion } from '../../../model/peticion/peticion.model';
 import { MesModel } from '../../../model/modelos-simulacion/mes-model/mes-model';
 import { AgnoModel } from '../../../model/modelos-simulacion/agno-model/agno-model';
+import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
+import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 
 
 /**
@@ -22,6 +25,9 @@ import { AgnoModel } from '../../../model/modelos-simulacion/agno-model/agno-mod
 export class LiquidadorMesesService {
 
   public configurationService: ConfigurationService;
+  public liquidadorMesService : LiquidadorMesService;
+
+  public parametros: Parametros[];
 
   /**
    * Total horas semana por regimen
@@ -38,10 +44,14 @@ export class LiquidadorMesesService {
   /**
    * Guarda la liquidación de los meses de un año y su total. 
    */
-  public agno1950 = new Array<[]>;
+  public agno1950 = new Array<ValorHoras>;
+  public agno789 = new Array<ValorHoras>;
+  public agno2025 = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService) {
+  constructor(configurationService: ConfigurationService, liquidadorMesService : LiquidadorMesService) {
     this.configurationService = configurationService;
+    this.liquidadorMesService = liquidadorMesService; 
+    this.parametros = configurationService.parametros;
   }
 
   /**
@@ -49,19 +59,16 @@ export class LiquidadorMesesService {
    * @param horasSemana 
    * @param peticion 
    */
-  public simularAngo(horasSemana: HorasSemana[], peticion: Peticion) {
-    //parametroIndex: number
-    //this.input = horasSemana;
+  public simularAngo(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
-    //console.log("Semana:",JSON.stringify(this.semana1950));
-
     let agno = this.configurationService.agnoModel;
-    let agno2 = new AgnoModel(1,'', agno.meses);
-    console.log("Agno:", JSON.stringify(agno));
-    //let mes = agno.;
+
     
-    //console.log("Meses: ", JSON.stringify(mes));
-    //this.contarHorasMes(horasSemana, mes)
+    for(let i = 0; i<agno.meses.length; i++){
+      let mes1950 = this.liquidadorMesService.contarHorasMes(horasSemana, agno.meses[i], peticion, 0);
+      this.agno1950.push(mes1950);
+    }
+    return this.agno1950; 
   }
 
   /**
@@ -75,27 +82,6 @@ export class LiquidadorMesesService {
     this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
   }
 
-
-  /**
-   * Cuenta las horas de un mes 
-   * @param horasSemana 
-   */
-  private contarHorasMes(horasSemana: HorasSemana[], mes: MesModel) {
-    let mes2 = new MesModel(1,'','','',[1],2);
-    
-    //liquida los días empezando por el primer día del mes
-    //Todos los meses se liquidan a 30 días
-    //let diaIndex = CONST.diasSemanaName.findIndex( d => d === mes.diaInicial)
-    for(let i=0; i<CONST.diasMes; i++){
-      //let j  = (i + diaIndex) % 7;
-      
-    }
-
-    //debe tener en cuenta si el día es domingo
-
-    //debe tener en cuenta si el día es festivo
-
-  }
 
 
 

@@ -17,23 +17,24 @@ export class NavegacionComponent {
   public peticion: Peticion;
 
   //Mostrar o quitar componentes 
-  public mostrarParametros = false; 
+  public mostrarParametros = false;
   public mostrarInicialForm = true;
-  public mostrarBotonVolver = false;
   public mostrarSemanaSimulacion = false;
   public mostrarMesForm = false;
   public mostrarMesSimulacion = false;
+  public mostrarAgnoSimulacion = false;
+  public mostrarAgnoForm = false;
 
   public volverAEtapa = 'inicial'; //inicial|sena|
   public semana = Array<HorasSemana>();
-  public mes = Array<ValorHoras>(); 
+  public mes = Array<ValorHoras>();
   //Se encarga de liquidar las horas de una semana 
   public liquidadorSemanaService: LiquidadorSemanaService;
   //Se encarga de liquidar un año, conjunto de 12 meses
-  public liquidadorMesesService : LiquidadorMesesService;
+  public liquidadorMesesService: LiquidadorMesesService;
 
 
-  constructor(liquidadorSemanaService: LiquidadorSemanaService, liquidadorMesService : LiquidadorMesesService) {
+  constructor(liquidadorSemanaService: LiquidadorSemanaService, liquidadorMesService: LiquidadorMesesService) {
     this.peticion = new Peticion('', 1);
     this.liquidadorSemanaService = liquidadorSemanaService;
     this.liquidadorMesesService = liquidadorMesService;
@@ -46,8 +47,9 @@ export class NavegacionComponent {
     this.semana = this.liquidadorSemanaService.liquidar(this.peticion);
     this.mostrarSemanaSimulacion = true;
     this.mostrarMesForm = true;
+    this.mostrarAgnoSimulacion = false;
+    this.mostrarAgnoForm = false;
     this.volverAEtapa = 'inicial';
-    this.mostrarBotonVolver = true;
   }
 
 
@@ -55,13 +57,28 @@ export class NavegacionComponent {
     //ya tengo la semana liquidada en este componente 
     //la debo usar para calcular el mes 
     this.peticion = peticion;
-    this.mes = this.liquidadorMesesService.simularAngo(this.semana,this.peticion);
+    this.mes = this.liquidadorMesesService.simularAngo(this.semana, this.peticion);
     //ocultar todas las otras simulaciones y formularios
     this.mostrarMesSimulacion = true;
     this.mostrarSemanaSimulacion = false;
-    this.mostrarInicialForm = false; 
+    this.mostrarInicialForm = false;
     this.mostrarMesForm = false;
+    this.mostrarAgnoSimulacion = false;
+    this.mostrarAgnoForm = true;
     this.volverAEtapa = 'semana';
+    console.log("Volver a Etapa: ", this.volverAEtapa);
+  }
+
+  simularAgnos(peticion: Peticion) {
+    console.log("Simular años WIP");
+    this.peticion = peticion;
+    this.mostrarMesSimulacion = false;
+    this.mostrarSemanaSimulacion = false;
+    this.mostrarInicialForm = false;
+    this.mostrarMesForm = false;
+    this.mostrarAgnoSimulacion = true;
+    this.mostrarAgnoForm = false;
+    this.volverAEtapa = 'mes';
     console.log("Volver a Etapa: ", this.volverAEtapa);
   }
 
@@ -74,40 +91,54 @@ export class NavegacionComponent {
     console.log("Volver A:", paso)
     switch (paso) {
       case 'parametros':
-        this.mostrarParametros = true; 
+        this.mostrarParametros = true;
         this.mostrarInicialForm = false;
-        this.mostrarMesForm = false; 
+        this.mostrarMesForm = false;
         this.mostrarSemanaSimulacion = false;
         this.mostrarMesSimulacion = false;
+        this.mostrarAgnoSimulacion = false;
+        this.mostrarAgnoForm = false;
         this.volverAEtapa = '??';
-        this.mostrarBotonVolver = false;
         break;
       case 'inicial':
-        this.mostrarParametros = false; 
+        this.mostrarParametros = false;
         this.mostrarInicialForm = true;
-        this.mostrarMesForm = false; 
+        this.mostrarMesForm = false;
         this.mostrarSemanaSimulacion = false;
         this.mostrarMesSimulacion = false;
+        this.mostrarAgnoSimulacion = false;
+        this.mostrarAgnoForm = false;
         this.volverAEtapa = '??';
-        this.mostrarBotonVolver = false;
         break;
       case 'semana':
-        this.mostrarParametros = false; 
+        this.mostrarParametros = false;
         this.mostrarInicialForm = false;
-        this.mostrarMesForm = true; 
+        this.mostrarMesForm = true;
         this.mostrarSemanaSimulacion = true;
         this.mostrarMesSimulacion = false;
+        this.mostrarAgnoSimulacion = false;
+        this.mostrarAgnoForm = false;
         this.volverAEtapa = 'inicial';
-        this.mostrarBotonVolver = true;
         break;
       case 'mes':
-        this.mostrarParametros = false; 
+        this.mostrarParametros = false;
+        this.mostrarInicialForm = false;
+        this.mostrarMesForm = false;
+        this.mostrarSemanaSimulacion = false;
+        this.mostrarMesSimulacion = true;
+        this.mostrarAgnoSimulacion = false;
+        this.mostrarAgnoForm = false;
+        this.volverAEtapa = 'semana';
+        break;
+      case 'agno':
+        this.mostrarParametros = false;
         this.mostrarInicialForm = true;
-        this.mostrarMesForm = false; 
+        this.mostrarMesForm = false;
         this.mostrarSemanaSimulacion = false;
         this.mostrarMesSimulacion = false;
+        this.mostrarAgnoSimulacion = true;
+        this.mostrarAgnoForm = true;
         this.volverAEtapa = 'semana';
-        this.mostrarBotonVolver = true;
         break;
     }
   }

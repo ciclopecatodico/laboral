@@ -15,6 +15,9 @@ export class MesFormComponent {
 
   @Output()
   public peticionSemanaChange = new EventEmitter<Peticion>;
+
+  @Output()
+  public volverChange = new EventEmitter<string>;
   public peticion_: Peticion;
 
   public parametros: Parametros;
@@ -28,6 +31,10 @@ export class MesFormComponent {
 
   public calcularMes() {
     this.peticionSemanaChange.emit(this.peticion_);
+  }
+
+  public volver(){
+    this.volverChange.emit('inicial');
   }
 
   @Input()

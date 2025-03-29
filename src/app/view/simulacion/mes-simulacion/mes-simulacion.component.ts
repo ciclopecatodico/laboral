@@ -11,32 +11,33 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 })
 export class MesSimulacionComponent {
 
+
+
   @Output()
   public peticionMesChange = new EventEmitter<Peticion>;
-  public peticion_ : Peticion;
+  public peticion_: Peticion;
 
-  public verNotas= false; 
+  public verNotas = false;
 
   @Input()
   public mes = Array<ValorHoras>();
 
-  constructor(){
+  constructor() {
     this.peticion_ = new Peticion('', 1);
   }
 
-
   @Input()
-  set peticion(peticion:Peticion){
+  set peticion(peticion: Peticion) {
     this.peticion_ = peticion;
   }
 
-  get peticion(){
+  get peticion() {
     return this.peticion_;
   }
 
-  get verMes(){
-    return JSON.stringify(this.mes); 
+  get verMes() {
+    return JSON.stringify(this.mes);
   }
 
-  
+
 }

@@ -10,16 +10,11 @@
     <div class="row">
         <parametros-view *ngIf="mostrarParametros"></parametros-view>
     </div>
-    <div class="row">
-        <div class="spacer" *ngIf="mostrarBotonVolver">
-            <button button type="button" class="btn btn-primary" (click)="navegarA(volverAEtapa)">Volver</button>
-        </div>
-    </div>
 </div>
 
 <!--FORMULARIO inicial para ingresar el nombre y el horario de la persona -->
 <inicial-form [peticion]="peticion" *ngIf="mostrarInicialForm"
-    (peticionHorarioChange)="simularSemana($event)"></inicial-form>
+    (peticionHorarioChange)="simularSemana($event)" ></inicial-form>
 
 
 <!--SIMULACION de la semana -->
@@ -28,11 +23,14 @@
 
 
 <!--FORMULARIO del Sena o salario -->
-<mes-form [peticion]="peticion" *ngIf="mostrarMesForm" (peticionSemanaChange)="simularMeses($event)"></mes-form>
+<mes-form [peticion]="peticion" *ngIf="mostrarMesForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularMeses($event)"></mes-form>
 
 
 <!--SIMULACION del mes con la configuración del sena o salario -->
 <mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [mes]="mes"></mes-simulacion>
+
+<app-agno-form [peticion]="peticion" *ngIf="mostrarAgnoForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularAgnos($event)"></app-agno-form>
+
 
 
 <!--FORMULARIO de festivos para liquidar el año-->

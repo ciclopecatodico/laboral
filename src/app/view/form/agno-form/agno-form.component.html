@@ -1,24 +1,37 @@
-<p>Formulario calcular Proyección vida laboral</p>
-<div class="row">
-    <label for="edad">Cuál es tu edad?</label>
-    <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
-</div>
-<div class="row">
-    <label for="experiencia">Hace cuantos años trabajas?</label>
-    <input class="form-control" type="number" id="experiencia" name="experiencia" [(ngModel)]="peticion.experiencia">
-</div>
-<div class="row">
-    <label for="nombre">Te pensionarás como?</label>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre" [(ngModel)]="peticion.sexo">
-        <label class="form-check-label" for="hombre">
-            Hombre a los 62 años.
-        </label>
+<div class="container">
+    <h2>Simula tu vida laboral</h2>
+    <p>Formulario calcular Proyección vida laboral</p>
+    <div class="row">
+        <label for="edad">Cuál es tu edad?</label>
+        <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
     </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer" [(ngModel)]="peticion.sexo">
-        <label class="form-check-label" for="mujer">
-            Mujer a los 57 años.
-        </label>
+    <div class="row">
+        <label for="experiencia">Hace cuantos años trabajas?</label>
+        <input class="form-control" type="number" id="experiencia" name="experiencia"
+            [(ngModel)]="peticion.experiencia">
+    </div>
+    <div class="row">
+        <label for="nombre">Te pensionarás como?</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" value="hombre" name="sexo" id="hombre"
+                [(ngModel)]="peticion.sexo">
+            <label class="form-check-label" for="hombre">
+                Hombre a los 62 años.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" value="mujer" name="sexo" id="mujer"
+                [(ngModel)]="peticion.sexo">
+            <label class="form-check-label" for="mujer">
+                Mujer a los 57 años.
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="spacer">
+            <button button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
+            <button button type="button" class="btn btn-success" [disabled]="!formularioValido"
+                (click)="calcularAgnos()">Simular meses</button>
+        </div>
     </div>
 </div>

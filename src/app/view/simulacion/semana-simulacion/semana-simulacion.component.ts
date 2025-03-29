@@ -20,25 +20,27 @@ export class SemanaSimulacionComponent {
   @Output()
   public peticionSemanaChange = new EventEmitter<Peticion>;
 
-  public peticion_ : Peticion;
 
-   public reformas : Parametros[];
+  public peticion_: Peticion;
 
-  constructor(configurationService : ConfigurationService) {
+  public reformas: Parametros[];
+
+  constructor(configurationService: ConfigurationService) {
     this.reformas = configurationService.parametros;
     this.peticion_ = new Peticion('', 1);
   }
 
-  simularMes(peticion: Peticion){
+  simularMes(peticion: Peticion) {
     console.log("Peticion Sena: ", JSON.stringify(peticion));
   }
 
+
   @Input()
-  set peticion(peticion:Peticion){
+  set peticion(peticion: Peticion) {
     this.peticion_ = peticion;
   }
 
-  get peticion(){
+  get peticion() {
     return this.peticion_;
   }
 

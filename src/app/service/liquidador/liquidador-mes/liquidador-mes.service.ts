@@ -71,6 +71,7 @@ export class LiquidadorMesService {
       //caso especial liquidar un domingo o un día festivo
       if (horasSemana[j].name === CONST.diaDomingo[0] || esFestivo) {
         //suma las horas diurnas al domingo. 
+        console.log(i + " - Dia: " + horasSemana[j].name + " es festivo:" + esFestivo);
         mesLiquidar.horasDiurnasDominicalesOFestivos += horasSemana[j].horasDiurnas;
         mesLiquidar.horasNocturnasDominicalesFestivos += horasSemana[j].horasNocturnas;
         mesLiquidar.horasExtrasDiurnasDominicalesFestivas += horasSemana[j].horasExtraDiurna;
@@ -130,7 +131,6 @@ export class LiquidadorMesService {
     return mesLiquidar;
 
   }
-
 
 
 

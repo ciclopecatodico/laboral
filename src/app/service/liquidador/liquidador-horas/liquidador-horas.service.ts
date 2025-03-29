@@ -30,10 +30,12 @@ export class LiquidadorHorasService {
 
   public calcularSemana(peticion: Peticion, parametroId: number): HorasSemana[] {
     let parametros = this.parametros[parametroId];
+    //asigno a la petición el valor del salario del último parámetro utilizado 2025
+    peticion.salario = parametros.smlv;
     this.horasList = structuredClone(this.configurationService.semana);
     this.horasList.forEach(h => { 
-      h.reformaName = parametros.reforma;
-      h.reformaLabel = parametros.name
+      h.reformaName = parametros.reformaName;
+      h.reformaLabel = parametros.reformaLabel
       h.style = parametros.style;
     });
     if (peticion.turnos) {
@@ -81,7 +83,7 @@ export class LiquidadorHorasService {
     }
     turno.dias?.forEach(
       dia => {
-        this.guardarDia(dia, parametro.reforma, parametro.name, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
+        this.guardarDia(dia, parametro.reformaName, parametro.reformaLabel, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
       }
     );
   }

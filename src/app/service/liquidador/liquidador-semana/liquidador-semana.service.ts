@@ -24,6 +24,8 @@ export class LiquidadorSemanaService {
   }
 
   public liquidar(peticion: Peticion): Array<HorasSemana> {
+    
+
     this.semana1950 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1950.index);
     this.semana789 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma789.index);
     this.semana2025 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2025.index);

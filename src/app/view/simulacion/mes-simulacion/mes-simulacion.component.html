@@ -1,11 +1,9 @@
 <div class="container">
-    <h2>Simulación del mes: ESTA EN DESARROLLO!!!!!!</h2>
-
+    <h2>Simulación mes a mes: ESTA EN DESARROLLO!!!!!!</h2>
 
     <p>Muestra la simulación de un mes utilizando como modelo el a&nacute;o 2025</p>
     <p>Este elemento está en desarrollo, si quieres contribuir a éste proyecto te invito a ponerte en contacto, en la
         esquina superior derecha están las formas de contacto</p>
-
     <table>
         <tr>
             <th>Nombre:</th>
@@ -19,15 +17,27 @@
             <th>Etapa en el SENA?</th>
             <td>{{peticion.etapa}}</td>
         </tr>
+        <tr *ngIf="peticion.sena">
+            <th>Duraci&oacute;n pr&aacute;ctica SENA?</th>
+            <td>{{peticion.duracion}} Meses</td>
+        </tr>
         <tr>
-            <th>Festivos </th>
+            <th>Trabajas los festivos: </th>
             <td>{{peticion.festivos?'Si':'No'}}</td>
         </tr>
         <tr>
-            <th>Salario: </th>
+            <th>Salario Base: </th>
             <td>{{peticion.salario | currency : '$'}}</td>
         </tr>
     </table>
+
+    <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success"> Ver Notas</button>
+    
+    <div *ngIf="verNotas">
+        El valor de la hora se obtiene al dividir el salario mensual entre la jornada mensual de la reforma, por eso va a variar dependiendo de la reforma. 
+
+    </div>
+
     <horas-mes [meses]="mes">
 
     </horas-mes>

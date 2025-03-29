@@ -19,7 +19,7 @@ import { AgnoSimulacionComponent } from './view/simulacion/agno-simulacion/agno-
 import { CreditsComponent } from './view/credits/credits.component';
 import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
 import { NavegacionComponent } from './view/navegacion/navegacion.component';
-import { ParametrosViewComponent } from './view/parametros/parametros-view/parametros-view.component';
+import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
 
 @NgModule({
   declarations: [

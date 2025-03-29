@@ -43,13 +43,17 @@ export class LiquidadorMesService {
  * Liquida las horas totales de un mes 
  * @param horasSemana 
  */
-  public contarHorasMes(horasSemana: HorasSemana[], mes: MesModel, peticion: Peticion, parametroId: number): ValorHoras {
+  public contarHorasMes(horasSemana: HorasSemana[], mes: MesModel, peticion: Peticion, valorHoras: number, parametroId: number): ValorHoras {
 
     let parametros = this.parametros[parametroId];
     //liquida los días empezando por el primer día del mes
     //Todos los meses se liquidan a 30 días
     let diaIndex = CONST.diasSemanaName.findIndex(d => d === mes.diaInicial)
     let mesLiquidar = structuredClone(this.configurationService.valorHoras);
+
+    //Obtengo el valor de la hora dependiendo de los parámetros 
+    mesLiquidar.valorHora = valorHoras;
+
     let esFestivo = false;
     for (let i = 0; i < CONST.diasMes; i++) {
       let j = (i + diaIndex) % 7;
@@ -67,7 +71,6 @@ export class LiquidadorMesService {
       //caso especial liquidar un domingo o un día festivo
       if (horasSemana[j].name === CONST.diaDomingo[0] || esFestivo) {
         //suma las horas diurnas al domingo. 
-        console.log(i + " - Dia: " + horasSemana[j].name + " es festivo:" + esFestivo);
         mesLiquidar.horasDiurnasDominicalesOFestivos += horasSemana[j].horasDiurnas;
         mesLiquidar.horasNocturnasDominicalesFestivos += horasSemana[j].horasNocturnas;
         mesLiquidar.horasExtrasDiurnasDominicalesFestivas += horasSemana[j].horasExtraDiurna;
@@ -93,10 +96,9 @@ export class LiquidadorMesService {
     mesLiquidar.totalHoras += mesLiquidar.horasExtrasDiurnasDominicalesFestivas;
     mesLiquidar.totalHoras += mesLiquidar.horasExtrasNocturnasDominicalesFestivas;
 
-    //Obtengo el valor de la hora dependiendo de los parámetros 
-    mesLiquidar.valorHora = this.calcularValorHora(peticion, parametros);
-
     //con el valor de la hora liquido el mes según los factores definidos en cada parámetro. 
+
+
     mesLiquidar.valorHorasDiurnas = mesLiquidar.horasDiurnas * (mesLiquidar.valorHora * parametros.horasDiurnas.factor);
     mesLiquidar.valorHorasExtraDiurna = mesLiquidar.horasExtraDiurna * (mesLiquidar.valorHora * parametros.horasExtrasDiurnas.factor);
     mesLiquidar.valorHorasNocturnas = mesLiquidar.horasNocturnas * (mesLiquidar.valorHora * parametros.horasNocturnas.factor);
@@ -122,36 +124,14 @@ export class LiquidadorMesService {
     mesLiquidar.name = mes.nombre;
     mesLiquidar.festivos = mes.festivos.length;
     mesLiquidar.style = parametros.style;
-    mesLiquidar.reformaLabel = parametros.name;
-    mesLiquidar.reformaName = parametros.reforma;
+    mesLiquidar.reformaLabel = parametros.reformaLabel;
+    mesLiquidar.reformaName = parametros.reformaName;
 
     return mesLiquidar;
 
   }
 
 
-  /**
-   * De esta función depende que el cálculo del salario mensual sea acorde al SMLV vigente según la reforma que se esté aplicando a las jornadas 
-   * asi el valor de la hora en jornada diurna ordinaria depende de la cantidad de horas que se conciben en la reforma para un mes laboral. 
-   * @param peticion 
-   * @param parametro 
-   * @returns 
-   */
-  private calcularValorHora(peticion: Peticion, parametro: Parametros): number {
-    //liquida el valor de las horas del mes 
-    //la hora debe tener en cuenta el caso que la persona sea del sena 
-    //calcular automaticamente el valor de la hora segun su etapa
-    //se asigna por defecto el valor de una hora de salario minimo
-    let valorHora = 0;
-    if (peticion.salario > parametro.smlv) {
-      //El valor de la hora depende de la jornada mensual
-      valorHora = peticion.salario / parametro.jornadaLaboralMensual;
-    } else {
-      peticion.salario = parametro.smlv;
-      //Por eso se calcula en funcion de la jornada laboral mensual en horas 
-      valorHora = parametro.smlv / parametro.jornadaLaboralMensual;
-    }
-    return valorHora;
-  }
+
 
 }

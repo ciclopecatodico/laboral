@@ -7,8 +7,8 @@ export class Parametros {
 
     constructor(
         public id : number,
-        public name : string,
-        public reforma : string,
+        public reformaLabel : string,
+        public reformaName : string,
         public style : string,
         public descripcion : string,
         public smlv : number,

@@ -13,8 +13,9 @@ export class MesSimulacionComponent {
 
   @Output()
   public peticionMesChange = new EventEmitter<Peticion>;
-
   public peticion_ : Peticion;
+
+  public verNotas= false; 
 
   @Input()
   public mes = Array<ValorHoras>();
@@ -36,4 +37,6 @@ export class MesSimulacionComponent {
   get verMes(){
     return JSON.stringify(this.mes); 
   }
+
+  
 }

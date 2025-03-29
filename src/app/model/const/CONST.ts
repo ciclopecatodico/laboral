@@ -20,11 +20,11 @@ export const CONST = {
         label: 'Fin Jornada Nocturna'
     },
     senaLectiva: {
-        id: 'senaLectiva',
+        id: 'lectiva',
         label: 'SENA Etapa Lectiva'
     },
     senaProductiva: {
-        id: 'senaProductiva',
+        id: 'productiva',
         label: 'SENA Etapa Productiva'
     },
     jornadaLaboralDiaria:
@@ -83,8 +83,8 @@ export const CONST = {
     diasMes: 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
-    turnoInicio: '14:00',
-    turnoFin: '22:00',
+    turnoInicio: '08:00',
+    turnoFin: '16:00',
     turnoHoras: '8:00',
     totalName: 'total',
     totalLabel: 'Total',

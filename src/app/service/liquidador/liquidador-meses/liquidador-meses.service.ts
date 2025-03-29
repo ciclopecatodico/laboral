@@ -3,8 +3,6 @@ import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-seman
 import { ConfigurationService } from '../../configuration/configuration.service';
 import { CONST } from '../../../model/const/CONST';
 import { Peticion } from '../../../model/peticion/peticion.model';
-import { MesModel } from '../../../model/modelos-simulacion/mes-model/mes-model';
-import { AgnoModel } from '../../../model/modelos-simulacion/agno-model/agno-model';
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
@@ -25,18 +23,13 @@ import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 export class LiquidadorMesesService {
 
   public configurationService: ConfigurationService;
-  public liquidadorMesService : LiquidadorMesService;
+  public liquidadorMesService: LiquidadorMesService;
 
   public parametros: Parametros[];
 
   /**
-   * Total horas semana por regimen
-   */
-  public input = new Array<HorasSemana>();
-
-  /**
-   * Horas registradas para cada semana
-   */
+ * Horas registradas para cada semana
+ */
   public semana1950 = new Array<HorasSemana>();
   public semana789 = new Array<HorasSemana>();
   public semana2025 = new Array<HorasSemana>();
@@ -48,9 +41,9 @@ export class LiquidadorMesesService {
   public agno789 = new Array<ValorHoras>;
   public agno2025 = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService : LiquidadorMesService) {
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
     this.configurationService = configurationService;
-    this.liquidadorMesService = liquidadorMesService; 
+    this.liquidadorMesService = liquidadorMesService;
     this.parametros = configurationService.parametros;
   }
 
@@ -60,29 +53,80 @@ export class LiquidadorMesesService {
    * @param peticion 
    */
   public simularAngo(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
+    //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
+    //Limpiar variables que almacenan la simulacion
+    this.agno1950 = new Array<ValorHoras>;
+    this.agno789 = new Array<ValorHoras>;
+    this.agno2025 = new Array<ValorHoras>;
+    //obtener el año que trae los parametros de
     let agno = this.configurationService.agnoModel;
 
-    
-    for(let i = 0; i<agno.meses.length; i++){
-      let mes1950 = this.liquidadorMesService.contarHorasMes(horasSemana, agno.meses[i], peticion, 0);
+
+    for (let i = 0; i < agno.meses.length; i++) {
+      let mes1950 = this.liquidadorMesService.contarHorasMes(this.semana1950, agno.meses[i], peticion, CONST.reforma1950.index);
       this.agno1950.push(mes1950);
+      let mes789 = this.liquidadorMesService.contarHorasMes(this.semana789, agno.meses[i], peticion, CONST.reforma789.index);
+      this.agno789.push(mes789);
+      let mes2025 = this.liquidadorMesService.contarHorasMes(this.semana2025, agno.meses[i], peticion, CONST.reforma2025.index);
+      this.agno2025.push(mes2025);
     }
-    return this.agno1950; 
+    
+    this.calcularTotales(this.agno1950);
+    this.calcularTotales(this.agno789);
+    this.calcularTotales(this.agno2025);
+    let agnos = new Array<ValorHoras>();
+    //retornamos un arreglo que contiene todos los agños calculados. 
+    agnos = [...this.agno1950, ...this.agno789, ...this.agno2025];
+    return agnos;
   }
 
-  /**
+    /**
    * Filtra y llena las horas semanales por cada tipo de reforma que se usarán para calcular las horas mensuales
    * En este punto todos los arreglos deben empezar por el días lunes y terminar en total
    * @param horasSemana Arreglo con todas las horas semanales de los diferentes tipos de reformas
    */
-  private llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
-    this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
-    this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
-    this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
+    private llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
+      this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
+      this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
+      this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
+    }
+
+
+  private calcularTotales(agno: ValorHoras[]) {
+    //inicializo el total de horas a 0
+    let total = structuredClone(this.configurationService.valorHoras);
+    total.id = 13;
+    total.label = CONST.totalLabel;
+    total.name = CONST.totalName;
+    total.reformaLabel = agno[0].reformaLabel;
+    total.reformaName = agno[0].reformaName;
+    total.style = agno[0].style;
+    total.valorHora = agno[0].valorHora;
+    agno.forEach(mes => {
+      //totalizo las horas del año
+      total.horasDiurnas += mes.horasDiurnas;
+      total.horasNocturnas += mes.horasNocturnas;
+      total.horasExtraDiurna += mes.horasExtraDiurna;
+      total.horasExtraNocturna += mes.horasExtraNocturna;
+      total.horasDiurnasDominicalesOFestivos += mes.horasDiurnasDominicalesOFestivos;
+      total.horasNocturnasDominicalesFestivos += mes.horasNocturnasDominicalesFestivos;
+      total.horasExtrasDiurnasDominicalesFestivas += mes.horasExtrasDiurnasDominicalesFestivas;
+      total.horasExtrasNocturnasDominicalesFestivas += mes.horasExtrasNocturnasDominicalesFestivas;
+      total.totalHoras += mes.totalHoras;
+      //totalizo el valor de las horas del año
+      total.valorHorasDiurnas += mes.valorHorasDiurnas;
+      total.valorHorasNocturnas += mes.valorHorasNocturnas;
+      total.valorHorasExtraDiurna += mes.valorHorasExtraDiurna;
+      total.valorHorasExtraNocturna += mes.valorHorasExtraNocturna;
+      total.valorHorasDiurnasDominicalesOFestivos += mes.valorHorasDiurnasDominicalesOFestivos;
+      total.valorHorasNocturnasDominicalesFestivos += mes.valorHorasNocturnasDominicalesFestivos;
+      total.valorHorasExtrasDiurnasDominicalesFestivas += mes.valorHorasExtrasDiurnasDominicalesFestivas;
+      total.valorHorasExtrasNocturnasDominicalesFestivas += mes.valorHorasExtrasNocturnasDominicalesFestivas;
+      total.totalValorHoras += mes.totalValorHoras;
+    })
+    //agregamos el total al final del año
+    agno.push(total);
   }
-
-
-
 
 }

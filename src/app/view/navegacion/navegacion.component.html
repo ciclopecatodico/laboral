@@ -1,26 +1,25 @@
 <div class="container">
-    <div class="appCredits">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" (click)="navegarA('inicial')">Simulador</a>
+        <a class="navbar-brand" (click)="navegarA('parametros')">Parámetros</a>
         <app-credits></app-credits>
+    </nav>
+    <div class="row">
+        <br>
     </div>
     <div class="row">
-        <br><br>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h1>Simulador Salarial</h1>
-            <h2>Ajustada a las reformas laborales</h2>
-        </div>
+        <parametros-view *ngIf="mostrarParametros"></parametros-view>
     </div>
     <div class="row">
         <div class="spacer" *ngIf="mostrarBotonVolver">
-            <button button type="button" class="btn btn-primary" (click)="volverA(volverAEtapa)">Volver</button>
+            <button button type="button" class="btn btn-primary" (click)="navegarA(volverAEtapa)">Volver</button>
         </div>
     </div>
 </div>
 
 <!--FORMULARIO inicial para ingresar el nombre y el horario de la persona -->
 <inicial-form [peticion]="peticion" *ngIf="mostrarInicialForm"
-(peticionHorarioChange)="simularSemana($event)"></inicial-form>
+    (peticionHorarioChange)="simularSemana($event)"></inicial-form>
 
 
 <!--SIMULACION de la semana -->

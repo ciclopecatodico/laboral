@@ -19,6 +19,14 @@ export const CONST = {
         id: 'jornadaNocturnaFin',
         label: 'Fin Jornada Nocturna'
     },
+    senaLectiva: {
+        id: 'senaLectiva',
+        label: 'SENA Etapa Lectiva'
+    },
+    senaProductiva: {
+        id: 'senaProductiva',
+        label: 'SENA Etapa Productiva'
+    },
     jornadaLaboralDiaria:
     {
         id: 'jornadaLaboralDiaria',
@@ -31,7 +39,7 @@ export const CONST = {
     horasDiurnas:
     {
         id: 'horasDiurnas',
-        label: 'Horas Diurnas'
+        label: 'Horas Diurnas',
     },
     horasNocturnas:
     {
@@ -69,30 +77,30 @@ export const CONST = {
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
-    diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado','domingo'],
+    diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
     diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
     diaDomingo: ['domingo'],
-    diasMes : 30,
+    diasMes: 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
     turnoInicio: '14:00',
-    turnoFin: '23:00',
-    turnoHoras: '9:00',
+    turnoFin: '22:00',
+    turnoHoras: '8:00',
     totalName: 'total',
-    totalLabel: 'Total', 
+    totalLabel: 'Total',
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
-        index : 0,
-        reforma : '1950',
-        style : 'primary'
+        index: 0,
+        reforma: '1950',
+        style: 'primary'
     },
     reforma789: {
-        index : 1,
-        reforma : '789',
+        index: 1,
+        reforma: '789',
         style: 'secondary'
     },
     reforma2025: {
-        index : 2,
-        reforma : '2025',
+        index: 2,
+        reforma: '2025',
         style: 'success'
     }
 

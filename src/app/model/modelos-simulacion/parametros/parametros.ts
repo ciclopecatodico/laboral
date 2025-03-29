@@ -1,3 +1,4 @@
+import { ParametroHora } from "./parametro-hora";
 
 /**
  * Almacena los parámetros para calcular 
@@ -24,14 +25,14 @@ export class Parametros {
         public jornadaLaboralSemanal : number,
         public jornadaLaboralMensual : number,
         public maximoHorasExtras : number,
-        public horasDiurnas : number,
-        public horasNocturnas: number,
-        public horasDiurnasDominicalesOFestivos: number,
-        public horasNocturnasDominicalesFestivos: number,
-        public horasExtrasDiurnas : number,
-        public horasExtrasNocturnas : number,
-        public horasExtrasDiurnasDominicalesFestivas : number,
-        public horasExtrasNocturnasDominicalesFestivas : number,
+        public horasDiurnas : ParametroHora,
+        public horasNocturnas: ParametroHora,
+        public horasExtrasDiurnas : ParametroHora,
+        public horasExtrasNocturnas : ParametroHora,
+        public horasDiurnasDominicalesOFestivos: ParametroHora,
+        public horasNocturnasDominicalesFestivos: ParametroHora,
+        public horasExtrasDiurnasDominicalesFestivas : ParametroHora,
+        public horasExtrasNocturnasDominicalesFestivas : ParametroHora,
     ){}
 
 }

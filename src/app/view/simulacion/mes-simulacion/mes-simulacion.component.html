@@ -1,7 +1,34 @@
 <div class="container">
     <h2>Simulación del mes: ESTA EN DESARROLLO!!!!!!</h2>
 
-    <horas-mes [meses]="mes"> 
+
+    <p>Muestra la simulación de un mes utilizando como modelo el a&nacute;o 2025</p>
+    <p>Este elemento está en desarrollo, si quieres contribuir a éste proyecto te invito a ponerte en contacto, en la
+        esquina superior derecha están las formas de contacto</p>
+
+    <table>
+        <tr>
+            <th>Nombre:</th>
+            <td>{{peticion.nombres}}</td>
+        </tr>
+        <tr>
+            <th>Estudiante del Sena?</th>
+            <td>{{peticion.sena?'Si':'No'}}</td>
+        </tr>
+        <tr *ngIf="peticion.sena">
+            <th>Etapa en el SENA?</th>
+            <td>{{peticion.etapa}}</td>
+        </tr>
+        <tr>
+            <th>Festivos </th>
+            <td>{{peticion.festivos?'Si':'No'}}</td>
+        </tr>
+        <tr>
+            <th>Salario: </th>
+            <td>{{peticion.salario | currency : '$'}}</td>
+        </tr>
+    </table>
+    <horas-mes [meses]="mes">
 
     </horas-mes>
 </div>

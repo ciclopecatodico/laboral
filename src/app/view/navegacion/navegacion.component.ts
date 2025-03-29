@@ -17,6 +17,7 @@ export class NavegacionComponent {
   public peticion: Peticion;
 
   //Mostrar o quitar componentes 
+  public mostrarParametros = false; 
   public mostrarInicialForm = true;
   public mostrarBotonVolver = false;
   public mostrarSemanaSimulacion = false;
@@ -69,10 +70,20 @@ export class NavegacionComponent {
    * Habilita componentes para simular una navegación 
    * @param paso 
    */
-  volverA(paso: string) {
+  navegarA(paso: string) {
     console.log("Volver A:", paso)
     switch (paso) {
+      case 'parametros':
+        this.mostrarParametros = true; 
+        this.mostrarInicialForm = false;
+        this.mostrarMesForm = false; 
+        this.mostrarSemanaSimulacion = false;
+        this.mostrarMesSimulacion = false;
+        this.volverAEtapa = '??';
+        this.mostrarBotonVolver = false;
+        break;
       case 'inicial':
+        this.mostrarParametros = false; 
         this.mostrarInicialForm = true;
         this.mostrarMesForm = false; 
         this.mostrarSemanaSimulacion = false;
@@ -81,6 +92,7 @@ export class NavegacionComponent {
         this.mostrarBotonVolver = false;
         break;
       case 'semana':
+        this.mostrarParametros = false; 
         this.mostrarInicialForm = false;
         this.mostrarMesForm = true; 
         this.mostrarSemanaSimulacion = true;
@@ -89,6 +101,7 @@ export class NavegacionComponent {
         this.mostrarBotonVolver = true;
         break;
       case 'mes':
+        this.mostrarParametros = false; 
         this.mostrarInicialForm = true;
         this.mostrarMesForm = false; 
         this.mostrarSemanaSimulacion = false;

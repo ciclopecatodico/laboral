@@ -19,14 +19,38 @@
         "jornadaLaboralSemanal": 48,
         "jornadaLaboralMensual": 240,
         "maximoHorasExtras": 4,
-        "horasDiurnas": 1,
-        "horasNocturnas": 1.1,
-        "horasDiurnasDominicalesOFestivos": 1.5,
-        "horasNocturnasDominicalesFestivos": 1.75,
-        "horasExtrasDiurnas": 1.1,
-        "horasExtrasNocturnas": 1.25,
-        "horasExtrasDiurnasDominicalesFestivas": 1.5,
-        "horasExtrasNocturnasDominicalesFestivas": 1.75
+        "horasDiurnas": {
+            "factor": 1,
+            "porcentaje": 100
+        },
+        "horasNocturnas": {
+            "factor": 1.1,
+            "porcentaje": 10
+        },
+        "horasExtrasDiurnas": {
+            "factor": 1.1,
+            "porcentaje": 10
+        },
+        "horasExtrasNocturnas": {
+            "factor": 1.25,
+            "porcentaje": 25
+        },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 1.5,
+            "porcentaje": 50
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasExtrasDiurnasDominicalesFestivas": {
+            "factor": 1.5,
+            "porcentaje": 50
+        },
+        "horasExtrasNocturnasDominicalesFestivas": {
+            "factor": 1.75,
+            "porcentaje": 175
+        }
     },
     {
         "id": 2,
@@ -48,14 +72,38 @@
         "jornadaLaboralSemanal": 48,
         "jornadaLaboralMensual": 240,
         "maximoHorasExtras": 4,
-        "horasDiurnas": 1,
-        "horasNocturnas": 1.1,
-        "horasDiurnasDominicalesOFestivos": 1.5,
-        "horasNocturnasDominicalesFestivos": 1.75,
-        "horasExtrasDiurnas": 1.1,
-        "horasExtrasNocturnas": 1.25,
-        "horasExtrasDiurnasDominicalesFestivas": 1.5,
-        "horasExtrasNocturnasDominicalesFestivas": 1.75
+        "horasDiurnas": {
+            "factor": 1,
+            "porcentaje": 100
+        },
+        "horasNocturnas": {
+            "factor": 1.35,
+            "porcentaje": 35
+        },
+        "horasExtrasDiurnas": {
+            "factor": 1.25,
+            "porcentaje": 25
+        },
+        "horasExtrasNocturnas": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 2.1,
+            "porcentaje": 110
+        },
+        "horasExtrasDiurnasDominicalesFestivas": {
+            "factor": 2,
+            "porcentaje": 100
+        },
+        "horasExtrasNocturnasDominicalesFestivas": {
+            "factor": 2.50,
+            "porcentaje": 150
+        }
     },
     {
         "id": 3,
@@ -74,16 +122,40 @@
         "nocheInicio": "06:00 PM",
         "nocheFin": "06:00 AM",
         "jornadaLaboralDiaria": 8,
-        "jornadaLaboralSemanal": 48,
-        "jornadaLaboralMensual": 240,
+        "jornadaLaboralSemanal": 46,
+        "jornadaLaboralMensual": 230,
         "maximoHorasExtras": 4,
-        "horasDiurnas": 1,
-        "horasNocturnas": 1.1,
-        "horasDiurnasDominicalesOFestivos": 1.5,
-        "horasNocturnasDominicalesFestivos": 1.75,
-        "horasExtrasDiurnas": 1.1,
-        "horasExtrasNocturnas": 1.25,
-        "horasExtrasDiurnasDominicalesFestivas": 1.5,
-        "horasExtrasNocturnasDominicalesFestivas": 1.75
+        "horasDiurnas": {
+            "factor": 1,
+            "porcentaje": 100
+        },
+        "horasNocturnas": {
+            "factor": 1.35,
+            "porcentaje": 35
+        },
+        "horasExtrasDiurnas": {
+            "factor": 1.25,
+            "porcentaje": 25
+        },
+        "horasExtrasNocturnas": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 2.1,
+            "porcentaje": 110
+        },
+        "horasExtrasDiurnasDominicalesFestivas": {
+            "factor": 2,
+            "porcentaje": 100
+        },
+        "horasExtrasNocturnasDominicalesFestivas": {
+            "factor": 2.50,
+            "porcentaje": 150
+        }
     }
 ]

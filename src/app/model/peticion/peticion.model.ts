@@ -6,14 +6,12 @@ export class Peticion {
         public nombres : string, 
         public salario : number,
         public nocturna? : boolean,
-        public valorHora ?:number,
         public edad ?: number,
         public experiencia ?: number,
         public sexo ? :string,
         public sena ?: boolean,
         public etapa ?: string,
-        public domingos? : number,
-        public festivos? : number,
+        public festivos? : boolean,
         public turnos? : Turno[]
     ){}
 }

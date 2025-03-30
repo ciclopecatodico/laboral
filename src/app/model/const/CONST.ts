@@ -9,7 +9,8 @@ export const CONST = {
     {
         id: 'jornadaDiurnaFin',
         label: 'Fin Jornada Diurna'
-    }, jornadaNocturnaInicio:
+    },
+    jornadaNocturnaInicio:
     {
         id: 'jornadaNocturnaInicio',
         label: 'Inicio Jornada Nocturna'
@@ -31,10 +32,16 @@ export const CONST = {
     {
         id: 'jornadaLaboralDiaria',
         label: 'Jornada Laboral Diaria'
-    }, jornadaLaboralSemanal:
+    },
+    jornadaLaboralSemanal:
     {
         id: 'jornadaLaboralSemanal',
         label: 'Jornada Laboral Semanal'
+    },
+    jornadaLaboralMensual:
+    {
+        id: 'jornadaLaboralMensual',
+        label: 'Jornada Laboral Mensual'
     },
     horasDiurnas:
     {
@@ -76,6 +83,10 @@ export const CONST = {
         id: 'horasExtrasNocturnasDominicalesOFestivos',
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
+    smlv: {
+        id :'smlv',
+        label: 'Salario Mínimo Legal Vigente'
+    },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
     diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
     diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
@@ -83,8 +94,8 @@ export const CONST = {
     diasMes: 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
-    turnoInicio: '08:00',
-    turnoFin: '16:00',
+    turnoInicio: '14:00',
+    turnoFin: '22:00',
     turnoHoras: '8:00',
     totalName: 'total',
     totalLabel: 'Total',

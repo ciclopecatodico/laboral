@@ -9,18 +9,14 @@ import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 
 
 /**
- * Liquida un conjunto de meses, tipicamente un año 
- * Utiliza un arreglo de horas[] que tiene los días de la semana con las horas calculadas
- * y debe recorrer un arreglo de meses en los que hace coincidir cada día con su respectivo
- * día en el calendario ej 1 es un jueves, entonces 2 es un viernes, 3 un sábado y 4 un domingo
- * y liquidar las horas según corresponda a días laborales típicamente lunes a sábado o dominicales
- * y festivos 
+ * Liquida un conjunto de años
+ * 
  */
 
 @Injectable({
   providedIn: 'root'
 })
-export class LiquidadorMesesService {
+export class LiquidadorAgnosService {
 
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
@@ -35,11 +31,11 @@ export class LiquidadorMesesService {
   public semana2025 = new Array<HorasSemana>();
 
   /**
-   * Guarda la liquidación de los meses de un año y su total. 
+   * Guarda la liquidación de la historia laboral. 
    */
-  public agno1950 = new Array<ValorHoras>;
-  public agno789 = new Array<ValorHoras>;
-  public agno2025 = new Array<ValorHoras>;
+  public laboral1950 = new Array<ValorHoras>;
+  public laboral789 = new Array<ValorHoras>;
+  public laboral2025 = new Array<ValorHoras>;
 
   constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
     this.configurationService = configurationService;
@@ -56,9 +52,9 @@ export class LiquidadorMesesService {
     //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
     //Limpiar variables que almacenan la simulacion
-    this.agno1950 = new Array<ValorHoras>;
-    this.agno789 = new Array<ValorHoras>;
-    this.agno2025 = new Array<ValorHoras>;
+    this.laboral1950 = new Array<ValorHoras>;
+    this.laboral789 = new Array<ValorHoras>;
+    this.laboral2025 = new Array<ValorHoras>;
     //obtener el año que trae los parametros de
     let agno = this.configurationService.agnoModel;
 
@@ -78,24 +74,19 @@ export class LiquidadorMesesService {
     for (let i = 0; i < duracion; i++) {
       let mesIndex = i%12;
       let mes1950 = this.liquidadorMesService.contarHorasMes(this.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
-      this.agno1950.push(mes1950);
+      this.laboral1950.push(mes1950);
       let mes789 = this.liquidadorMesService.contarHorasMes(this.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
-      this.agno789.push(mes789);
+      this.laboral789.push(mes789);
       let mes2025 = this.liquidadorMesService.contarHorasMes(this.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
-      this.agno2025.push(mes2025);
+      this.laboral2025.push(mes2025);
     }
 
-    this.calcularTotales(this.agno1950);
-    this.calcularTotales(this.agno789);
-    this.calcularTotales(this.agno2025);
-
-    this.redonderar(this.agno1950);
-    this.redonderar(this.agno789);
-    this.redonderar(this.agno2025);
-
+    this.calcularTotales(this.laboral1950);
+    this.calcularTotales(this.laboral789);
+    this.calcularTotales(this.laboral2025);
     let agnos = new Array<ValorHoras>();
     //retornamos un arreglo que contiene todos los agños calculados. 
-    agnos = [...this.agno1950, ...this.agno789, ...this.agno2025];
+    agnos = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
     return agnos;
   }
 
@@ -146,23 +137,6 @@ export class LiquidadorMesesService {
     //agregamos el total al final del año
     agno.push(total);
   }
-
-  
-
-  private redonderar(agno: ValorHoras[]) {
-    agno.forEach( m => {
-      m.horasDiurnas = Math.round(m.horasDiurnas * 100)/100;
-      m.horasNocturnas = Math.round(m.horasNocturnas * 100)/100;
-      m.horasExtraDiurna = Math.round(m.horasExtraDiurna * 100)/100;
-      m.horasExtraNocturna = Math.round(m.horasExtraNocturna * 100)/100;
-      m.horasDiurnasDominicalesOFestivos = Math.round(m.horasDiurnasDominicalesOFestivos * 100)/100;
-      m.horasNocturnasDominicalesFestivos = Math.round(m.horasNocturnasDominicalesFestivos * 100)/100;
-      m.horasExtrasDiurnasDominicalesFestivas = Math.round(m.horasExtrasDiurnasDominicalesFestivas * 100)/100;
-      m.horasExtrasNocturnasDominicalesFestivas = Math.round(m.horasExtrasNocturnasDominicalesFestivas * 100)/100;
-      m.totalHoras = Math.round(m.totalHoras * 100)/100;
-    });
-  }
-
 
   /**
    * De esta función depende que el cálculo del salario mensual sea acorde al SMLV vigente según la reforma que se esté aplicando a las jornadas 

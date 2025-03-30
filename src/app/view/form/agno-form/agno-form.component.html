@@ -1,15 +1,18 @@
 <div class="container">
-    <h2>Simula tu vida laboral</h2>
-    <p>Formulario calcular Proyección vida laboral</p>
+    <h2>Cómo se ve esto en una vida laboral?</h2>
+    <p>Proyección vida laboral, &eacute;sta opci&oacute;n s&oacute;lo est&aacute; disponible si no simulaste como
+        estudiante del SENA</p>
     <div class="row">
         <label for="edad">Cuál es tu edad?</label>
         <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
     </div>
+    <br>
     <div class="row">
         <label for="experiencia">Hace cuantos años trabajas?</label>
         <input class="form-control" type="number" id="experiencia" name="experiencia"
             [(ngModel)]="peticion.experiencia">
     </div>
+    <br>
     <div class="row">
         <label for="nombre">Te pensionarás como?</label>
         <div class="form-check">
@@ -27,11 +30,18 @@
             </label>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="spacer">
             <button button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
-            <button button type="button" class="btn btn-success" [disabled]="!formularioValido"
-                (click)="calcularAgnos()">Simular meses</button>
         </div>
+        <div class="spacer">
+            <button button type="button" class="btn btn-success" [disabled]="!formularioValido"
+                (click)="calcularAgnos()">Simular años</button>
+        </div>
+        <p *ngIf="peticion.sena"> 
+            Esta opci&oacute;n s&oacute;lo est&aacute; disponible si no simulaste como
+            estudiante del SENA
+        </p>
     </div>
 </div>

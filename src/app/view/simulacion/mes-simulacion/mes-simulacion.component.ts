@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { Peticion } from '../../../model/peticion/peticion.model';
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
+import { ConfigurationService } from '../../../service/configuration/configuration.service';
+import { CONST } from '../../../model/const/CONST';
 
 @Component({
   selector: 'mes-simulacion',
@@ -12,17 +15,18 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 export class MesSimulacionComponent {
 
 
-
+  @Input()
+  public mes = Array<ValorHoras>();
   @Output()
   public peticionMesChange = new EventEmitter<Peticion>;
   public peticion_: Peticion;
-
+  public parametros: Parametros[];
   public verNotas = false;
+  public const = CONST;
 
-  @Input()
-  public mes = Array<ValorHoras>();
 
-  constructor() {
+  constructor(configurationService: ConfigurationService) {
+    this.parametros = configurationService.parametros;
     this.peticion_ = new Peticion('', 1);
   }
 

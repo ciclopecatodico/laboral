@@ -25,32 +25,36 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="row">
         <div class="col" *ngIf="peticion.sena">
-            <label for="duracion" class="form-input">Duración en meses: </label>
+            <label for="duracion" class="form-input">Duración de la pr&aacute;ctica en meses: </label>
             <input class="form-control" type="number" id="duracion" name="duracion" [(ngModel)]="peticion.duracion">
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col" *ngIf="!peticion.sena">
             <label for="salario" class="form-input">Cuál es tu salario Base: </label>
             <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col">
             <label for="festivos" class="form-label">Trabajas los festivos?</label>
-            <input class="form-check-input" type="checkbox" id="festivos" name="festivos" [(ngModel)]="peticion.festivos">
+            <input class="form-check-input" type="checkbox" id="festivos" name="festivos"
+                [(ngModel)]="peticion.festivos">
         </div>
     </div>
     <br>
-
     <div class="row">
         <div class="spacer">
             <button button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
-            <button button type="button" class="btn btn-success" [disabled]="!formularioValido" (click)="calcularMes()">Simular meses</button>
+        </div>
+        <div class="spacer">
+            <button button type="button" class="btn btn-success" [disabled]="!formularioValido"
+                (click)="calcularMes()">Simular meses</button>
         </div>
     </div>
 </div>

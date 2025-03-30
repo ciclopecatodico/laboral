@@ -45,6 +45,7 @@ export class LiquidadorHorasService {
         }
       }
     }
+    this.redonderar(this.horasList);
     return this.horasList;
   }
 
@@ -155,10 +156,10 @@ export class LiquidadorHorasService {
   }
 
   /**
-   * Calcula las horas que trabajó una persona dentro de las Jornadas 
+   * Calcula las horas que trabajó una persona dentro de las Jornada Diurna
    * @param horario Horas en las que trabajó la persona EJ: ['02:00 PM','10:00 PM']
    * @param jornada laboral, EJ Jornada diurna ['06:00 AM','06:00 PM']
-   * @returns Horas del horario dento de la jornada, para los ejemplos 4horas ['02:00 PM','06:00 PM']
+   * @returns Horas del horario dento de la jornada, para los ejemplos 4 horas ['02:00 PM','06:00 PM']
    * las horas posteriores al turno deberán ser contadas por otro llamado que cuente las horas en jornada nocturna ['06:00 PM','06:00 AM']
    */
   public calcularHorasDentroDelTurno(horario: string[], jornada: string[]): number {
@@ -196,5 +197,18 @@ export class LiquidadorHorasService {
     return 0;
   }
 
+
+  /**
+   * Redondear todas las horas a dos decimales 
+   * @param horasList 
+   */
+  public redonderar(horasList: HorasSemana[]){
+    horasList.forEach( h=> {
+      h.horasDiurnas = Math.round(h.horasDiurnas * 100)/100;
+      h.horasExtraDiurna = Math.round(h.horasExtraDiurna * 100)/100;
+      h.horasNocturnas = Math.round(h.horasNocturnas * 100)/100;
+      h.horasExtraNocturna = Math.round(h.horasExtraNocturna * 100)/100;
+    });
+  }
 
 }

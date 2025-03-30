@@ -50,17 +50,20 @@ export class MesFormComponent {
 
 
   get formularioValido(): boolean {
-    let valido = true; 
     if (this.peticion_.sena) {
       if (!this.peticion_.etapa) {
-        valido = false;
+        return false;
+      }
+      //si es del sena debe poner una duración en la práctica
+      if(this.peticion.duracion == undefined || this.peticion.duracion < 1){
+        return false; 
       }
     } else {
       if (this.peticion_.salario < this.parametros.smlv){
-        valido = false;
+        return  false;
       }
     }
-    return valido;
+    return true; 
   }
 
 }

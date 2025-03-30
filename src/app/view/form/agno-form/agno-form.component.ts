@@ -5,62 +5,61 @@ import { Parametros } from '../../../model/modelos-simulacion/parametros/paramet
 import { CONST } from '../../../model/const/CONST';
 
 @Component({
-  selector: 'app-agno-form',
+  selector: 'agno-form',
   standalone: false,
   templateUrl: './agno-form.component.html',
   styleUrl: './agno-form.component.css'
 })
 export class AgnoFormComponent {
 
- 
-   @Output()
-   public peticionSemanaChange = new EventEmitter<Peticion>;
- 
-   @Output()
-   public volverChange = new EventEmitter<string>;
-   public peticion_: Peticion;
- 
-   public parametros: Parametros;
- 
- 
-   constructor(configurationService: ConfigurationService) {
-     this.peticion_ = new Peticion('', 1);
-     this.parametros = configurationService.parametros[CONST.reforma2025.index];
-   }
- 
- 
-   public calcularAgnos() {
-     this.peticionSemanaChange.emit(this.peticion_);
-   }
- 
-   public volver(){
-     this.volverChange.emit('mes');
-   }
- 
-   @Input()
-   set peticion(peticion: Peticion) {
-     this.peticion_ = peticion;
-     //asigno a la petición el valor del salario del último parámetro utilizado 2025
-     this.peticion.salario = this.parametros.smlv;
-   }
- 
-   get peticion() {
-     return this.peticion_;
-   }
- 
- 
-   get formularioValido(): boolean {
-     let valido = true; 
-     if (this.peticion_.sena) {
-       if (!this.peticion_.etapa) {
-         valido = false;
-       }
-     } else {
-       if (this.peticion_.salario < this.parametros.smlv){
-         valido = false;
-       }
-     }
-     return valido;
-   }
+
+  @Output()
+  public peticionSemanaChange = new EventEmitter<Peticion>;
+
+  @Output()
+  public volverChange = new EventEmitter<string>;
+  public peticion_: Peticion;
+
+  public parametros: Parametros;
+
+
+  constructor(configurationService: ConfigurationService) {
+    this.peticion_ = new Peticion('', 1);
+    this.parametros = configurationService.parametros[CONST.reforma2025.index];
+  }
+
+
+  public calcularAgnos() {
+    this.peticionSemanaChange.emit(this.peticion_);
+  }
+
+  public volver() {
+    this.volverChange.emit('semana');
+  }
+
+  @Input()
+  set peticion(peticion: Peticion) {
+    this.peticion_ = peticion;
+    //asigno a la petición el valor del salario del último parámetro utilizado 2025
+    this.peticion.salario = this.parametros.smlv;
+  }
+
+  get peticion() {
+    return this.peticion_;
+  }
+
+
+  get formularioValido(): boolean {
+    if (this.peticion_.sena) {
+      return false;
+    }
+    if (this.peticion_.edad == undefined || this.peticion_.edad < 18) {
+      return false;
+    }
+    if (this.peticion_.sexo == undefined) {
+      return false;
+    }
+    return true;
+  }
 
 }

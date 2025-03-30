@@ -1,1 +1,38 @@
-<p>agno-simulacion works!</p>
+<div class="container">
+    <h2>Simulacion de historia laboral</h2>
+    <p>Elemento en construcci&oacute;n!</p>
+
+    <h3>Datos ingresados:</h3>
+    <table>
+        <tr>
+            <th>Nombre:</th>
+            <td>{{peticion.nombres}}</td>
+        </tr>
+        <tr>
+            <th>Estudiante del Sena?</th>
+            <td>{{peticion.sena?'Si':'No'}}</td>
+        </tr>
+        <tr *ngIf="peticion.sena">
+            <th>Etapa en el SENA?</th>
+            <td>{{peticion.etapa}}</td>
+        </tr>
+        <tr *ngIf="peticion.sena">
+            <th>Duraci&oacute;n pr&aacute;ctica SENA?</th>
+            <td>{{peticion.duracion}} Meses</td>
+        </tr>
+        <tr>
+            <th>Trabajas los festivos: </th>
+            <td>{{peticion.festivos?'Si':'No'}}</td>
+        </tr>
+        <tr>
+            <th>Salario Base: </th>
+            <td>{{peticion.salario | currency : '$'}}</td>
+        </tr>
+    </table>
+    <br>
+    <div class="row">
+        <div class="spacer">
+            <button button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
+        </div>
+    </div>
+</div>

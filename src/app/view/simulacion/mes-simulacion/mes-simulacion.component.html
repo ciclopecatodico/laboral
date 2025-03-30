@@ -1,9 +1,10 @@
 <div class="container">
-    <h2>Simulación mes a mes: ESTA EN DESARROLLO!!!!!!</h2>
+    <h2>Simulación mes a mes:</h2>
 
-    <p>Muestra la simulación de un mes utilizando como modelo el a&nacute;o 2025</p>
+    <p>Muestra la simulación de un mes utilizando como modelo los datos del a&nacute;o 2025</p>
     <p>Este elemento está en desarrollo, si quieres contribuir a éste proyecto te invito a ponerte en contacto, en la
         esquina superior derecha están las formas de contacto</p>
+    <h3>Datos ingresados:</h3>
     <table>
         <tr>
             <th>Nombre:</th>
@@ -30,12 +31,125 @@
             <td>{{peticion.salario | currency : '$'}}</td>
         </tr>
     </table>
-
-    <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success"> Ver Notas</button>
-    
+    <br>
+    <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success">Ver Consideraciones</button>
     <div *ngIf="verNotas">
-        El valor de la hora se obtiene al dividir el salario mensual entre la jornada mensual de la reforma, por eso va a variar dependiendo de la reforma. 
+        <br>
+        <h4>Par&aacute;metros utilizados:</h4>
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Valores</th>
+                    <th *ngFor="let parametro of parametros">{{parametro.reformaLabel}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Salario: </td>
+                    <td>{{ peticion.salario | currency : '$' }}</td>
+                    <td>{{ peticion.salario | currency : '$' }}</td>
+                    <td>{{ peticion.salario | currency : '$' }}</td>
+                </tr>
+                <tr>
+                    <td>Valor {{const.jornadaLaboralMensual.label}}</td>
+                    <td>{{parametros[0].jornadaLaboralMensual}} Horas</td>
+                    <td>{{parametros[1].jornadaLaboralMensual}} Horas</td>
+                    <td>{{parametros[2].jornadaLaboralMensual}} Horas</td>
+                </tr>
+                <tr>
+                    <td>Valor {{const.horasDiurnas.label}}</td>
+                    <td>{{(parametros[0].smlv / parametros[0].jornadaLaboralMensual) | currency : '$' }} </td>
+                    <td>{{(parametros[1].smlv / parametros[1].jornadaLaboralMensual) | currency : '$' }} </td>
+                    <td>{{(parametros[2].smlv / parametros[2].jornadaLaboralMensual) | currency : '$' }} </td>
+                </tr>
+                <tr *ngIf="peticion.sena">
+                    <td colspan="4" align="center"><b>Practicas SENA</b></td>
+                </tr>
+                <tr *ngIf="peticion.sena">
+                    <td>{{const.senaLectiva.label}}</td>
+                    <td>{{parametros[0].senaLectiva}}% de SMLV</td>
+                    <td>{{parametros[1].senaLectiva}}% de SMLV</td>
+                    <td>{{parametros[2].senaLectiva}}% de SMLV</td>
+                </tr>
+                <tr *ngIf="peticion.sena">
+                    <td>{{const.senaProductiva.label}}</td>
+                    <td>{{parametros[0].senaProductiva}}% de SMLV</td>
+                    <td>{{parametros[1].senaProductiva}}% de SMLV</td>
+                    <td>{{parametros[2].senaProductiva}}% de SMLV</td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center"><b>Incremento adicional sobre el valor de
+                            las {{const.horasDiurnas.label}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{const.horasDiurnas.label}}</td>
+                    <td>{{parametros[0].horasDiurnas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasDiurnas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasDiurnas.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasNocturnas.label}}</td>
+                    <td>{{parametros[0].horasNocturnas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasNocturnas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasNocturnas.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasExtrasDiurnas.label}}</td>
+                    <td>{{parametros[0].horasExtrasDiurnas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasExtrasDiurnas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasExtrasDiurnas.porcentaje}}%</td>
 
+                </tr>
+                <tr>
+                    <td>{{const.horasExtrasNocturnas.label}}</td>
+                    <td>{{parametros[0].horasExtrasNocturnas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasExtrasNocturnas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasExtrasNocturnas.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasDiurnasDominicalesOFestivos.label}}</td>
+                    <td>{{parametros[0].horasDiurnasDominicalesOFestivos.porcentaje}}%</td>
+                    <td>{{parametros[1].horasDiurnasDominicalesOFestivos.porcentaje}}%</td>
+                    <td>{{parametros[2].horasDiurnasDominicalesOFestivos.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasNocturnasDominicalesFestivos.label}}</td>
+                    <td>{{parametros[0].horasNocturnasDominicalesFestivos.porcentaje}}%</td>
+                    <td>{{parametros[1].horasNocturnasDominicalesFestivos.porcentaje}}%</td>
+                    <td>{{parametros[2].horasNocturnasDominicalesFestivos.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasExtrasDiurnasDominicalesOFestivos.label}}</td>
+                    <td>{{parametros[0].horasExtrasDiurnasDominicalesFestivas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasExtrasDiurnasDominicalesFestivas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasExtrasDiurnasDominicalesFestivas.porcentaje}}%</td>
+                </tr>
+                <tr>
+                    <td>{{const.horasExtrasNocturnasDominicalesOFestivos.label}}</td>
+                    <td>{{parametros[0].horasExtrasNocturnasDominicalesFestivas.porcentaje}}%</td>
+                    <td>{{parametros[1].horasExtrasNocturnasDominicalesFestivas.porcentaje}}%</td>
+                    <td>{{parametros[2].horasExtrasNocturnasDominicalesFestivas.porcentaje}}%</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Presuntos:</h4>
+        <ul>
+            <li>El valor de la hora se obtiene al dividir el salario mensual entre la jornada mensual de la reforma, por
+                eso va a variar dependiendo de la reforma.</li>
+            <li>Esto significa que el valor de la hora depende de la jornada mensual y el salario ingresado o el valor
+                del SMLV.</li>
+            <li>Si se ingresaron horas dominicales se liquidar&aacute;n autom&aacute;ticamente.</li>
+            <li>Si se seleccion&oacute;no trabajo en d&iacute;a festivo se liquidar&aacute;n autom&aacute;ticamente con el calendario de D&iacute;as y Festivos correspondientes al año 2025.
+            </li>
+            <li>El modelo no incluye el valor del subsidio de transporte en &eacute;ste momento</li>
+            <li>El modelo no cuenta como horas extras el total de horas que superan la jornada laboral mensual, es decir
+                se liquidan
+                de forma d&iacute;aria en &eacute;ste momento</li>
+            <li>La jornada laboral mensual en 2025 disminuye a 230 horas, al disminuir tambi&eacute;n lo hace la jornada semanal a 46 horas y
+                deber&iacute;a hacerlo la jornada diaria por ejemplo a 7.6 horas, pero para efectos de simplificar los
+                c&aacute;lculos voy a tomar para 2025 una jornada diaria de 8 horas y lo que le sobrepase ser&aacute;n
+                horas extras</li>
+        </ul>
     </div>
 
     <horas-mes [meses]="mes">

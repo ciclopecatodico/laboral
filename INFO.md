@@ -83,3 +83,7 @@ para un total de 12 horas
 
 
 Se debe aplicar un criterio de continuidad en el paso de la noche a la madrugada cuando la persona trabaja más de 8 horas en el cambio de un día a otro 
+
+
+Tengo una duda respecto a la jornada laboral, al disminuir la jornada laboral mensual a 230 horas no da 46 horas semanales o 7.6 diarias, 
+es decir que las horas extra empezarían a contar a partir de las 7.6 horas para 2025? 

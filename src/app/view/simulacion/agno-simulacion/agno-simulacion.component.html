@@ -37,15 +37,36 @@
         </tr>
         <tr>
             <th>Te pensionarás como: </th>
-            <td>{{peticion.sexo}}</td>
+            <td>{{peticion.sexo === const.hombre.sexo ? const.hombre.label:const.mujer.label}} a los {{peticion.sexo ===
+                const.hombre.sexo ? const.hombre.edadPension:const.mujer.edadPension}} años</td>
+        </tr>
+        <tr>
+            <th>Año inicial simulación : </th>
+            <td>{{laboral.inicio}}</td>
+        </tr>
+        <tr>
+            <th>Año final simulación: </th>
+            <td>{{laboral.fin}}</td>
+        </tr>
+        <tr>
+            <th>Años trabajando: </th>
+            <td>{{laboral.fin-laboral.inicio}}</td>
         </tr>
     </table>
     <br>
-    <p>Simulacion proyectada a los años que has trabajado</p>
-    <p>Cada color representa la  simulación de una Reforma Laboral </p>
-    <p>Todos los cálculos se realizan en salarios de 2025</p>
+    <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success">Ver Consideraciones</button>
+    <div *ngIf="verNotas">
+        <br>
+        <p>Simulacion proyectada a los años que has trabajado</p>
+        <p>Cada color representa la simulación de una Reforma Laboral </p>
+        <p>Todos los cálculos se realizan en salarios de 2025</p>
+        <p>No se incluye el subsidio de transporte ni primas ni cesantías ni vacaciones para los cálculos en este
+            momento.</p>
+    </div>
     <br>
-    <horas-agno [laboral]="laboral">
+    <br>
+    Así se vería tu historia laboral liquidada por cada una de las reformas desde hechas 1990 y con la propuesta: 
+    <horas-agno [laboral]="laboral.valores">
     </horas-agno>
     <div class="row">
         <div class="spacer">
@@ -53,4 +74,3 @@
         </div>
     </div>
 </div>
-

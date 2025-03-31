@@ -20,7 +20,7 @@ export class SemanaSimulacionComponent {
   @Output()
   public peticionSemanaChange = new EventEmitter<Peticion>;
 
-
+  public verNotas = false; 
   public peticion_: Peticion;
 
   public reformas: Parametros[];

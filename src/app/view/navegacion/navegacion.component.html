@@ -1,7 +1,7 @@
 <div class="container">
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" (click)="navegarA('inicial')">Simulador</a>
-        <a class="navbar-brand" (click)="navegarA('parametros')">Parámetros</a>
+        <a class="navbar-brand" (click)="navegarA('parametros')">Información</a>
         <app-credits></app-credits>
     </nav>
     <div class="row">
@@ -26,7 +26,7 @@
 <mes-form [peticion]="peticion" *ngIf="mostrarMesForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularMeses($event)"></mes-form>
 
 <!--SIMULACION del mes con la configuración del sena o salario -->
-<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [meses]="meses"></mes-simulacion>
+<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [agno]="agno"></mes-simulacion>
 
 <!--FORMULARIO de la eddad, sexo y años de experiencia laboral para liquidar lo que  ha perdido con la refoma  789 y lo que podría ganar con la reforma 2025-->
 <agno-form [peticion]="peticion" *ngIf="mostrarAgnoForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularAgnos($event)"></agno-form>

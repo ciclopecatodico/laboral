@@ -6,6 +6,7 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
+import { Agno } from '../../../model/simulacion/agno/ango';
 
 
 /**
@@ -52,7 +53,7 @@ export class LiquidadorMesesService {
    * @param horasSemana 
    * @param peticion 
    */
-  public simularMeses(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
+  public simularMeses(horasSemana: HorasSemana[], peticion: Peticion): Agno {
     //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
     //Limpiar variables que almacenan la simulacion
@@ -93,10 +94,10 @@ export class LiquidadorMesesService {
     this.redonderar(this.agno789);
     this.redonderar(this.agno2025);
 
-    let agnos = new Array<ValorHoras>();
+    let meses = new Array<ValorHoras>();
     //retornamos un arreglo que contiene todos los agños calculados. 
-    agnos = [...this.agno1950, ...this.agno789, ...this.agno2025];
-    return agnos;
+    meses = [...this.agno1950, ...this.agno789, ...this.agno2025];
+    return new Agno(peticion.salario, meses);
   }
 
   /**

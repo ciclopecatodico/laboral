@@ -6,6 +6,7 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
+import { Laboral } from '../../../model/simulacion/laboral/laboral';
 
 
 /**
@@ -54,7 +55,7 @@ export class LiquidadorAgnosService {
    * @param agno 
    * @param peticion 
    */
-  public simularAngos(agno: ValorHoras[], peticion: Peticion): ValorHoras[] {
+  public simularAngos(agno: ValorHoras[], peticion: Peticion): Laboral {
     //Inicializa los arreglos que contienen un año liquidado por cada tipo de reforma
     this.filtraTotalPorReforma(agno);
     
@@ -70,12 +71,12 @@ export class LiquidadorAgnosService {
     this.calcularTotales(this.laboral1950);
     this.calcularTotales(this.laboral789);
     this.calcularTotales(this.laboral2025);
-    let laboral = new Array<ValorHoras>();
+    let valorHoras = new Array<ValorHoras>();
     
     //retornamos un arreglo que contiene todos los agños calculados. 
-    laboral = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
-    console.log("Laboral length:", laboral.length);
-    return laboral;
+    valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
+    
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras);
   }
 
   /**

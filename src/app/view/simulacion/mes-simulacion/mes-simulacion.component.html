@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th>Salario Base: </th>
-            <td>{{peticion.salario | currency : '$'}}</td>
+            <td>{{agno.salario | currency : '$'}}</td>
         </tr>
     </table>
     <br>
@@ -49,12 +49,12 @@
                 <tbody>
                     <tr>
                         <td>Salario: </td>
-                        <td>{{ peticion.salario | currency : '$' }}</td>
-                        <td>{{ peticion.salario | currency : '$' }}</td>
-                        <td>{{ peticion.salario | currency : '$' }}</td>
+                        <td>{{ agno.salario | currency : '$' }}</td>
+                        <td>{{ agno.salario | currency : '$' }}</td>
+                        <td>{{ agno.salario | currency : '$' }}</td>
                     </tr>
                     <tr>
-                        <td>Valor {{const.jornadaLaboralMensual.label}}</td>
+                        <td>{{const.jornadaLaboralMensual.label}}</td>
                         <td>{{parametros[0].jornadaLaboralMensual}} Horas</td>
                         <td>{{parametros[1].jornadaLaboralMensual}} Horas</td>
                         <td>{{parametros[2].jornadaLaboralMensual}} Horas</td>
@@ -187,7 +187,7 @@
         </ul>
     </div>
 
-    <horas-mes [meses]="meses">
+    <horas-mes [meses]="agno.meses">
 
     </horas-mes>
 

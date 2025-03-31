@@ -5,6 +5,8 @@ import { LiquidadorSemanaService } from '../../service/liquidador/liquidador-sem
 import { LiquidadorMesesService } from '../../service/liquidador/liquidador-meses/liquidador-meses.service';
 import { ValorHoras } from '../../model/liquidacion/valor-horas/valor-horas';
 import { LiquidadorAgnosService } from '../../service/liquidador/liquidador-agnos/liquidador-agnos.service';
+import { Laboral } from '../../model/simulacion/laboral/laboral';
+import { Agno } from '../../model/simulacion/agno/ango';
 
 @Component({
   selector: 'app-navegacion',
@@ -28,8 +30,8 @@ export class NavegacionComponent {
 
   public volverAEtapa = 'inicial'; //inicial|sena|
   public semana = Array<HorasSemana>();
-  public meses = Array<ValorHoras>();
-  public laboral = Array<ValorHoras>();
+  public agno = new Agno(0, []);
+  public laboral = new Laboral(0,0,0, []);
   //Se encarga de liquidar las horas de una semana 
   public liquidadorSemanaService: LiquidadorSemanaService;
   //Se encarga de liquidar un año, conjunto de 12 meses
@@ -62,8 +64,7 @@ export class NavegacionComponent {
     //ya tengo la semana liquidada en este componente 
     //la debo usar para calcular el mes 
     this.peticion = peticion;
-    this.meses = this.liquidadorMesesService.simularMeses(this.semana, this.peticion);
-    console.log("Simulacion meses:", this.meses.length);
+    this.agno = this.liquidadorMesesService.simularMeses(this.semana, this.peticion);
     //ocultar todas las otras simulaciones y formularios
     this.mostrarMesSimulacion = true;
     this.mostrarSemanaSimulacion = false;
@@ -76,8 +77,9 @@ export class NavegacionComponent {
   }
 
   simularAgnos(peticion: Peticion) {
+    peticion.salario = this.agno.salario;
     console.log("peticion: ", JSON.stringify(peticion));
-    this.laboral = this.liquidadorAgnosService.simularAngos(this.meses, this.peticion);
+    this.laboral = this.liquidadorAgnosService.simularAngos(this.agno.meses, this.peticion);
     this.peticion = peticion;
     this.mostrarMesSimulacion = false;
     this.mostrarSemanaSimulacion = false;

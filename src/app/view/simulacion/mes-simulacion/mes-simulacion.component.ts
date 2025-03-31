@@ -5,6 +5,7 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { CONST } from '../../../model/const/CONST';
+import { Agno } from '../../../model/simulacion/agno/ango';
 
 @Component({
   selector: 'mes-simulacion',
@@ -16,7 +17,7 @@ export class MesSimulacionComponent {
 
 
   @Input()
-  public meses = Array<ValorHoras>();
+  public agno = new Agno(0, []);
 
   @Output()
   public peticionMesChange = new EventEmitter<Peticion>;
@@ -50,7 +51,7 @@ export class MesSimulacionComponent {
   }
 
   get verMes() {
-    return JSON.stringify(this.meses);
+    return JSON.stringify(this.agno);
   }
 
 

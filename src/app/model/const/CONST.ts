@@ -102,10 +102,12 @@ export const CONST = {
     agnoActual: 2025,
     mujer: {
         sexo: 'mujer',
+        label: 'Mujer',
         edadPension: 57
     },
     hombre: {
-        sexo: 'mujer',
+        sexo: 'hombre',
+        label: 'Hombre',
         edadPension: 62
     },
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!

@@ -10,15 +10,15 @@
                 <tr (click)="toogle(agno.reformaName)" ngClass="{{'table-' + agno.style}}" [hidden]="hidden(agno)">
                     <th scope="row">{{agno.label}}</th>
                     <td scope="row">{{agno.reformaLabel}}</td>
-                    <td scope="row">{{agno.horasDiurnas}}</td>
-                    <td scope="row">{{agno.horasExtraDiurna}}</td>
-                    <td scope="row">{{agno.horasNocturnas}}</td>
-                    <td scope="row">{{agno.horasExtraNocturna}}</td>
-                    <td scope="row">{{agno.horasDiurnasDominicalesOFestivos}}</td>
-                    <td scope="row">{{agno.horasExtrasDiurnasDominicalesFestivas}}</td>
-                    <td scope="row">{{agno.horasNocturnasDominicalesFestivos}}</td>
-                    <td scope="row">{{agno.horasExtrasNocturnasDominicalesFestivas}}</td>
-                    <th scope="row">{{agno.totalHoras}}</th>
+                    <td scope="row">{{agno.horasDiurnas | number}}</td>
+                    <td scope="row">{{agno.horasExtraDiurna | number}}</td>
+                    <td scope="row">{{agno.horasNocturnas | number}}</td>
+                    <td scope="row">{{agno.horasExtraNocturna | number}}</td>
+                    <td scope="row">{{agno.horasDiurnasDominicalesOFestivos | number}}</td>
+                    <td scope="row">{{agno.horasExtrasDiurnasDominicalesFestivas | number}}</td>
+                    <td scope="row">{{agno.horasNocturnasDominicalesFestivos | number}}</td>
+                    <td scope="row">{{agno.horasExtrasNocturnasDominicalesFestivas | number}}</td>
+                    <th scope="row">{{agno.totalHoras | number}}</th>
                 </tr>
                 <tr (click)="toogle(agno.reformaName)" ngClass="{{'table-' + agno.style}}" [hidden]="hidden(agno)">
                     <td scope="row"></td>

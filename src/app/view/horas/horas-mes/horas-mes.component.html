@@ -11,15 +11,15 @@
                 <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
                     <th scope="row">{{mes.label}}</th>
                     <td scope="row">{{mes.reformaLabel}}</td>
-                    <td scope="row">{{mes.horasDiurnas}}</td>
-                    <td scope="row">{{mes.horasExtraDiurna}}</td>
-                    <td scope="row">{{mes.horasNocturnas}}</td>
-                    <td scope="row">{{mes.horasExtraNocturna}}</td>
-                    <td scope="row">{{mes.horasDiurnasDominicalesOFestivos}}</td>
-                    <td scope="row">{{mes.horasExtrasDiurnasDominicalesFestivas}}</td>
-                    <td scope="row">{{mes.horasNocturnasDominicalesFestivos}}</td>
-                    <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas}}</td>
-                    <th scope="row">{{mes.totalHoras}}</th>
+                    <td scope="row">{{mes.horasDiurnas | number}}</td>
+                    <td scope="row">{{mes.horasExtraDiurna | number}}</td>
+                    <td scope="row">{{mes.horasNocturnas | number}}</td>
+                    <td scope="row">{{mes.horasExtraNocturna | number}}</td>
+                    <td scope="row">{{mes.horasDiurnasDominicalesOFestivos | number}}</td>
+                    <td scope="row">{{mes.horasExtrasDiurnasDominicalesFestivas | number}}</td>
+                    <td scope="row">{{mes.horasNocturnasDominicalesFestivos | number}}</td>
+                    <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas | number}}</td>
+                    <th scope="row">{{mes.totalHoras | number}}</th>
                 </tr>
                 <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
                     <td scope="row">Total:</td>

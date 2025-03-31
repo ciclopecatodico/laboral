@@ -1,7 +1,6 @@
 <div class="container">
     <h2>Simulacion de historia laboral</h2>
-    <p>Elemento en construcci&oacute;n!</p>
-
+    <p></p>
     <h3>Datos ingresados:</h3>
     <table>
         <tr>
@@ -28,11 +27,23 @@
             <th>Salario Base: </th>
             <td>{{peticion.salario | currency : '$'}}</td>
         </tr>
+        <tr>
+            <th>Edad: </th>
+            <td>{{peticion.edad}}</td>
+        </tr>
+        <tr>
+            <th>Experiencia Laboral: </th>
+            <td>{{peticion.experiencia}}</td>
+        </tr>
+        <tr>
+            <th>Te pensionarás como: </th>
+            <td>{{peticion.sexo}}</td>
+        </tr>
     </table>
     <br>
     <p>Simulacion proyectada a los años que has trabajado</p>
     <p>Cada color representa la  simulación de una Reforma Laboral </p>
-    <p>EN CONSTRUCCIÓN pendiente de indexar los calculos al salario por año</p>
+    <p>Todos los cálculos se realizan en salarios de 2025</p>
     <br>
     <horas-agno [laboral]="laboral">
     </horas-agno>

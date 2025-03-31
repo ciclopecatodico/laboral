@@ -63,6 +63,7 @@ export class NavegacionComponent {
     //la debo usar para calcular el mes 
     this.peticion = peticion;
     this.meses = this.liquidadorMesesService.simularMeses(this.semana, this.peticion);
+    console.log("Simulacion meses:", this.meses.length);
     //ocultar todas las otras simulaciones y formularios
     this.mostrarMesSimulacion = true;
     this.mostrarSemanaSimulacion = false;

@@ -25,7 +25,6 @@
 <!--FORMULARIO del Sena o salario -->
 <mes-form [peticion]="peticion" *ngIf="mostrarMesForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularMeses($event)"></mes-form>
 
-
 <!--SIMULACION del mes con la configuración del sena o salario -->
 <mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [meses]="meses"></mes-simulacion>
 

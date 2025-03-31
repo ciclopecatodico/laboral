@@ -1,4 +1,3 @@
-
 <div class="table-responsive">
     <table class="table align-middle">
         <thead>
@@ -7,32 +6,32 @@
             </tr>
         </thead>
         <tbody>
-            <ng-template ngFor let-i="index" let-c="count" let-mes [ngForOf]="meses">
-                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
-                    <th scope="row">{{mes.label}}</th>
-                    <td scope="row">{{mes.reformaLabel}}</td>
-                    <td scope="row">{{mes.horasDiurnas}}</td>
-                    <td scope="row">{{mes.horasExtraDiurna}}</td>
-                    <td scope="row">{{mes.horasNocturnas}}</td>
-                    <td scope="row">{{mes.horasExtraNocturna}}</td>
-                    <td scope="row">{{mes.horasDiurnasDominicalesOFestivos}}</td>
-                    <td scope="row">{{mes.horasExtrasDiurnasDominicalesFestivas}}</td>
-                    <td scope="row">{{mes.horasNocturnasDominicalesFestivos}}</td>
-                    <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas}}</td>
-                    <th scope="row">{{mes.totalHoras}}</th>
+            <ng-template ngFor let-i="index" let-c="count" let-agno [ngForOf]="laboral">
+                <tr (click)="toogle(agno.reformaName)" ngClass="{{'table-' + agno.style}}" [hidden]="hidden(agno)">
+                    <th scope="row">{{agno.label}}</th>
+                    <td scope="row">{{agno.reformaLabel}}</td>
+                    <td scope="row">{{agno.horasDiurnas}}</td>
+                    <td scope="row">{{agno.horasExtraDiurna}}</td>
+                    <td scope="row">{{agno.horasNocturnas}}</td>
+                    <td scope="row">{{agno.horasExtraNocturna}}</td>
+                    <td scope="row">{{agno.horasDiurnasDominicalesOFestivos}}</td>
+                    <td scope="row">{{agno.horasExtrasDiurnasDominicalesFestivas}}</td>
+                    <td scope="row">{{agno.horasNocturnasDominicalesFestivos}}</td>
+                    <td scope="row">{{agno.horasExtrasNocturnasDominicalesFestivas}}</td>
+                    <th scope="row">{{agno.totalHoras}}</th>
                 </tr>
-                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
-                    <td scope="row">Valor Hora:</td>
-                    <td scope="row">{{mes.valorHora | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasExtraDiurna | currency: '$' }}</td>
-                    <td scope="row">{{mes.valorHorasNocturnas | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasExtraNocturna | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasDiurnasDominicalesOFestivos | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasExtrasDiurnasDominicalesFestivas | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasNocturnasDominicalesFestivos | currency: '$'}}</td>
-                    <td scope="row">{{mes.valorHorasExtrasNocturnasDominicalesFestivas | currency: '$'}}</td>
-                    <th scope="row">{{mes.totalValorHoras | currency: '$'}}</th>
+                <tr (click)="toogle(agno.reformaName)" ngClass="{{'table-' + agno.style}}" [hidden]="hidden(agno)">
+                    <td scope="row"></td>
+                    <td scope="row"></td>
+                    <td scope="row">{{agno.valorHorasDiurnas | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasExtraDiurna | currency: '$' }}</td>
+                    <td scope="row">{{agno.valorHorasNocturnas | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasExtraNocturna | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasDiurnasDominicalesOFestivos | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasExtrasDiurnasDominicalesFestivas | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasNocturnasDominicalesFestivos | currency: '$'}}</td>
+                    <td scope="row">{{agno.valorHorasExtrasNocturnasDominicalesFestivas | currency: '$'}}</td>
+                    <th scope="row">{{agno.totalValorHoras | currency: '$'}}</th>
                 </tr>
             </ng-template>
         </tbody>

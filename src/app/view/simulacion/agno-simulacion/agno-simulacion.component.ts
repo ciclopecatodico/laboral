@@ -19,7 +19,7 @@ export class AgnoSimulacionComponent {
   public volverChange = new EventEmitter<string>;
 
   @Input()
-  public agno = Array<ValorHoras>();
+  public laboral = Array<ValorHoras>();
 
   constructor() {
     this.peticion_ = new Peticion('', 1);
@@ -35,7 +35,7 @@ export class AgnoSimulacionComponent {
   }
 
   get verAgno() {
-    return JSON.stringify(this.agno);
+    return JSON.stringify(this.laboral);
   }
 
   public volver(){

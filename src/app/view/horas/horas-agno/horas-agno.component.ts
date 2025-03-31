@@ -19,10 +19,10 @@ export class HorasAgnoComponent {
   public reforma2025 = CONST.reforma2025;
 
   @Input()
-  meses = Array<ValorHoras>();
+  laboral = Array<ValorHoras>();
 
 
-  public tiposHoras = ['Día', 'Reforma', 'Diurnas', 'Extra Diurnas', 'Nocturnas', 'Extra Nocturnas', 'Diurna Dominical o Festivo', 'Diurna Extra Dominical o Festivo', 'Nocturna Dominical o Festivo', 'Nocturna Extra Dominical o Festivo', 'Total Horas'];
+  public tiposHoras = ['Año', 'Reforma', 'Diurnas', 'Extra Diurnas', 'Nocturnas', 'Extra Nocturnas', 'Diurna Dominical o Festivo', 'Diurna Extra Dominical o Festivo', 'Nocturna Dominical o Festivo', 'Nocturna Extra Dominical o Festivo', 'Total Horas'];
 
 
   toogle(reforma: string) {

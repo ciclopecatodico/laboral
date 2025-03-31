@@ -22,8 +22,8 @@
                     <th scope="row">{{mes.totalHoras}}</th>
                 </tr>
                 <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
-                    <td scope="row">Valor Hora:</td>
-                    <td scope="row">{{mes.valorHora | currency: '$'}}</td>
+                    <td scope="row">Total:</td>
+                    <td scope="row"></td>
                     <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>
                     <td scope="row">{{mes.valorHorasExtraDiurna | currency: '$' }}</td>
                     <td scope="row">{{mes.valorHorasNocturnas | currency: '$'}}</td>

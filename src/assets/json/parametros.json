@@ -24,32 +24,32 @@
             "porcentaje": 100
         },
         "horasNocturnas": {
-            "factor": 1.1,
-            "porcentaje": 10
+            "factor": 1.35,
+            "porcentaje": 35
         },
         "horasExtrasDiurnas": {
-            "factor": 1.1,
-            "porcentaje": 10
-        },
-        "horasExtrasNocturnas": {
             "factor": 1.25,
             "porcentaje": 25
         },
-        "horasDiurnasDominicalesOFestivos": {
-            "factor": 1.5,
-            "porcentaje": 50
-        },
-        "horasNocturnasDominicalesFestivos": {
+        "horasExtrasNocturnas": {
             "factor": 1.75,
             "porcentaje": 75
         },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 2,
+            "porcentaje": 100
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 2,
+            "porcentaje": 100
+        },
         "horasExtrasDiurnasDominicalesFestivas": {
-            "factor": 1.5,
-            "porcentaje": 50
+            "factor": 2,
+            "porcentaje": 100
         },
         "horasExtrasNocturnasDominicalesFestivas": {
-            "factor": 1.75,
-            "porcentaje": 175
+            "factor": 2,
+            "porcentaje": 100
         }
     },
     {

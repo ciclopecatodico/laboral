@@ -18,7 +18,22 @@ https://razonpublica.com/horas-extras-y-jornada-nocturna-vale-la-pena-volver-al-
 Detalle de todos los parámetros a tener en cuenta en los cálculos del simulador
 
 
-### Antes de Uribe 
+### Ley 50 de 1990 
+
+#### Fuente: 
+
+Recargos para la Ley 50 de 1990: 
+https://accounter.co/normatividad/conceptos/liquidacion-salarial-por-concepto-de-recargos-nocturnos.html
+
+Articulo 24 Trabajo diurno y nocturno y extra:
+
+Artículo 29 Domingo y Festivos: 
+
+1. El trabajo en domingo o días de fiesta se remunera con un recargo del ciento por ciento (100%) sobre el salario ordinario en proporción a las horas laboradas, sin prejuicio del salario ordinario a que tenga derecho el trabajador por haber laborado la semana completa 
+
+A partir de este texto interpreto que el Domingo o Festivo recibe recargo del 100%
+
+#### Valores: 
 
 | Parámetro      | Valor      |
 | ------------- | ------------- |
@@ -31,14 +46,17 @@ Detalle de todos los parámetros a tener en cuenta en los cálculos del simulado
 | Hora Diurna | 0% |
 | Hora Nocturna | 35% |
 | Hora Diurna Dominicales O Festivos | 75% |
-| Hora Nocturna Dominicales O Festivos | 110% |
+| Hora Nocturna Dominicales O Festivos | ??? |
 | Hora Extra Diurno | 25% |
 | Hora Extra Nocturno | 75% |
-| Hora Extra Diurna Dominical o Festivos | 100% |
-| Hora Extra Nocturna Dominical o Festivos | 150% |
+| Hora Extra Diurna Dominical o Festivos | ??? |
+| Hora Extra Nocturna Dominical o Festivos | ??? |
 
 
-### Reforma Laboral Uribe 2004 
+
+
+
+### Ley 789 de 2002
 
 | Parámetro      | Valor      |
 | ------------- | ------------- |
@@ -87,3 +105,7 @@ Se debe aplicar un criterio de continuidad en el paso de la noche a la madrugada
 
 Tengo una duda respecto a la jornada laboral, al disminuir la jornada laboral mensual a 230 horas no da 46 horas semanales o 7.6 diarias, 
 es decir que las horas extra empezarían a contar a partir de las 7.6 horas para 2025? 
+
+
+Cómo se liquidaban 
+

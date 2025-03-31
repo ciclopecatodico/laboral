@@ -16,9 +16,11 @@ export class MesSimulacionComponent {
 
 
   @Input()
-  public mes = Array<ValorHoras>();
+  public meses = Array<ValorHoras>();
+
   @Output()
   public peticionMesChange = new EventEmitter<Peticion>;
+
   public peticion_: Peticion;
   public parametros: Parametros[];
   public verNotas = false;
@@ -33,6 +35,14 @@ export class MesSimulacionComponent {
   @Input()
   set peticion(peticion: Peticion) {
     this.peticion_ = peticion;
+    this.calcularParametros();
+  }
+
+  //calcula el valor de la hora para el salario ingresado en la petición
+  private calcularParametros(){
+    this.parametros.forEach(p => {
+      p.smlvHora = this.peticion.salario / p.jornadaLaboralMensual;
+    });
   }
 
   get peticion() {
@@ -40,7 +50,7 @@ export class MesSimulacionComponent {
   }
 
   get verMes() {
-    return JSON.stringify(this.mes);
+    return JSON.stringify(this.meses);
   }
 
 

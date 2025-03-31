@@ -84,7 +84,7 @@ export const CONST = {
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
     smlv: {
-        id :'smlv',
+        id: 'smlv',
         label: 'Salario Mínimo Legal Vigente'
     },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
@@ -99,6 +99,15 @@ export const CONST = {
     turnoHoras: '8:00',
     totalName: 'total',
     totalLabel: 'Total',
+    agnoActual: 2025,
+    mujer: {
+        sexo: 'mujer',
+        edadPension: 57
+    },
+    hombre: {
+        sexo: 'mujer',
+        edadPension: 62
+    },
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
         index: 0,
         reforma: '1950',

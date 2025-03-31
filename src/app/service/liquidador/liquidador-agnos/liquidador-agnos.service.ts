@@ -23,12 +23,15 @@ export class LiquidadorAgnosService {
 
   public parametros: Parametros[];
 
+  public inicioSimu = 0;
+  public finalSimu = 0;
+
   /**
- * Horas registradas para cada semana
- */
-  public semana1950 = new Array<HorasSemana>();
-  public semana789 = new Array<HorasSemana>();
-  public semana2025 = new Array<HorasSemana>();
+* Horas registradas para cada semana
+*/
+  public total1950: ValorHoras;
+  public total789: ValorHoras;
+  public total2025: ValorHoras;
 
   /**
    * Guarda la liquidación de la historia laboral. 
@@ -41,64 +44,97 @@ export class LiquidadorAgnosService {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
     this.parametros = configurationService.parametros;
+    this.total1950 = structuredClone(this.configurationService.valorHoras);
+    this.total789 = structuredClone(this.configurationService.valorHoras);
+    this.total2025 = structuredClone(this.configurationService.valorHoras);
   }
 
   /**
    * Calcula el valor de un mes para todas las reformas 
-   * @param horasSemana 
+   * @param agno 
    * @param peticion 
    */
-  public simularAngo(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
-    //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
-    this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
-    //Limpiar variables que almacenan la simulacion
-    this.laboral1950 = new Array<ValorHoras>;
-    this.laboral789 = new Array<ValorHoras>;
-    this.laboral2025 = new Array<ValorHoras>;
-    //obtener el año que trae los parametros de
-    let agno = this.configurationService.agnoModel;
+  public simularAngos(agno: ValorHoras[], peticion: Peticion): ValorHoras[] {
+    //Inicializa los arreglos que contienen un año liquidado por cada tipo de reforma
+    this.filtraTotalPorReforma(agno);
+    
+    //debo calcular empezando desde su experiencia laboral y hasta su edad de pension para cada reforma. 
+    this.calcularInicioFinSimulacion(peticion);
 
-    let valorHora1950 = this.calcularValorHora(peticion, CONST.reforma1950.index);
-    let valorHora789 = this.calcularValorHora(peticion, CONST.reforma789.index);
-    let valorHora2025 = this.calcularValorHora(peticion, CONST.reforma2025.index);
+    //genera la simulacion para cada reforma 
+    this.laboral1950 = this.generarAngos(this.total1950);
+    this.laboral789 = this.generarAngos(this.total789);
+    this.laboral2025 = this.generarAngos(this.total2025);
 
-    //por defecto la duracion de la simulacion es 12 meses de un año
-    let duracion = agno.meses.length;
-    //pero para el caso del sena la duracion se ingresa 
-    if (peticion.sena) {
-      if (peticion.duracion && peticion.duracion > 0) {
-        duracion = peticion.duracion;
-      }
-    }
-
-    for (let i = 0; i < duracion; i++) {
-      let mesIndex = i%12;
-      let mes1950 = this.liquidadorMesService.contarHorasMes(this.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
-      this.laboral1950.push(mes1950);
-      let mes789 = this.liquidadorMesService.contarHorasMes(this.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
-      this.laboral789.push(mes789);
-      let mes2025 = this.liquidadorMesService.contarHorasMes(this.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
-      this.laboral2025.push(mes2025);
-    }
-
+    //calcular totales para cada simulación. 
     this.calcularTotales(this.laboral1950);
     this.calcularTotales(this.laboral789);
     this.calcularTotales(this.laboral2025);
-    let agnos = new Array<ValorHoras>();
+    let laboral = new Array<ValorHoras>();
+    
     //retornamos un arreglo que contiene todos los agños calculados. 
-    agnos = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
-    return agnos;
+    laboral = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
+    console.log("Laboral length:", laboral.length);
+    return laboral;
   }
 
   /**
- * Filtra y llena las horas semanales por cada tipo de reforma que se usarán para calcular las horas mensuales
- * En este punto todos los arreglos deben empezar por el días lunes y terminar en total
- * @param horasSemana Arreglo con todas las horas semanales de los diferentes tipos de reformas
- */
-  private llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
-    this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
-    this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
-    this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
+   * Filtramos el arreglo de horas del año y nos quedamos solo con el total para cada tipo de reforma. 
+   * @param agno Arreglo con todas las horas mensuales de los diferentes tipos de reformas
+   */
+  private filtraTotalPorReforma(agno: ValorHoras[]) {
+    this.total1950 = agno.filter(h => (h.reformaName === CONST.reforma1950.reforma && h.name === CONST.totalName))[0];
+    this.total789 = agno.filter(h => (h.reformaName === CONST.reforma789.reforma && h.name === CONST.totalName))[0];
+    this.total2025 = agno.filter(h => (h.reformaName === CONST.reforma2025.reforma && h.name === CONST.totalName))[0];
+  }
+
+
+  private calcularInicioFinSimulacion(peticion: Peticion) {
+    //
+    let edadPension = CONST.hombre.edadPension;
+    if (peticion.sexo != undefined && peticion.sexo === CONST.mujer.sexo) {
+      edadPension = CONST.mujer.edadPension;
+    }
+    //la edad de pensión menos la edad nos da el año final de la simulación
+    if (peticion.edad) {
+      this.finalSimu = CONST.agnoActual + (edadPension - peticion.edad);
+    }
+    //los años de experiencia dan el año de inicio de nuestra simulación
+    if (peticion.experiencia) {
+      this.inicioSimu = CONST.agnoActual - peticion.experiencia;
+    }
+  }
+
+
+  /**
+   * Recibe el total de un año y lo replica a los años de experiencia y hasta la edad de pension
+   * @param inicio 
+   * @param fin 
+   * @param valorHoras 
+   */
+  private generarAngos(valorHoras: ValorHoras): ValorHoras[] {
+    let laboral = new Array<ValorHoras>;
+    for (let i = this.inicioSimu; i < this.finalSimu; i++) {
+      //copio el año y le cambio el nombre por el número del año
+      let agno = this.calcularAgno(valorHoras, i);
+      laboral.push(agno);
+    }
+    return laboral;
+  }
+
+  /**
+   * Por ahora solo copia el agno 
+   * @param valorHoras 
+   * @param agno 
+   * @returns 
+   */
+  private calcularAgno(valorHoras: ValorHoras, agno: number): ValorHoras {
+    //TODO extraer funcionalidad y realizar cálculos indexados al año. 
+    let item = structuredClone(valorHoras);
+    item.id = agno;
+    item.label = '' + agno;
+    item.name = '' + agno;
+    return item;
   }
 
 
@@ -136,39 +172,6 @@ export class LiquidadorAgnosService {
     })
     //agregamos el total al final del año
     agno.push(total);
-  }
-
-  /**
-   * De esta función depende que el cálculo del salario mensual sea acorde al SMLV vigente según la reforma que se esté aplicando a las jornadas 
-   * asi el valor de la hora en jornada diurna ordinaria depende de la cantidad de horas que se conciben en la reforma para un mes laboral. 
-   * @param peticion 
-   * @param parametro 
-   * @returns 
-   */
-  private calcularValorHora(peticion: Peticion, parametroId: number): number {
-    //liquida el valor de las horas del mes 
-    //la hora debe tener en cuenta el caso que la persona sea del sena 
-    //calcular automaticamente el valor de la hora segun su etapa
-    //se asigna por defecto el valor de una hora de salario minimo
-    let parametro = this.parametros[parametroId];
-    let valorHora = 0;
-    if (peticion.salario > parametro.smlv) {
-      //El valor de la hora depende de la jornada mensual
-      valorHora = peticion.salario / parametro.jornadaLaboralMensual;
-    } else {
-      peticion.salario = parametro.smlv;
-      //Por eso se calcula en funcion de la jornada laboral mensual en horas 
-      valorHora = parametro.smlv / parametro.jornadaLaboralMensual;
-    }
-    //Ajusta el valor de la hora dependiendo si es estudiante del sena y la etapa en la que se encuentra: 
-    if (peticion.sena) {
-      if (peticion.etapa === CONST.senaLectiva.id) {
-        valorHora = (valorHora * (parametro.senaLectiva / 100));
-      } else {
-        valorHora = (valorHora * (parametro.senaProductiva / 100));
-      }
-    }
-    return valorHora;
   }
 
 }

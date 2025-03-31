@@ -20,22 +20,25 @@ import { CreditsComponent } from './view/credits/credits.component';
 import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
 import { NavegacionComponent } from './view/navegacion/navegacion.component';
 import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
+import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InicialFormComponent,
+    
     TurnoComponent,
     DayPickerComponent,
     HorasSemanaComponent,
-    SemanaSimulacionComponent,
     HorasMesComponent,
+    HorasAgnoComponent,
+    SemanaSimulacionComponent,
+    InicialFormComponent,
     MesFormComponent,
-    NavegacionComponent,
+    AgnoFormComponent,
     MesSimulacionComponent,
     AgnoSimulacionComponent,
     CreditsComponent,
-    AgnoFormComponent,
+    NavegacionComponent,
     ParametrosViewComponent
   ],
   imports: [

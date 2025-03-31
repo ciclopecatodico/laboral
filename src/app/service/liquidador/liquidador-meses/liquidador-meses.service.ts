@@ -52,7 +52,7 @@ export class LiquidadorMesesService {
    * @param horasSemana 
    * @param peticion 
    */
-  public simularAngo(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
+  public simularMeses(horasSemana: HorasSemana[], peticion: Peticion): ValorHoras[] {
     //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
     //Limpiar variables que almacenan la simulacion

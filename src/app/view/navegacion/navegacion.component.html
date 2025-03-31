@@ -27,11 +27,11 @@
 
 
 <!--SIMULACION del mes con la configuración del sena o salario -->
-<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [mes]="mes"></mes-simulacion>
+<mes-simulacion *ngIf="mostrarMesSimulacion" [peticion]="peticion" [meses]="meses"></mes-simulacion>
 
 <!--FORMULARIO de la eddad, sexo y años de experiencia laboral para liquidar lo que  ha perdido con la refoma  789 y lo que podría ganar con la reforma 2025-->
 <agno-form [peticion]="peticion" *ngIf="mostrarAgnoForm" (volverChange)="navegarA($event)" (peticionSemanaChange)="simularAgnos($event)"></agno-form>
 
 
 <!--SIMULACION de la posible historia laboral  -->
-<agno-simulacion *ngIf="mostrarAgnoSimulacion" (volverChange)="navegarA($event)" [peticion]="peticion" [agno]="agno"></agno-simulacion>
+<agno-simulacion *ngIf="mostrarAgnoSimulacion" (volverChange)="navegarA($event)" [peticion]="peticion" [laboral]="laboral"></agno-simulacion>

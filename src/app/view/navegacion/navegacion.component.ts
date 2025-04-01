@@ -8,6 +8,7 @@ import { LiquidadorAgnosService } from '../../service/liquidador/liquidador-agno
 import { Laboral } from '../../model/simulacion/laboral/laboral';
 import { Agno } from '../../model/simulacion/agno/ango';
 import { Semana } from '../../model/simulacion/agno copy/semana';
+import { GraficoService } from '../../service/grafico/grafico.service';
 
 @Component({
   selector: 'app-navegacion',
@@ -30,9 +31,9 @@ export class NavegacionComponent {
   public mostrarAgnoForm = false;
 
   public volverAEtapa = 'inicial'; //inicial|sena|
-  public semana = new Semana([],[],[]);
+  public semana: Semana;
   public agno = new Agno(0, []);
-  public laboral = new Laboral(0,0,0, []);
+  public laboral = new Laboral(0, 0, 0, []);
   //Se encarga de liquidar las horas de una semana 
   public liquidadorSemanaService: LiquidadorSemanaService;
   //Se encarga de liquidar un año, conjunto de 12 meses
@@ -41,13 +42,16 @@ export class NavegacionComponent {
   public liquidadorAgnosService: LiquidadorAgnosService;
 
 
-  constructor(liquidadorSemanaService: LiquidadorSemanaService, liquidadorMesService: LiquidadorMesesService, liquidadorAgnosService: LiquidadorAgnosService) {
+  constructor(liquidadorSemanaService: LiquidadorSemanaService,
+    liquidadorMesService: LiquidadorMesesService,
+    liquidadorAgnosService: LiquidadorAgnosService) {
+
     this.peticion = new Peticion('', 1);
     this.liquidadorSemanaService = liquidadorSemanaService;
     this.liquidadorMesesService = liquidadorMesService;
     this.liquidadorAgnosService = liquidadorAgnosService;
+    this.semana = new Semana([]);
   }
-
 
   simularSemana(peticion: Peticion) {
     this.mostrarInicialForm = false;
@@ -65,7 +69,9 @@ export class NavegacionComponent {
     //ya tengo la semana liquidada en este componente 
     //la debo usar para calcular el mes 
     this.peticion = peticion;
-    this.agno = this.liquidadorMesesService.simularMeses(this.semana.horasSemana, this.peticion);
+    if (this.semana.horasSemana != null) {
+      this.agno = this.liquidadorMesesService.simularMeses(this.semana.horasSemana, this.peticion);
+    }
     //ocultar todas las otras simulaciones y formularios
     this.mostrarMesSimulacion = true;
     this.mostrarSemanaSimulacion = false;

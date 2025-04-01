@@ -1,10 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="row">
-  <div class="chart" *ngFor="let reforma of charts" align="center">
-    <b>{{reforma.label}}</b>
-    <apx-chart [series]="reforma.series" [chart]="reforma.chart" [dataLabels]="reforma.dataLabels"
-      [plotOptions]="reforma.plotOptions" [yaxis]="reforma.yaxis" [xaxis]="reforma.xaxis" [legend]="reforma.legend"
-      ></apx-chart>
-<!--[colors]="reforma.colors" [grid]="reforma.grid"-->
-  </div>
+<div class="row" align="center">
+  <b>{{barras.label}}</b>
+  <apx-chart [series]="barras.series" [chart]="barras.chart" [dataLabels]="barras.dataLabels"
+    [plotOptions]="barras.plotOptions" [yaxis]="barras.yaxis" [xaxis]="barras.xaxis"
+    [legend]="barras.legend"></apx-chart>
+  <!--[colors]="reforma.colors" [grid]="reforma.grid"-->
 </div>

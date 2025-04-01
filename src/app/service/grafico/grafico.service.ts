@@ -3,6 +3,7 @@ import { DonutChart } from '../../model/charts/donut-chart/donut-chart-options';
 import { BarChartSimple } from '../../model/charts/bars-chart/bars-chart-simple';
 import { BarChartCompuesto } from '../../model/charts/bars-chart/bars-chart-compuesto';
 import { Series } from '../../model/charts/series/series';
+import { CONST } from '../../model/const/CONST';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GraficoService {
   constructor() { }
 
 
-  public setDonut(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
+  public dona(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
     return {
       name: reformaName,
       label: reformaLabel,
@@ -37,7 +38,7 @@ export class GraficoService {
     };
   }
 
-  public setPie(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
+  public pastel(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
     return {
       name: reformaName,
       label: reformaLabel,
@@ -59,39 +60,52 @@ export class GraficoService {
             }
           }
         }
-      ]
+      ],
+      dataLabels : {
+        enabled : true,
+        formatter: (val, opt) => {
+          switch (opt.seriesIndex) {
+            case 0:
+              return [ CONST.horasDiurnas.label, series[0]+'h | ' + val as string + '%' ] as unknown as string;
+            case 1:
+              return [ CONST.horasNocturnas.label, series[1]+'h | ' + val as string + '%' ] as unknown as string;
+            case 2:
+              return [ CONST.horasExtrasDiurnas.label, series[2]+'h | ' + val as string + '%' ] as unknown as string;
+            case 3:
+              return [ CONST.horasExtrasNocturnas.label, series[3]+'h | ' + val as string + '%' ] as unknown as string;
+            default:
+              return val as string;
+          }
+        },
+      }
     };
   }
 
 
-  public setBarSimple(reformaName: string, reformaLabel: string): BarChartSimple {
+  public barrasSimple(reformaName: string, reformaLabel: string): BarChartSimple {
     return {
       name: reformaName,
       label: reformaLabel,
       series: [
         {
           name: "distibuted",
-          data: [21, 22, 10, 28, 16, 21, 13, 30]
+          data: [21, 22, 10, 28]
         }
       ],
       chart: {
         height: 350,
         type: "bar",
-        events: {
-          click: function (chart, w, e) {
-            // console.log(chart, w, e)
-          }
-        }
+        // events: {
+        //   click: function (chart, w, e) {
+        //     // console.log(chart, w, e)
+        //   }
+        // }
       },
       colors: [
-        "#008FFB",
-        "#00E396",
-        "#FEB019",
-        "#FF4560",
-        "#775DD0",
-        "#546E7A",
-        "#26a69a",
-        "#D10CE8"
+        "#cfe2ff",
+        "#e2e3e5",
+        "#cff4fc",
+        "#d1e6dd",
       ],
       plotOptions: {
         bar: {
@@ -100,10 +114,10 @@ export class GraficoService {
         }
       },
       dataLabels: {
-        enabled: false
+        enabled: true
       },
       legend: {
-        show: false
+        show: true
       },
       grid: {
         show: false
@@ -115,26 +129,16 @@ export class GraficoService {
       },
       xaxis: {
         categories: [
-          ["John", "Doe"],
-          ["Joe", "Smith"],
-          ["Jake", "Williams"],
-          "Amber",
-          ["Peter", "Brown"],
-          ["Mary", "Evans"],
-          ["David", "Wilson"],
-          ["Lily", "Roberts"]
+          "John", "Doe",
+          "Joe", "Smith"
         ],
         labels: {
           style: {
             colors: [
-              "#008FFB",
-              "#00E396",
-              "#FEB019",
-              "#FF4560",
-              "#775DD0",
-              "#546E7A",
-              "#26a69a",
-              "#D10CE8"
+              "#322513",
+              "#322513",
+              "#322513",
+              "#322513",
             ],
             fontSize: "12px"
           }
@@ -155,7 +159,7 @@ export class GraficoService {
    * @param dinero formatea el eje y según sea dinero poniendo un $ antes o en miles si es numeros
    * @returns 
    */
-  public setBarCompuesto(reformaName: string, reformaLabel: string, series: ApexAxisChartSeries, categories: string[], tituloY: string, dinero: boolean): BarChartCompuesto {
+  public barrasCompuesto(reformaName: string, reformaLabel: string, series: ApexAxisChartSeries, categories: string[], tituloY: string, dinero: boolean): BarChartCompuesto {
     return {
       name: reformaName,
       label: reformaLabel,
@@ -172,7 +176,19 @@ export class GraficoService {
         }
       },
       dataLabels: {
-        enabled: true
+        enabled: true,
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 'bold',
+          colors: ['#322513']
+        },
+        formatter: (value) => {
+          if (dinero) {
+            return `$ ${this.numberWithCommas(value)}`;
+          }
+          return `${this.numberWithCommas(value)} h`;
+        },
       },
       stroke: {
         show: true,
@@ -180,7 +196,15 @@ export class GraficoService {
         colors: ["transparent"]
       },
       xaxis: {
-        categories: categories
+        categories: categories,
+        labels: {
+          style: {
+            fontSize: '14px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: ['#322513']
+          }
+        }
       },
       yaxis: {
         title: {
@@ -191,7 +215,7 @@ export class GraficoService {
             if (dinero) {
               return `$ ${this.numberWithCommas(value)}`;
             }
-            return `${this.numberWithCommas(value)}`;
+            return `${this.numberWithCommas(value)} h`;
           },
         },
       },
@@ -206,13 +230,13 @@ export class GraficoService {
         }
       },
       legend: {
-        show: false
+        show: true
       },
     };
   }
 
 
-  private numberWithCommas(x: number) {
+  private numberWithCommas(x: any) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 }

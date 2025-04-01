@@ -102,6 +102,10 @@ export const CONST = {
         id: 'smlv',
         label: 'Salario Mínimo Legal Vigente'
     },
+    smlvHora: {
+        id: 'smlvHora',
+        label: 'Salario Mínimo Legal Vigente por Hora'
+    },
     tipoDeHoras:
     {
         id: 'tipoDeHoras',

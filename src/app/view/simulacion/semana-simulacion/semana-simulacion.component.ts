@@ -4,6 +4,7 @@ import { Parametros } from '../../../model/modelos-simulacion/parametros/paramet
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { Semana } from '../../../model/simulacion/agno copy/semana';
 import { CONST } from '../../../model/const/CONST';
+import { GraficoService } from '../../../service/grafico/grafico.service';
 
 @Component({
   selector: 'semana-simulacion',
@@ -14,7 +15,7 @@ import { CONST } from '../../../model/const/CONST';
 export class SemanaSimulacionComponent {
 
   @Input()
-  public semana: Semana;
+  public semana = new Semana([]);
 
   @Input()
   public peticion: Peticion;
@@ -27,10 +28,9 @@ export class SemanaSimulacionComponent {
   public parametros: Parametros[];
   public verGrafico = false;
 
-  constructor(configurationService: ConfigurationService) {
+  constructor(configurationService: ConfigurationService, graficoService: GraficoService) {
     this.parametros = configurationService.parametros;
     this.peticion = new Peticion('', 1);
-    this.semana = new Semana([], [], []);
   }
 
 

@@ -11,7 +11,7 @@ import { DonutChart } from '../../../model/charts/donut-chart/donut-chart-option
 export class DonaComponent {
 
   @Input()
-  public charts = new Array<DonutChart>();
+  public donas :DonutChart[] | undefined;
 
   constructor() {
     

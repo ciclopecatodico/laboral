@@ -4,8 +4,8 @@
         laboral
         dependiendo de los diferentes régimenes que han existido en Colombia</p>
 
-
     <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success">Ver Consideraciones</button>
+
     <div *ngIf="verNotas">
         <br>
         <h4>Par&aacute;metros utilizados:</h4>
@@ -37,8 +37,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>{{const.jornadaLaboralMensual.label}}:</td>
-                        <td *ngFor="let i of const.reformas">{{parametros[i].jornadaLaboralMensual}} Horas</td>
+                        <td>{{const.smlv.label}}:</td>
+                        <td *ngFor="let i of const.reformas">
+                            {{parametros[i].smlv | currency : '$'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{const.smlvHora.label}}:</td>
+                        <td *ngFor="let i of const.reformas">
+                            {{parametros[i].smlvHora | currency : '$'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="center"><b>Recargos</b></td>
+                    </tr>
+                    <tr>
+                        <td>{{const.horasNocturnas.label}}:</td>
+                        <td *ngFor="let i of const.reformas">{{parametros[i].horasNocturnas.porcentaje}}%</td>
+                    </tr>
+                    <tr>
+                        <td>{{const.horasExtrasDiurnas.label}}:</td>
+                        <td *ngFor="let i of const.reformas">{{parametros[i].horasExtrasDiurnas.porcentaje}}%</td>
+                    </tr>
+                    <tr>
+                        <td>{{const.horasExtrasNocturnas.label}}:</td>
+                        <td *ngFor="let i of const.reformas">{{parametros[i].horasExtrasNocturnas.porcentaje}}%</td>
                     </tr>
                 </tbody>
             </table>
@@ -46,11 +69,17 @@
         <br>
     </div>
 
-    <grafico-dona [charts]="semana.donas">
+    <grafico-barras-compuesto *ngIf="false" [barras]="semana.barrasHorasTipo">
+    </grafico-barras-compuesto>
+
+    <grafico-dona [donas]="semana.donas">
     </grafico-dona>
 
-    <grafico-barras-compuesto [charts]="semana.barrasCompuesto">
+    <grafico-barras-compuesto [barras]="semana.barrasHorasPonderadas">
     </grafico-barras-compuesto>
+
+    <grafico-barras-simple *ngIf="false" [barras]="semana.barrasTotal">
+    </grafico-barras-simple>
 
     <horas-semana [semana]="semana.horasSemana">
 

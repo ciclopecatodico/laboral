@@ -1,7 +1,8 @@
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
-  ApexChart
+  ApexChart,
+  ApexDataLabels
 } from "ng-apexcharts";
 
 

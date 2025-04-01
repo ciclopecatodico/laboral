@@ -35,6 +35,23 @@ export class GraficoService {
           }
         }
       ]
+      ,dataLabels : {
+        enabled : true,
+        formatter: (val, opt) => {
+          switch (opt.seriesIndex) {
+            case 0:
+              return [ CONST.horasDiurnas.label, series[0]+'h | ' + val as string + '%' ] as unknown as string;
+            case 1:
+              return [ CONST.horasNocturnas.label, series[1]+'h | ' + val as string + '%' ] as unknown as string;
+            case 2:
+              return [ CONST.horasExtrasDiurnas.label, series[2]+'h | ' + val as string + '%' ] as unknown as string;
+            case 3:
+              return [ CONST.horasExtrasNocturnas.label, series[3]+'h | ' + val as string + '%' ] as unknown as string;
+            default:
+              return val as string;
+          }
+        },
+      }
     };
   }
 

@@ -23,8 +23,9 @@ import { NavegacionComponent } from './view/navegacion/navegacion.component';
 import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
 import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { PastelComponent } from './view/graficos/grafico/pastel/pastel.component';
-import { SemanaGraficoComponent } from './view/graficos/semana-grafico/semana-grafico.component';
+import { DonaComponent } from './view/graficos/dona/grafico.component';
+import { BarrasSimpleComponent } from './view/graficos/barras-simple/barras-simple.component';
+import { BarrasCompuestoComponent } from './view/graficos/barras-compuesto/barras-compuesto.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,9 @@ import { SemanaGraficoComponent } from './view/graficos/semana-grafico/semana-gr
     CreditsComponent,
     NavegacionComponent,
     ParametrosViewComponent,
-    PastelComponent,
-    SemanaGraficoComponent
+    DonaComponent, 
+    BarrasSimpleComponent,
+    BarrasCompuestoComponent
   ],
   imports: [
     BrowserModule,

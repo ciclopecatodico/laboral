@@ -7,7 +7,7 @@ import { ConfigurationService } from '../../configuration/configuration.service'
 import { Turno } from '../../../model/turno/turno';
 import { List } from '../../../model/listas/list';
 import { CONST } from '../../../model/const/CONST';
-import { ChartOptions } from '../../../model/charts/charts-options/chart-options';
+import { DonutChart } from '../../../model/charts/donut-chart/donut-chart-options';
 
 
 /**
@@ -22,7 +22,7 @@ export class LiquidadorHorasService {
   public list = new List();
   public horasList: HorasSemana[];
   public parametros: Parametros[];
-  public charts: ChartOptions[];
+  public charts: DonutChart[];
 
   constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
@@ -68,7 +68,7 @@ export class LiquidadorHorasService {
     //calculo las horas del turno de dia
     let horasDiurnas1 = this.calcularHorasDentroDelTurno(horario, jornadaDiurna);
     let horasTotales = horasNocturnas1 + horasDiurnas1;
-    console.log("JornadaLaboralDiaria:", parametro.jornadaLaboralDiaria);
+    //console.log("JornadaLaboralDiaria:", parametro.jornadaLaboralDiaria);
     if (horasTotales > parametro.jornadaLaboralDiaria) {
       //Habría horas extras diurnas así: 
       horasExtrasDiurnas = horasTotales - parametro.jornadaLaboralDiaria;
@@ -86,10 +86,10 @@ export class LiquidadorHorasService {
     } else {
       horasNocturnas = horasNocturnas1 + horasNocturnas2;
     }
-    console.log("horasDiurnas:", horasDiurnas);
-    console.log("horasNocturnas:", horasNocturnas);
-    console.log("horasExtrasDiurnas:", horasExtrasDiurnas);
-    console.log("horasExtraNocturnas:", horasExtraNocturnas);
+    // console.log("horasDiurnas:", horasDiurnas);
+    // console.log("horasNocturnas:", horasNocturnas);
+    // console.log("horasExtrasDiurnas:", horasExtrasDiurnas);
+    // console.log("horasExtraNocturnas:", horasExtraNocturnas);
     turno.dias?.forEach(
       dia => {
         this.guardarDia(dia, parametro.reformaName, parametro.reformaLabel, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);

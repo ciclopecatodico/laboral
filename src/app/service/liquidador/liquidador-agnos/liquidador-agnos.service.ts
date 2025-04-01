@@ -84,9 +84,9 @@ export class LiquidadorAgnosService {
    * @param agno Arreglo con todas las horas mensuales de los diferentes tipos de reformas
    */
   private filtraTotalPorReforma(agno: ValorHoras[]) {
-    this.total1950 = agno.filter(h => (h.reformaName === CONST.reforma1950.reforma && h.name === CONST.totalName))[0];
-    this.total789 = agno.filter(h => (h.reformaName === CONST.reforma789.reforma && h.name === CONST.totalName))[0];
-    this.total2025 = agno.filter(h => (h.reformaName === CONST.reforma2025.reforma && h.name === CONST.totalName))[0];
+    this.total1950 = agno.filter(h => (h.reformaName === CONST.reforma1950.reforma && h.name === CONST.total.id))[0];
+    this.total789 = agno.filter(h => (h.reformaName === CONST.reforma789.reforma && h.name === CONST.total.id))[0];
+    this.total2025 = agno.filter(h => (h.reformaName === CONST.reforma2025.reforma && h.name === CONST.total.id))[0];
   }
 
 
@@ -143,8 +143,8 @@ export class LiquidadorAgnosService {
     //inicializo el total de horas a 0
     let total = structuredClone(this.configurationService.valorHoras);
     total.id = 13;
-    total.label = CONST.totalLabel;
-    total.name = CONST.totalName;
+    total.label = CONST.total.label;
+    total.name = CONST.total.id;
     total.reformaLabel = agno[0].reformaLabel;
     total.reformaName = agno[0].reformaName;
     total.style = agno[0].style;

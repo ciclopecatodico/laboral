@@ -128,8 +128,8 @@ export class LiquidadorMesesService {
     //inicializo el total de horas a 0
     let total = structuredClone(this.configurationService.valorHoras);
     total.id = 13;
-    total.label = CONST.totalLabel;
-    total.name = CONST.totalName;
+    total.label = CONST.total.label;
+    total.name = CONST.total.id;
     total.reformaLabel = agno[0].reformaLabel;
     total.reformaName = agno[0].reformaName;
     total.style = agno[0].style;

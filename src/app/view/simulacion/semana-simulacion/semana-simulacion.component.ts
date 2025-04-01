@@ -30,7 +30,7 @@ export class SemanaSimulacionComponent {
   constructor(configurationService: ConfigurationService) {
     this.parametros = configurationService.parametros;
     this.peticion = new Peticion('', 1);
-    this.semana = new Semana([], []);
+    this.semana = new Semana([], [], []);
   }
 
 

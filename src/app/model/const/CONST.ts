@@ -63,6 +63,11 @@ export const CONST = {
         id: 'horasNocturnas',
         label: 'Horas Nocturnas'
     },
+    horasPonderadas:
+    {
+        id: 'horasPonderadas',
+        label: 'Total Horas Ponderadas por Reforma'
+    },
     horasDiurnasDominicalesOFestivos:
     {
         id: 'horasDiurnasDominicalesOFestivos',
@@ -97,6 +102,18 @@ export const CONST = {
         id: 'smlv',
         label: 'Salario Mínimo Legal Vigente'
     },
+    tipoDeHoras:
+    {
+        id: 'tipoDeHoras',
+        label:"Tipos de Horas",
+        categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
+    },
+    tipoDeHorasPonderados:
+    {
+        id: 'tipoDeHorasPonderados',
+        label:"Valor a pagar por tipos de horas ponderados por Reforma",
+        categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
+    },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
     diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
     diasSemanaLabel: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
@@ -107,8 +124,10 @@ export const CONST = {
     turnoInicio: '14:00',
     turnoFin: '22:00',
     turnoHoras: '8:00',
-    totalName: 'total',
-    totalLabel: 'Total',
+    total:{
+        id: 'total',
+        label: 'Total'
+    },
     agnoActual: 2025,
     mujer: {
         sexo: 'mujer',

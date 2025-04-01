@@ -30,7 +30,7 @@ export class NavegacionComponent {
   public mostrarAgnoForm = false;
 
   public volverAEtapa = 'inicial'; //inicial|sena|
-  public semana = new Semana([],[]);
+  public semana = new Semana([],[],[]);
   public agno = new Agno(0, []);
   public laboral = new Laboral(0,0,0, []);
   //Se encarga de liquidar las horas de una semana 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SemanaGraficoComponent } from './semana-grafico.component';
+import { BarrasSimpleComponent } from './barras-simple.component';
 
-describe('SemanaGraficoComponent', () => {
-  let component: SemanaGraficoComponent;
-  let fixture: ComponentFixture<SemanaGraficoComponent>;
+describe('BarrasComponent', () => {
+  let component: BarrasSimpleComponent;
+  let fixture: ComponentFixture<BarrasSimpleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SemanaGraficoComponent]
+      declarations: [BarrasSimpleComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SemanaGraficoComponent);
+    fixture = TestBed.createComponent(BarrasSimpleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

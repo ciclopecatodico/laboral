@@ -46,8 +46,11 @@
         <br>
     </div>
 
-    <semana-grafico [charts]="semana.charts">
-    </semana-grafico>
+    <grafico-dona [charts]="semana.donas">
+    </grafico-dona>
+
+    <grafico-barras-compuesto [charts]="semana.barrasCompuesto">
+    </grafico-barras-compuesto>
 
     <horas-semana [semana]="semana.horasSemana">
 

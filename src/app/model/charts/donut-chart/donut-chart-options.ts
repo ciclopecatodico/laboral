@@ -4,7 +4,11 @@ import {
   ApexChart
 } from "ng-apexcharts";
 
-export class ChartOptions {
+
+/**
+ * Para mostrar la compocición porcentual de los diferentes tipos de horas.  
+ */
+export class DonutChart {
 
   constructor(
     public name: string,

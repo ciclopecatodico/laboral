@@ -7,6 +7,7 @@ import { ConfigurationService } from '../../configuration/configuration.service'
 import { Turno } from '../../../model/turno/turno';
 import { List } from '../../../model/listas/list';
 import { CONST } from '../../../model/const/CONST';
+import { ChartOptions } from '../../../model/charts/charts-options/chart-options';
 
 
 /**
@@ -21,11 +22,13 @@ export class LiquidadorHorasService {
   public list = new List();
   public horasList: HorasSemana[];
   public parametros: Parametros[];
+  public charts : ChartOptions[];
 
   constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
     this.horasList = configurationService.semana;
     this.parametros = configurationService.parametros;
+    this.charts = [];
   }
 
   public calcularSemana(peticion: Peticion, parametroId: number): HorasSemana[] {

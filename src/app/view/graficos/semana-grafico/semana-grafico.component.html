@@ -1,0 +1,10 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="row">
+  <div class="chart" *ngFor="let reforma of charts" align="center">
+    <apx-chart [series]="reforma.series" [chart]="reforma.chart" [labels]="reforma.labels"
+      [responsive]="reforma.responsive"></apx-chart>
+      <b>{{reforma.label}}</b>
+  </div>
+</div>
+
+

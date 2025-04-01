@@ -4,6 +4,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
 import { FormsModule } from '@angular/forms';
 import { TurnoComponent } from './view/turno/turno.component';
 import { DayPickerComponent } from './view/day-picker/day-picker.component';
@@ -21,11 +22,13 @@ import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
 import { NavegacionComponent } from './view/navegacion/navegacion.component';
 import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
 import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { PastelComponent } from './view/graficos/grafico/pastel/pastel.component';
+import { SemanaGraficoComponent } from './view/graficos/semana-grafico/semana-grafico.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
     TurnoComponent,
     DayPickerComponent,
     HorasSemanaComponent,
@@ -39,12 +42,15 @@ import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component
     AgnoSimulacionComponent,
     CreditsComponent,
     NavegacionComponent,
-    ParametrosViewComponent
+    ParametrosViewComponent,
+    PastelComponent,
+    SemanaGraficoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgApexchartsModule
   ],
   providers: [
     provideClientHydration(withEventReplay())

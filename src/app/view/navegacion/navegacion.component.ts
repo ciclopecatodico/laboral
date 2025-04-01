@@ -7,6 +7,7 @@ import { ValorHoras } from '../../model/liquidacion/valor-horas/valor-horas';
 import { LiquidadorAgnosService } from '../../service/liquidador/liquidador-agnos/liquidador-agnos.service';
 import { Laboral } from '../../model/simulacion/laboral/laboral';
 import { Agno } from '../../model/simulacion/agno/ango';
+import { Semana } from '../../model/simulacion/agno copy/semana';
 
 @Component({
   selector: 'app-navegacion',
@@ -29,7 +30,7 @@ export class NavegacionComponent {
   public mostrarAgnoForm = false;
 
   public volverAEtapa = 'inicial'; //inicial|sena|
-  public semana = Array<HorasSemana>();
+  public semana = new Semana([],[]);
   public agno = new Agno(0, []);
   public laboral = new Laboral(0,0,0, []);
   //Se encarga de liquidar las horas de una semana 
@@ -64,7 +65,7 @@ export class NavegacionComponent {
     //ya tengo la semana liquidada en este componente 
     //la debo usar para calcular el mes 
     this.peticion = peticion;
-    this.agno = this.liquidadorMesesService.simularMeses(this.semana, this.peticion);
+    this.agno = this.liquidadorMesesService.simularMeses(this.semana.horasSemana, this.peticion);
     //ocultar todas las otras simulaciones y formularios
     this.mostrarMesSimulacion = true;
     this.mostrarSemanaSimulacion = false;

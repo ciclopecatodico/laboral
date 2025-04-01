@@ -33,6 +33,7 @@ export class LiquidadorMesesService {
  */
   public semana1950 = new Array<HorasSemana>();
   public semana789 = new Array<HorasSemana>();
+  public semana2101 = new Array<HorasSemana>();
   public semana2025 = new Array<HorasSemana>();
 
   /**
@@ -40,6 +41,7 @@ export class LiquidadorMesesService {
    */
   public agno1950 = new Array<ValorHoras>;
   public agno789 = new Array<ValorHoras>;
+  public agno2101 = new Array<ValorHoras>;
   public agno2025 = new Array<ValorHoras>;
 
   constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
@@ -59,12 +61,14 @@ export class LiquidadorMesesService {
     //Limpiar variables que almacenan la simulacion
     this.agno1950 = new Array<ValorHoras>;
     this.agno789 = new Array<ValorHoras>;
+    this.agno2101 = new Array<ValorHoras>;
     this.agno2025 = new Array<ValorHoras>;
     //obtener el año que trae los parametros de
     let agno = this.configurationService.agnoModel;
 
     let valorHora1950 = this.calcularValorHora(peticion, CONST.reforma1950.index);
     let valorHora789 = this.calcularValorHora(peticion, CONST.reforma789.index);
+    let valorHora2101 = this.calcularValorHora(peticion, CONST.reforma2101.index);
     let valorHora2025 = this.calcularValorHora(peticion, CONST.reforma2025.index);
 
     //por defecto la duracion de la simulacion es 12 meses de un año
@@ -77,26 +81,33 @@ export class LiquidadorMesesService {
     }
 
     for (let i = 0; i < duracion; i++) {
-      let mesIndex = i%12;
+      let mesIndex = i % 12;
       let mes1950 = this.liquidadorMesService.contarHorasMes(this.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
       this.agno1950.push(mes1950);
+
       let mes789 = this.liquidadorMesService.contarHorasMes(this.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
       this.agno789.push(mes789);
+
+      let mes2101 = this.liquidadorMesService.contarHorasMes(this.semana2101, agno.meses[mesIndex], peticion, valorHora2101, CONST.reforma2101.index);
+      this.agno2101.push(mes2101);
+
       let mes2025 = this.liquidadorMesService.contarHorasMes(this.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
       this.agno2025.push(mes2025);
     }
 
     this.calcularTotales(this.agno1950);
     this.calcularTotales(this.agno789);
+    this.calcularTotales(this.agno2101);
     this.calcularTotales(this.agno2025);
 
     this.redonderar(this.agno1950);
     this.redonderar(this.agno789);
+    this.redonderar(this.agno2101);
     this.redonderar(this.agno2025);
 
     let meses = new Array<ValorHoras>();
     //retornamos un arreglo que contiene todos los agños calculados. 
-    meses = [...this.agno1950, ...this.agno789, ...this.agno2025];
+    meses = [...this.agno1950, ...this.agno789, ...this.agno2101, ...this.agno2025];
     return new Agno(peticion.salario, meses);
   }
 
@@ -108,6 +119,7 @@ export class LiquidadorMesesService {
   private llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
     this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
     this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
+    this.semana2101 = horasSemana.filter(h => (h.reformaName === CONST.reforma2101.reforma));
     this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
   }
 
@@ -148,19 +160,19 @@ export class LiquidadorMesesService {
     agno.push(total);
   }
 
-  
+
 
   private redonderar(agno: ValorHoras[]) {
-    agno.forEach( m => {
-      m.horasDiurnas = Math.round(m.horasDiurnas * 100)/100;
-      m.horasNocturnas = Math.round(m.horasNocturnas * 100)/100;
-      m.horasExtraDiurna = Math.round(m.horasExtraDiurna * 100)/100;
-      m.horasExtraNocturna = Math.round(m.horasExtraNocturna * 100)/100;
-      m.horasDiurnasDominicalesOFestivos = Math.round(m.horasDiurnasDominicalesOFestivos * 100)/100;
-      m.horasNocturnasDominicalesFestivos = Math.round(m.horasNocturnasDominicalesFestivos * 100)/100;
-      m.horasExtrasDiurnasDominicalesFestivas = Math.round(m.horasExtrasDiurnasDominicalesFestivas * 100)/100;
-      m.horasExtrasNocturnasDominicalesFestivas = Math.round(m.horasExtrasNocturnasDominicalesFestivas * 100)/100;
-      m.totalHoras = Math.round(m.totalHoras * 100)/100;
+    agno.forEach(m => {
+      m.horasDiurnas = Math.round(m.horasDiurnas * 100) / 100;
+      m.horasNocturnas = Math.round(m.horasNocturnas * 100) / 100;
+      m.horasExtraDiurna = Math.round(m.horasExtraDiurna * 100) / 100;
+      m.horasExtraNocturna = Math.round(m.horasExtraNocturna * 100) / 100;
+      m.horasDiurnasDominicalesOFestivos = Math.round(m.horasDiurnasDominicalesOFestivos * 100) / 100;
+      m.horasNocturnasDominicalesFestivos = Math.round(m.horasNocturnasDominicalesFestivos * 100) / 100;
+      m.horasExtrasDiurnasDominicalesFestivas = Math.round(m.horasExtrasDiurnasDominicalesFestivas * 100) / 100;
+      m.horasExtrasNocturnasDominicalesFestivas = Math.round(m.horasExtrasNocturnasDominicalesFestivas * 100) / 100;
+      m.totalHoras = Math.round(m.totalHoras * 100) / 100;
     });
   }
 

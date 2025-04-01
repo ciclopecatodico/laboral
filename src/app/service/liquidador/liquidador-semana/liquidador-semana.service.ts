@@ -19,6 +19,7 @@ export class LiquidadorSemanaService {
 
   public semana1950 = new Array<HorasSemana>();
   public semana789 = new Array<HorasSemana>();
+  public semana2021 = new Array<HorasSemana>();
   public semana2025 = new Array<HorasSemana>();
   public charts = new Array<ChartOptions>();
 
@@ -28,17 +29,19 @@ export class LiquidadorSemanaService {
   }
 
   public liquidar(peticion: Peticion): Semana {
-    
+    this.charts = new Array<ChartOptions>();
     this.semana1950 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1950.index);
     this.semana789 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma789.index);
+    this.semana2021 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2101.index);
     this.semana2025 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2025.index);
 
     this.calcularTotales(this.semana1950, CONST.reforma1950.style);
     this.calcularTotales(this.semana789, CONST.reforma789.style);
+    this.calcularTotales(this.semana2021, CONST.reforma2101.style);
     this.calcularTotales(this.semana2025, CONST.reforma2025.style);
 
     let horasSemana = new Array<HorasSemana>();
-    horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2025];
+    horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021,...this.semana2025];
 
     return new Semana(this.charts, horasSemana);
   }
@@ -73,6 +76,7 @@ export class LiquidadorSemanaService {
    * @returns 
    */
   private setChartByHoras(horasSemana: HorasSemana, reformaName:string, reformaLabel:string): ChartOptions {
+    console.log("horasSemana:", JSON.stringify(horasSemana));
     let labels = ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"];
     let horas = [horasSemana.horasDiurnas, horasSemana.horasNocturnas, horasSemana.horasExtraDiurna, horasSemana.horasExtraNocturna];
     return this.setChart(reformaName, reformaLabel, horas, labels);

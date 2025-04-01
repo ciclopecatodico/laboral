@@ -109,3 +109,11 @@ es decir que las horas extra empezarían a contar a partir de las 7.6 horas para
 
 Cómo se liquidaban 
 
+
+
+Para determinar el valor de la hora ordinaria, se empleará la jornada máxima establecida por la Ley 2101 de 2021, En 2025 las horas del mes para calcular el valor de la hora son:
+
+Hasta el 14 de julio de 2025: 230 horas.
+A partir del 15 de julio de 2025: 220 horas.
+
+https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=166506

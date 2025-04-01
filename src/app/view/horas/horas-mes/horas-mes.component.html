@@ -23,7 +23,7 @@
                 </tr>
                 <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="hidden(mes)">
                     <td scope="row">Total:</td>
-                    <td scope="row"></td>
+                    <td scope="row">{{mes.reformaName}}</td>
                     <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>
                     <td scope="row">{{mes.valorHorasExtraDiurna | currency: '$' }}</td>
                     <td scope="row">{{mes.valorHorasNocturnas | currency: '$'}}</td>

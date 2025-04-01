@@ -8,40 +8,42 @@
     <button (click)="verNotas = !verNotas" button type="button" class="btn btn-success">Ver Consideraciones</button>
     <div *ngIf="verNotas">
         <br>
-        <p>El primero era la <b> {{reformas[0].reformaLabel}} </b> y establecía que la Jornada Diurna era de
-            <b>{{reformas[0].diaInicio+ ' - ' + reformas[0].diaFin}}</b> y la Jornada
-            Nocturna de <b>{{reformas[0].nocheInicio+ ' - ' + reformas[0].nocheFin}}</b>.
-        </p>
-
-        <p>El segundo fue la <b>{{reformas[1].reformaLabel}}</b> y estableció que la Jornada Diurna era de
-            <b>{{reformas[1].diaInicio+ ' - ' + reformas[1].diaFin}}</b> y
-            la Jornada Nocturna de <b>{{reformas[1].nocheInicio+ ' - ' + reformas[1].nocheFin}}</b>.
-        </p>
-
-        <p>La propuesta actual la <b>{{reformas[2].reformaLabel}}</b> es que la Jornada Diurna sea de
-            <b>{{reformas[2].diaInicio+ ' - ' + reformas[2].diaFin}}</b> y la Jornada Nocturna
-            de <b>{{reformas[2].nocheInicio+ ' - ' + reformas[2].nocheFin}}</b>.
-        </p>
-        <div class="row">
-            <div class="col">
-                <div class="jornada titulos">
-                    <div>
-                        Reforma:
-                    </div>
-                    <div>
-                        <br> Jornada Diurna:
-                        <br> Jornada Nocturna:
-                    </div>
-                </div>
-            </div>
-            <div class="col" *ngFor="let reforma of reformas">
-                {{reforma.reformaLabel}}
-                <div>
-                    <br>{{reforma.diaInicio+ ' - ' + reforma.diaFin}}
-                    <br>{{reforma.nocheInicio+ ' - ' + reforma.nocheFin}}
-                </div>
-            </div>
+        <h4>Par&aacute;metros utilizados:</h4>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Valores</th>
+                        <th *ngFor="let i of const.reformas">
+                            {{ parametros[i].reformaLabel}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{const.jornadaLaboralDiurna.label}}: </td>
+                        <td *ngFor="let i of const.reformas">
+                            {{ parametros[i].diaInicio}} - {{ parametros[i].diaFin}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{const.jornadaLaboralNocturna.label}}: </td>
+                        <td *ngFor="let i of const.reformas">
+                            {{ parametros[i].nocheInicio}} - {{ parametros[i].nocheFin}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{const.jornadaLaboralSemanal.label}}:</td>
+                        <td *ngFor="let i of const.reformas">
+                            {{parametros[i].jornadaLaboralMensual}} Horas
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{const.jornadaLaboralMensual.label}}:</td>
+                        <td *ngFor="let i of const.reformas">{{parametros[i].jornadaLaboralMensual}} Horas</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <br>
     </div>
 
     <semana-grafico [charts]="semana.charts">

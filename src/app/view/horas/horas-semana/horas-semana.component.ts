@@ -19,22 +19,25 @@ export class HorasSemanaComponent {
 
   public total1950 = Array<HorasSemana>();
   public total789 = Array<HorasSemana>();
+  public total2021 = Array<HorasSemana>();
   public total2025 = Array<HorasSemana>();
 
   public showReforma1950 = false;
   public showReforma789 = false;
+  public showReforma2101 = false;
   public showReforma2025 = false;
 
   public reforma1950 = CONST.reforma1950;
   public reforma789 = CONST.reforma789;
+  public reforma2101 = CONST.reforma2101;
   public reforma2025 = CONST.reforma2025;
 
-  public reformas : Parametros[];
+  public reformas: Parametros[];
 
   public titulos = ['/'];
   public tiposHoras = ['Día', 'Reforma', 'Horario', 'Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Total'];
 
-  constructor(configurationService : ConfigurationService) {
+  constructor(configurationService: ConfigurationService) {
     this.reformas = configurationService.parametros;
     this.initHeaders();
   }
@@ -50,12 +53,16 @@ export class HorasSemanaComponent {
 
 
   toogle(reforma: string) {
+    console.log()
     switch (reforma) {
       case "1950":
         this.showReforma1950 = !this.showReforma1950;
         break;
       case "789":
         this.showReforma789 = !this.showReforma789;
+        break;
+      case "2101":
+        this.showReforma2101 = !this.showReforma2101;
         break;
       case "2025":
         this.showReforma2025 = !this.showReforma2025;
@@ -65,7 +72,7 @@ export class HorasSemanaComponent {
 
 
   hidden(dia: HorasSemana) {
-    if(dia.name === 'total'){
+    if (dia.name === 'total') {
       return false;
     }
     let reforma = dia.reformaName;
@@ -75,6 +82,9 @@ export class HorasSemanaComponent {
 
       case "789":
         return !this.showReforma789;
+
+      case "2101":
+        return !this.showReforma2101;
 
       case "2025":
         return !this.showReforma2025;

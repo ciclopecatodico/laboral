@@ -107,7 +107,60 @@
     },
     {
         "id": 3,
-        "reformaLabel": "Reforma 2025",
+        "reformaLabel": "Ley 2101 de 2021",
+        "reformaName": "2101",
+        "style": "info",
+        "descripcion": "Ley 2101 de 2021 que ajusta la jornada laboral mensual",
+        "smlv": 1423500,
+        "smlvHora": 6189,
+        "subsidioTransporte": 200000,
+        "senaLectiva": 50,
+        "senaProductiva": 75,
+        "diasMes": 30,
+        "diaInicio": "06:00 AM",
+        "diaFin": "10:00 PM",
+        "nocheInicio": "10:00 PM",
+        "nocheFin": "06:00 AM",
+        "jornadaLaboralDiaria": 8,
+        "jornadaLaboralSemanal": 44,
+        "jornadaLaboralMensual": 220,
+        "maximoHorasExtras": 4,
+        "horasDiurnas": {
+            "factor": 1,
+            "porcentaje": 100
+        },
+        "horasNocturnas": {
+            "factor": 1.35,
+            "porcentaje": 35
+        },
+        "horasExtrasDiurnas": {
+            "factor": 1.25,
+            "porcentaje": 25
+        },
+        "horasExtrasNocturnas": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 2.1,
+            "porcentaje": 110
+        },
+        "horasExtrasDiurnasDominicalesFestivas": {
+            "factor": 2,
+            "porcentaje": 100
+        },
+        "horasExtrasNocturnasDominicalesFestivas": {
+            "factor": 2.50,
+            "porcentaje": 150
+        }
+    },
+    {
+        "id": 4,
+        "reformaLabel": "Propuesta 2025",
         "reformaName": "2025",
         "style": "success",
         "descripcion": "Valores para calcular con la reforma laboral de PETRO en 2025",
@@ -122,8 +175,8 @@
         "nocheInicio": "06:00 PM",
         "nocheFin": "06:00 AM",
         "jornadaLaboralDiaria": 8,
-        "jornadaLaboralSemanal": 46,
-        "jornadaLaboralMensual": 230,
+        "jornadaLaboralSemanal": 44,
+        "jornadaLaboralMensual": 220,
         "maximoHorasExtras": 4,
         "horasDiurnas": {
             "factor": 1,

@@ -1,5 +1,15 @@
 export const CONST = {
 
+    jornadaLaboralDiurna:
+    {
+        id: 'jornadaLaboralDiurna',
+        label: 'Inicio Laboral Diurna'
+    },
+    jornadaLaboralNocturna:
+    {
+        id: 'jornadaLaboralNocturna',
+        label: 'Inicio Laboral Nocturna'
+    },
     jornadaDiurnaInicio:
     {
         id: 'jornadaDiurnaInicio',
@@ -110,6 +120,7 @@ export const CONST = {
         label: 'Hombre',
         edadPension: 62
     },
+    reformas: [0,1,2,3],
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
         index: 0,
         reforma: '1950',
@@ -120,8 +131,13 @@ export const CONST = {
         reforma: '789',
         style: 'secondary'
     },
-    reforma2025: {
+    reforma2101: {
         index: 2,
+        reforma: '2101',
+        style: 'info'
+    },
+    reforma2025: {
+        index: 3,
         reforma: '2025',
         style: 'success'
     }

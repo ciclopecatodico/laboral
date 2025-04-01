@@ -3,6 +3,7 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { Semana } from '../../../model/simulacion/agno copy/semana';
+import { CONST } from '../../../model/const/CONST';
 
 @Component({
   selector: 'semana-simulacion',
@@ -22,12 +23,12 @@ export class SemanaSimulacionComponent {
   public peticionSemanaChange = new EventEmitter<Peticion>;
 
   public verNotas = false;
-
-  public reformas: Parametros[];
+  public const = CONST;
+  public parametros: Parametros[];
   public verGrafico = false;
 
   constructor(configurationService: ConfigurationService) {
-    this.reformas = configurationService.parametros;
+    this.parametros = configurationService.parametros;
     this.peticion = new Peticion('', 1);
     this.semana = new Semana([], []);
   }

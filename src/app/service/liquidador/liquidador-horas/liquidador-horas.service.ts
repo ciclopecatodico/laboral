@@ -22,7 +22,7 @@ export class LiquidadorHorasService {
   public list = new List();
   public horasList: HorasSemana[];
   public parametros: Parametros[];
-  public charts : ChartOptions[];
+  public charts: ChartOptions[];
 
   constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
@@ -36,7 +36,7 @@ export class LiquidadorHorasService {
     //asigno a la petición el valor del salario del último parámetro utilizado 2025
     peticion.salario = parametros.smlv;
     this.horasList = structuredClone(this.configurationService.semana);
-    this.horasList.forEach(h => { 
+    this.horasList.forEach(h => {
       h.reformaName = parametros.reformaName;
       h.reformaLabel = parametros.reformaLabel
       h.style = parametros.style;
@@ -68,6 +68,7 @@ export class LiquidadorHorasService {
     //calculo las horas del turno de dia
     let horasDiurnas1 = this.calcularHorasDentroDelTurno(horario, jornadaDiurna);
     let horasTotales = horasNocturnas1 + horasDiurnas1;
+    console.log("JornadaLaboralDiaria:", parametro.jornadaLaboralDiaria);
     if (horasTotales > parametro.jornadaLaboralDiaria) {
       //Habría horas extras diurnas así: 
       horasExtrasDiurnas = horasTotales - parametro.jornadaLaboralDiaria;
@@ -85,6 +86,10 @@ export class LiquidadorHorasService {
     } else {
       horasNocturnas = horasNocturnas1 + horasNocturnas2;
     }
+    console.log("horasDiurnas:", horasDiurnas);
+    console.log("horasNocturnas:", horasNocturnas);
+    console.log("horasExtrasDiurnas:", horasExtrasDiurnas);
+    console.log("horasExtraNocturnas:", horasExtraNocturnas);
     turno.dias?.forEach(
       dia => {
         this.guardarDia(dia, parametro.reformaName, parametro.reformaLabel, parametro.style, horario, horasDiurnas, horasNocturnas, horasExtrasDiurnas, horasExtraNocturnas, parametro.jornadaLaboralDiaria, parametro.maximoHorasExtras);
@@ -92,7 +97,7 @@ export class LiquidadorHorasService {
     );
   }
 
-  public guardarDia(nombre: string, reformaName: string, reformaLabel:string, style: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
+  public guardarDia(nombre: string, reformaName: string, reformaLabel: string, style: string, jornada: string[], horasDiurnas: number, horasNocturnas: number, horasExtraDiurna: number, horasExtraNocturna: number, jornadaLaboralDiaria: number, maximoHorasExtras: number) {
     let horario = jornada[0] + "-" + jornada[1];
     let horas = this.horasList.find(d => d.name === nombre);
     if (horas) {
@@ -205,12 +210,12 @@ export class LiquidadorHorasService {
    * Redondear todas las horas a dos decimales 
    * @param horasList 
    */
-  public redonderar(horasList: HorasSemana[]){
-    horasList.forEach( h=> {
-      h.horasDiurnas = Math.round(h.horasDiurnas * 100)/100;
-      h.horasExtraDiurna = Math.round(h.horasExtraDiurna * 100)/100;
-      h.horasNocturnas = Math.round(h.horasNocturnas * 100)/100;
-      h.horasExtraNocturna = Math.round(h.horasExtraNocturna * 100)/100;
+  public redonderar(horasList: HorasSemana[]) {
+    horasList.forEach(h => {
+      h.horasDiurnas = Math.round(h.horasDiurnas * 100) / 100;
+      h.horasExtraDiurna = Math.round(h.horasExtraDiurna * 100) / 100;
+      h.horasNocturnas = Math.round(h.horasNocturnas * 100) / 100;
+      h.horasExtraNocturna = Math.round(h.horasExtraNocturna * 100) / 100;
     });
   }
 

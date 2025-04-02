@@ -3,6 +3,7 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { CONST } from '../../../model/const/CONST';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agno-form',
@@ -14,34 +15,38 @@ export class AgnoFormComponent {
 
 
   @Output()
-  public peticionSemanaChange = new EventEmitter<Peticion>;
+  public peticionChange = new EventEmitter<Peticion>;
 
-  @Output()
-  public volverChange = new EventEmitter<string>;
-  public peticion_: Peticion;
-
+  private router : Router; 
+  private peticion_: Peticion;
   public parametros: Parametros;
 
 
-  constructor(configurationService: ConfigurationService) {
-    this.peticion_ = new Peticion('', 1);
+  constructor(configurationService: ConfigurationService,  router : Router) {
+    this.router = router; 
+    this.peticion_ = Object.create(Peticion); 
     this.parametros = configurationService.parametros[CONST.reforma2025.index];
   }
 
 
-  public calcularAgnos() {
-    this.peticionSemanaChange.emit(this.peticion_);
+  public simularLaboral() {
+    if(this.formularioValido()){
+      this.peticionChange.emit(this.peticion_);
+      console.log("peticionChange Emitido!!");
+    }else{
+      alert("Datos invalidos");
+    }
   }
 
   public volver() {
-    this.volverChange.emit('semana');
+      this.router.navigate(['paso-2']);
   }
 
   @Input()
   set peticion(peticion: Peticion) {
     this.peticion_ = peticion;
     //asigno a la petición el valor del salario del último parámetro utilizado 2025
-    this.peticion.salario = this.parametros.smlv;
+    //this.peticion.salario = this.parametros.smlv;
   }
 
   get peticion() {
@@ -49,16 +54,21 @@ export class AgnoFormComponent {
   }
 
 
-  get formularioValido(): boolean {
+  private formularioValido(): boolean {
+    //console.log("Peticion:", JSON.stringify(this.peticion_))
     if (this.peticion_.sena) {
       return false;
     }
     if (this.peticion_.edad == undefined || this.peticion_.edad < 18) {
       return false;
     }
+    if (this.peticion_.experiencia == undefined || this.peticion_.experiencia < 0) {
+      return false;
+    }
     if (this.peticion_.sexo == undefined) {
       return false;
     }
+    //console.log("Peticion:", JSON.stringify(this.peticion_))
     return true;
   }
 

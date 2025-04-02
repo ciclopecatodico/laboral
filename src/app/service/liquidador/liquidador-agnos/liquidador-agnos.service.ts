@@ -7,6 +7,8 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 import { Laboral } from '../../../model/simulacion/laboral/laboral';
+import { GraficoService } from '../../grafico/grafico.service';
+import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
 
 
 /**
@@ -22,6 +24,7 @@ export class LiquidadorAgnosService {
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
 
+  public graficoService : GraficoService;
   public parametros: Parametros[];
 
   public inicioSimu = 0;
@@ -32,6 +35,7 @@ export class LiquidadorAgnosService {
 */
   public total1950: ValorHoras;
   public total789: ValorHoras;
+  public total2101: ValorHoras;
   public total2025: ValorHoras;
 
   /**
@@ -39,14 +43,20 @@ export class LiquidadorAgnosService {
    */
   public laboral1950 = new Array<ValorHoras>;
   public laboral789 = new Array<ValorHoras>;
+  public laboral2101 = new Array<ValorHoras>;
   public laboral2025 = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
+
+  public totales = new Array<ValorHoras>;
+
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService,graficoService : GraficoService) {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
+    this.graficoService = graficoService; 
     this.parametros = configurationService.parametros;
     this.total1950 = structuredClone(this.configurationService.valorHoras);
     this.total789 = structuredClone(this.configurationService.valorHoras);
+    this.total2101 = structuredClone(this.configurationService.valorHoras);
     this.total2025 = structuredClone(this.configurationService.valorHoras);
   }
 
@@ -65,18 +75,26 @@ export class LiquidadorAgnosService {
     //genera la simulacion para cada reforma 
     this.laboral1950 = this.generarAngos(this.total1950);
     this.laboral789 = this.generarAngos(this.total789);
+    this.laboral2101 = this.generarAngos(this.total2101);
     this.laboral2025 = this.generarAngos(this.total2025);
 
+    //limpio totales para volver a guardar los datos.
+    this.totales = new Array<ValorHoras>;
     //calcular totales para cada simulación. 
     this.calcularTotales(this.laboral1950);
     this.calcularTotales(this.laboral789);
+    this.calcularTotales(this.laboral2101);
     this.calcularTotales(this.laboral2025);
     let valorHoras = new Array<ValorHoras>();
     
     //retornamos un arreglo que contiene todos los agños calculados. 
-    valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2025];
+    valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2101, ...this.laboral2025];
     
-    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras);
+    //graficos:
+    let barrasHorasPonderadas = undefined;
+    let barrasTotal = this.generarBarrasTotal();
+
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barrasHorasPonderadas, barrasTotal);
   }
 
   /**
@@ -86,6 +104,7 @@ export class LiquidadorAgnosService {
   private filtraTotalPorReforma(agno: ValorHoras[]) {
     this.total1950 = agno.filter(h => (h.reformaName === CONST.reforma1950.reforma && h.name === CONST.total.id))[0];
     this.total789 = agno.filter(h => (h.reformaName === CONST.reforma789.reforma && h.name === CONST.total.id))[0];
+    this.total2101 = agno.filter(h => (h.reformaName === CONST.reforma2101.reforma && h.name === CONST.total.id))[0];
     this.total2025 = agno.filter(h => (h.reformaName === CONST.reforma2025.reforma && h.name === CONST.total.id))[0];
   }
 
@@ -147,6 +166,7 @@ export class LiquidadorAgnosService {
     total.name = CONST.total.id;
     total.reformaLabel = agno[0].reformaLabel;
     total.reformaName = agno[0].reformaName;
+    total.reformaIndex = agno[0].reformaIndex
     total.style = agno[0].style;
     total.valorHora = agno[0].valorHora;
     agno.forEach(mes => {
@@ -173,6 +193,36 @@ export class LiquidadorAgnosService {
     })
     //agregamos el total al final del año
     agno.push(total);
+    this.totales.push(total);
   }
+
+
+  /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
+  
+  
+    private generarBarrasTotal(): BarChartSimple {
+      let sumatoria = Array<any>();
+      //Obtiene el total por tipo de reforma 
+      this.totales.forEach(vh => {
+        let reforma = this.parametros.find(p => p.reformaName === vh.reformaName);
+  
+        let sum = {
+          x: vh.reformaLabel,
+          y: this.round(vh.totalValorHoras),
+          fillColor: reforma?.colorFill,
+          strokeColor: reforma?.colorStroke,
+        }
+        sumatoria.push(sum);
+      });
+  
+      let categorias = Array<string>();
+      this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
+      return this.graficoService.barrasSimple(CONST.diagramas.agnos.barrasSimple.id, CONST.diagramas.agnos.barrasSimple.label, sumatoria, CONST.diagramas.agnos.barrasSimple.yLabel);
+    }
+  
+  
+    private round(data: number) {
+      return Math.round(data * 10) / 10;
+    }
 
 }

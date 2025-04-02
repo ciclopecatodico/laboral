@@ -1,0 +1,6 @@
+<!--SIMULACION del agno con la configuración del sena o salario -->
+<agno-simulacion [peticion]="peticion" [agno]="agno"></agno-simulacion>
+
+<!--FORMULARIO de la eddad, sexo y años de experiencia laboral para liquidar lo que  ha perdido con la refoma  789 y lo que podría ganar con la reforma 2025-->
+<agno-form [peticion]="peticion" 
+    (peticionChange)="simularLaboral($event)"></agno-form>

@@ -26,6 +26,15 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { DonaComponent } from './view/graficos/dona/grafico.component';
 import { BarrasSimpleComponent } from './view/graficos/barras-simple/barras-simple.component';
 import { BarrasCompuestoComponent } from './view/graficos/barras-compuesto/barras-compuesto.component';
+import { LaboralSimulacionComponent } from './view/simulacion/laboral-simulacion/laboral-simulacion.component';
+import { SemanaFormComponent } from './view/form/semana-form/semana-form.component';
+import { Paso0Component } from './view/pasos/paso-0/paso-0.component';
+import { Paso1Component } from './view/pasos/paso-1/paso-1.component';
+import { Paso2Component } from './view/pasos/paso-2/paso-2.component';
+import { Paso3Component } from './view/pasos/paso-3/paso-3.component';
+import { Paso4Component } from './view/pasos/paso-4/paso-4.component';
+import { HorasLaboralComponent } from './view/horas/horas-laboral/horas-laboral.component';
+import { ParametrosComponent } from './view/documentos/parametros/parametros.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +44,10 @@ import { BarrasCompuestoComponent } from './view/graficos/barras-compuesto/barra
     HorasSemanaComponent,
     HorasMesComponent,
     HorasAgnoComponent,
+    HorasLaboralComponent,
     SemanaSimulacionComponent,
     InicialFormComponent,
+    SemanaFormComponent,
     MesFormComponent,
     AgnoFormComponent,
     MesSimulacionComponent,
@@ -46,7 +57,14 @@ import { BarrasCompuestoComponent } from './view/graficos/barras-compuesto/barra
     ParametrosViewComponent,
     DonaComponent, 
     BarrasSimpleComponent,
-    BarrasCompuestoComponent
+    BarrasCompuestoComponent,
+    LaboralSimulacionComponent,
+    Paso0Component,
+    Paso1Component,
+    Paso2Component,
+    Paso3Component,
+    Paso4Component,
+    ParametrosComponent
   ],
   imports: [
     BrowserModule,

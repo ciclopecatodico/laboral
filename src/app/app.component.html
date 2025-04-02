@@ -1,2 +1,16 @@
-
-<app-navegacion></app-navegacion>
+<!--<app-navegacion></app-navegacion>-->
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" [routerLink]="'/paso-0'">Simulador</a>
+        <a class="navbar-brand" [routerLink]="'/parametros'">Información</a>
+        <app-credits></app-credits>
+    </nav>
+    <div class="row">
+        <br>
+    </div>
+    <div class="col">
+        <h1>Simulador Laboral</h1>
+        <h2>Ajustada a las reformas laborales</h2>
+    </div>
+</div>
+<router-outlet></router-outlet>

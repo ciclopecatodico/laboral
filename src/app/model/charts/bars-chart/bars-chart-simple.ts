@@ -6,6 +6,8 @@ import {
   ApexYAxis,
   ApexXAxis,
   ApexLegend,
+  ApexResponsive,
+  ApexTooltip
 } from "ng-apexcharts";
 
 
@@ -23,8 +25,8 @@ export class BarChartSimple {
     public plotOptions: ApexPlotOptions,
     public yaxis: ApexYAxis,
     public xaxis: ApexXAxis,
-    //public grid: ApexGrid,
     public legend: ApexLegend,
     public responsive: ApexResponsive[],
+    public tooltip : ApexTooltip
   ) { }
 };

@@ -7,6 +7,8 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 import { Agno } from '../../../model/simulacion/agno/ango';
+import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
+import { GraficoService } from '../../grafico/grafico.service';
 
 
 /**
@@ -25,16 +27,8 @@ export class LiquidadorMesesService {
 
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
-
+  public graficoService: GraficoService;
   public parametros: Parametros[];
-
-  /**
- * Horas registradas para cada semana
- */
-  public semana1950 = new Array<HorasSemana>();
-  public semana789 = new Array<HorasSemana>();
-  public semana2101 = new Array<HorasSemana>();
-  public semana2025 = new Array<HorasSemana>();
 
   /**
    * Guarda la liquidación de los meses de un año y su total. 
@@ -44,9 +38,12 @@ export class LiquidadorMesesService {
   public agno2101 = new Array<ValorHoras>;
   public agno2025 = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
+  public totales = new Array<ValorHoras>;
+
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService, graficoService: GraficoService) {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
+    this.graficoService = graficoService;
     this.parametros = configurationService.parametros;
   }
 
@@ -57,7 +54,7 @@ export class LiquidadorMesesService {
    */
   public simularMeses(horasSemana: HorasSemana[], peticion: Peticion): Agno {
     //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
-    this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
+    this.liquidadorMesService.llenarHorasTotalesPorSemanaYReforma(horasSemana);
     //Limpiar variables que almacenan la simulacion
     this.agno1950 = new Array<ValorHoras>;
     this.agno789 = new Array<ValorHoras>;
@@ -66,10 +63,10 @@ export class LiquidadorMesesService {
     //obtener el año que trae los parametros de
     let agno = this.configurationService.agnoModel;
 
-    let valorHora1950 = this.calcularValorHora(peticion, CONST.reforma1950.index);
-    let valorHora789 = this.calcularValorHora(peticion, CONST.reforma789.index);
-    let valorHora2101 = this.calcularValorHora(peticion, CONST.reforma2101.index);
-    let valorHora2025 = this.calcularValorHora(peticion, CONST.reforma2025.index);
+    let valorHora1950 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma1950.index);
+    let valorHora789 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma789.index);
+    let valorHora2101 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma2101.index);
+    let valorHora2025 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma2025.index);
 
     //por defecto la duracion de la simulacion es 12 meses de un año
     let duracion = agno.meses.length;
@@ -82,45 +79,41 @@ export class LiquidadorMesesService {
 
     for (let i = 0; i < duracion; i++) {
       let mesIndex = i % 12;
-      let mes1950 = this.liquidadorMesService.contarHorasMes(this.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
+      let mes1950 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
       this.agno1950.push(mes1950);
 
-      let mes789 = this.liquidadorMesService.contarHorasMes(this.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
+      let mes789 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
       this.agno789.push(mes789);
 
-      let mes2101 = this.liquidadorMesService.contarHorasMes(this.semana2101, agno.meses[mesIndex], peticion, valorHora2101, CONST.reforma2101.index);
+      let mes2101 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana2101, agno.meses[mesIndex], peticion, valorHora2101, CONST.reforma2101.index);
       this.agno2101.push(mes2101);
 
-      let mes2025 = this.liquidadorMesService.contarHorasMes(this.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
+      let mes2025 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
       this.agno2025.push(mes2025);
     }
 
+    //limpio totales para volver a guardar los datos.
+    this.totales = new Array<ValorHoras>;
     this.calcularTotales(this.agno1950);
     this.calcularTotales(this.agno789);
     this.calcularTotales(this.agno2101);
     this.calcularTotales(this.agno2025);
 
-    this.redonderar(this.agno1950);
-    this.redonderar(this.agno789);
-    this.redonderar(this.agno2101);
-    this.redonderar(this.agno2025);
+    this.liquidadorMesService.redonderar(this.agno1950);
+    this.liquidadorMesService.redonderar(this.agno789);
+    this.liquidadorMesService.redonderar(this.agno2101);
+    this.liquidadorMesService.redonderar(this.agno2025);
 
     let meses = new Array<ValorHoras>();
     //retornamos un arreglo que contiene todos los agños calculados. 
     meses = [...this.agno1950, ...this.agno789, ...this.agno2101, ...this.agno2025];
-    return new Agno(peticion.salario, meses);
-  }
 
-  /**
- * Filtra y llena las horas semanales por cada tipo de reforma que se usarán para calcular las horas mensuales
- * En este punto todos los arreglos deben empezar por el días lunes y terminar en total
- * @param horasSemana Arreglo con todas las horas semanales de los diferentes tipos de reformas
- */
-  private llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
-    this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
-    this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
-    this.semana2101 = horasSemana.filter(h => (h.reformaName === CONST.reforma2101.reforma));
-    this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
+
+    let barrasHorasPonderadas = undefined;
+    let barrasTotal = this.generarBarrasTotal();
+
+
+    return new Agno(peticion.salario, meses, barrasHorasPonderadas, barrasTotal);
   }
 
 
@@ -132,6 +125,7 @@ export class LiquidadorMesesService {
     total.name = CONST.total.id;
     total.reformaLabel = agno[0].reformaLabel;
     total.reformaName = agno[0].reformaName;
+    total.reformaIndex = agno[0].reformaIndex
     total.style = agno[0].style;
     total.valorHora = agno[0].valorHora;
     agno.forEach(mes => {
@@ -158,56 +152,39 @@ export class LiquidadorMesesService {
     })
     //agregamos el total al final del año
     agno.push(total);
+    this.totales.push(total);
   }
 
 
 
-  private redonderar(agno: ValorHoras[]) {
-    agno.forEach(m => {
-      m.horasDiurnas = Math.round(m.horasDiurnas * 100) / 100;
-      m.horasNocturnas = Math.round(m.horasNocturnas * 100) / 100;
-      m.horasExtraDiurna = Math.round(m.horasExtraDiurna * 100) / 100;
-      m.horasExtraNocturna = Math.round(m.horasExtraNocturna * 100) / 100;
-      m.horasDiurnasDominicalesOFestivos = Math.round(m.horasDiurnasDominicalesOFestivos * 100) / 100;
-      m.horasNocturnasDominicalesFestivos = Math.round(m.horasNocturnasDominicalesFestivos * 100) / 100;
-      m.horasExtrasDiurnasDominicalesFestivas = Math.round(m.horasExtrasDiurnasDominicalesFestivas * 100) / 100;
-      m.horasExtrasNocturnasDominicalesFestivas = Math.round(m.horasExtrasNocturnasDominicalesFestivas * 100) / 100;
-      m.totalHoras = Math.round(m.totalHoras * 100) / 100;
-    });
-  }
+  /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
 
 
-  /**
-   * De esta función depende que el cálculo del salario mensual sea acorde al SMLV vigente según la reforma que se esté aplicando a las jornadas 
-   * asi el valor de la hora en jornada diurna ordinaria depende de la cantidad de horas que se conciben en la reforma para un mes laboral. 
-   * @param peticion 
-   * @param parametro 
-   * @returns 
-   */
-  private calcularValorHora(peticion: Peticion, parametroId: number): number {
-    //liquida el valor de las horas del mes 
-    //la hora debe tener en cuenta el caso que la persona sea del sena 
-    //calcular automaticamente el valor de la hora segun su etapa
-    //se asigna por defecto el valor de una hora de salario minimo
-    let parametro = this.parametros[parametroId];
-    let valorHora = 0;
-    if (peticion.salario > parametro.smlv) {
-      //El valor de la hora depende de la jornada mensual
-      valorHora = peticion.salario / parametro.jornadaLaboralMensual;
-    } else {
-      peticion.salario = parametro.smlv;
-      //Por eso se calcula en funcion de la jornada laboral mensual en horas 
-      valorHora = parametro.smlv / parametro.jornadaLaboralMensual;
-    }
-    //Ajusta el valor de la hora dependiendo si es estudiante del sena y la etapa en la que se encuentra: 
-    if (peticion.sena) {
-      if (peticion.etapa === CONST.senaLectiva.id) {
-        valorHora = (valorHora * (parametro.senaLectiva / 100));
-      } else {
-        valorHora = (valorHora * (parametro.senaProductiva / 100));
+  private generarBarrasTotal(): BarChartSimple {
+    let sumatoria = Array<any>();
+
+    //Obtiene el total por tipo de reforma 
+    this.totales.forEach(vh => {
+      let reforma = this.parametros.find(p => p.reformaName === vh.reformaName);
+
+      let sum = {
+        x: vh.reformaLabel,
+        y: this.round(vh.totalValorHoras),
+        fillColor: reforma?.colorFill,
+        strokeColor: reforma?.colorStroke,
       }
-    }
-    return valorHora;
+      sumatoria.push(sum);
+    });
+
+    let categorias = Array<string>();
+    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
+    return this.graficoService.barrasSimple(CONST.diagramas.mes.barrasSimple.id, CONST.diagramas.mes.barrasSimple.label, sumatoria, CONST.diagramas.mes.barrasSimple.yLabel);
+
+  }
+
+
+  private round(data: number) {
+    return Math.round(data * 10) / 10;
   }
 
 }

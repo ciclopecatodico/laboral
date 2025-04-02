@@ -73,6 +73,7 @@ export class GraficoService {
   }
 
   public pastel(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
+    console.log("Generar pastel???");
     return {
       name: reformaName,
       label: reformaLabel,
@@ -101,26 +102,28 @@ export class GraficoService {
           fontSize:'12px',
           //colors: ['#363d3e']
         },
-        formatter: (val, opt) => {
-          switch (opt.seriesIndex) {
-            case 0:
-              return [CONST.horasDiurnas.label, series[0] + 'h | ' + val as string + '%'] as unknown as string;
-            case 1:
-              return [CONST.horasNocturnas.label, series[1] + 'h | ' + val as string + '%'] as unknown as string;
-            case 2:
-              return [CONST.horasExtrasDiurnas.label, series[2] + 'h | ' + val as string + '%'] as unknown as string;
-            case 3:
-              return [CONST.horasExtrasNocturnas.label, series[3] + 'h | ' + val as string + '%'] as unknown as string;
-            default:
-              return val as string;
-          }
-        },
+        // formatter: (val, opt) => {
+        //   switch (opt.seriesIndex) {
+        //     case 0:
+        //       return [CONST.horasDiurnas.label, series[0] + 'h | ' + val as string + '%'] as unknown as string;
+        //     case 1:
+        //       return [CONST.horasNocturnas.label, series[1] + 'h | ' + val as string + '%'] as unknown as string;
+        //     case 2:
+        //       return [CONST.horasExtrasDiurnas.label, series[2] + 'h | ' + val as string + '%'] as unknown as string;
+        //     case 3:
+        //       return [CONST.horasExtrasNocturnas.label, series[3] + 'h | ' + val as string + '%'] as unknown as string;
+        //     default:
+        //       return val as string;
+        //   }
+        // },
       }
     };
   }
 
 
-  public barrasSimple(reformaName: string, reformaLabel: string, data: any[]): BarChartSimple {
+  public barrasSimple(reformaName: string, reformaLabel: string, data: any[], yLabel :string): BarChartSimple {
+    console.log("barraSimple:", yLabel);
+    console.log("data:", JSON.stringify(data));
     return {
       name: reformaName,
       label: reformaLabel,
@@ -150,7 +153,10 @@ export class GraficoService {
           colors: ['#322513']
         },
         formatter: (value) => {
-          return `$ ${this.numberWithCommas(value)}`;
+          //if (dinero) {
+            return `$ ${this.numberWithCommas(value)} >>>>`;
+          //}
+          //return `${this.numberWithCommas(value)} h`;
         },
       },
       // legend: {
@@ -161,11 +167,11 @@ export class GraficoService {
       // },
       yaxis: {
         title: {
-          text: 'Salario'
+          text: yLabel
         },
         labels: {
           formatter: (value) => {
-            return `$ ${this.numberWithCommas(value)}`;
+            return `$ ${this.numberWithCommas(value)} ???`;
           },
           style: {
             fontSize: '15px',
@@ -201,6 +207,13 @@ export class GraficoService {
           }
         }
       ],
+      tooltip : {
+        y: {
+          formatter: function(val: any) {
+            return "$ " + val + " thousands"
+          }
+        }
+      }
     };
   }
 

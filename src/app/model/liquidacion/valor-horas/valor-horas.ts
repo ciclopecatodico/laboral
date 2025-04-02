@@ -9,6 +9,7 @@ export class ValorHoras {
         public label: string, //etiqueta a mostrar en la tabla
         public reformaName: string, //reforma con la que se liquidaron las horas
         public reformaLabel: string, //Etiqueta a usar para la reforma
+        public reformaIndex: number,
         public style: string, //estilo css a aplicar 
 
         public festivos: number,    //Festivos que trabajo la persona

@@ -1,6 +1,6 @@
-import { Agno } from './semana';
+import { Semana } from './semana';
 
-describe('Agno', () => {
+describe('Semana', () => {
   it('should create an instance', () => {
     //expect(new Agno()).toBeTruthy();
   });

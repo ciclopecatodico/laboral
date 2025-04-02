@@ -3,9 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import moment from 'moment';
 import { Peticion } from '../../../model/peticion/peticion.model';
 import { Turno } from '../../../model/turno/turno';
-import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { ConfigurationService } from '../../../service/configuration/configuration.service';
-import { LiquidadorSemanaService } from '../../../service/liquidador/liquidador-semana/liquidador-semana.service';
 import { CONST } from '../../../model/const/CONST';
 import { Credito } from '../../../model/credito/credito';
 
@@ -22,15 +20,10 @@ export class InicialFormComponent {
 
 
   @Output()
-  public peticionHorarioChange = new EventEmitter<Peticion>;
+  public peticionChange = new EventEmitter<Peticion>;
   public peticion_: Peticion;
 
   public turnos: Turno[] = new Array<Turno>();
-
-  public mostrarAddTurno = true;
-  public mostrarLimpiar = true;
-  public mostrarFormulario = true;
-  public mostrarSimulacion = false;
 
   public configurationService: ConfigurationService;
   public contacto: Credito;
@@ -143,11 +136,7 @@ export class InicialFormComponent {
       alert("Datos inválidos");
     } else {
       this.peticion_.turnos = this.turnos;
-      this.mostrarSimulacion = true;
-      this.mostrarFormulario = false;
-      this.mostrarAddTurno = false;
-      this.mostrarLimpiar = false;
-      this.peticionHorarioChange.emit(this.peticion_);
+      this.peticionChange.emit(this.peticion_);
     }
   }
 
@@ -156,7 +145,6 @@ export class InicialFormComponent {
     if (confirm("Eliminará todos los datos")) {
       this.reiniciarTurnos();
       this.peticion_ = this.configurationService.peticiones[1];
-      this.mostrarSimulacion = false;
     }
   }
 

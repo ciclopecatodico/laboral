@@ -23,47 +23,10 @@ export class HorasMesComponent {
   @Input()
   meses = Array<ValorHoras>();
 
+  public tiposHoras = ['Mes', 'Reforma', 'Diurnas', 'Extra Diurnas', 'Nocturnas', 'Extra Nocturnas', 'Diurna Dominical o Festivo', 'Diurna Extra Dominical o Festivo', 'Nocturna Dominical o Festivo', 'Nocturna Extra Dominical o Festivo', 'Totales'];
 
-  public tiposHoras = ['Día', 'Reforma', 'Diurnas', 'Extra Diurnas', 'Nocturnas', 'Extra Nocturnas', 'Diurna Dominical o Festivo', 'Diurna Extra Dominical o Festivo', 'Nocturna Dominical o Festivo', 'Nocturna Extra Dominical o Festivo', 'Totales'];
 
-
-  toogle(reforma: string) {
-    console.log("reforma:", reforma);
-    switch (reforma) {
-      case "1950":
-        this.showReforma1950 = !this.showReforma1950;
-        break;
-      case "789":
-        this.showReforma789 = !this.showReforma789;
-        break;
-      case "2101":
-        this.showReforma2101 = !this.reforma2101;
-        break;
-      case "2025":
-        this.showReforma2025 = !this.showReforma2025;
-        break;
-    }
-  }
-
-  hidden(mes: ValorHoras) {
-    if (mes.name === 'total') {
-      return false;
-    }
-    let reforma = mes.reformaName;
-    console.log("reforma >>>>:", reforma);
-    switch (reforma) {
-      case "1950":
-        return !this.showReforma1950;
-
-      case "789":
-        return !this.showReforma789;
-
-      case "2101":
-        return !this.showReforma2101;
-
-      case "2025":
-        return !this.showReforma2025;
-    }
-    return false;
+  get verMes(){
+    return JSON.stringify(this.meses);
   }
 }

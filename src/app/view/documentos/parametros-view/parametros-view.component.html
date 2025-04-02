@@ -1,140 +1,19 @@
-<h2>Aquí podrás ver la documentación</h2>
+<div class="container">
+    <h2>Aquí podrás ver la documentación</h2>
 
-<p>
-    En esta secci&oacute;n agregar&eacute; los par&aacute;metros que tengo en cuenta y los supuestos para la simulaci&oacute;n;
-    es muy probable que algunos valores no esten bien mientras esta en construcci&oacute;n y en sus versiones alfa
-    si encuentras un valor que está mal te invito a informarmelo <a href="{{contacto.link}}">{{contacto.usuario}}</a>
-</p>
+    <p>
+        En esta secci&oacute;n agregar&eacute; los par&aacute;metros que tengo en cuenta y los supuestos para la
+        simulaci&oacute;n;
+        es muy probable que algunos valores no esten bien mientras esta en construcci&oacute;n y en sus versiones alfa
+        si encuentras un valor que está mal te invito a informarmelo <a
+            href="{{contacto.link}}">{{contacto.usuario}}</a>
+    </p>
 
-<h3>Parámetros de las reformas:</h3>
+    <h3>Parámetros de las reformas:</h3>
 
-<div class="table-responsive">
-    <h4>Parámetros utilizados:</h4>
-        <table class="table align-middle">
-            <thead>
-                <tr>
-                    <th>Valores</th>
-                    <th> {{ parametros[0].reformaLabel}}</th>
-                    <th> {{ parametros[1].reformaLabel}}</th>
-                    <th> {{ parametros[2].reformaLabel}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Salario SMLV: </td>
-                    <td>{{ parametros[0].smlv | currency : '$' }}</td>
-                    <td>{{ parametros[1].smlv | currency : '$' }}</td>
-                    <td>{{ parametros[2].smlv | currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.jornadaLaboralMensual.label}}</td>
-                    <td>{{parametros[0].jornadaLaboralMensual}} Horas</td>
-                    <td>{{parametros[1].jornadaLaboralMensual}} Horas</td>
-                    <td>{{parametros[2].jornadaLaboralMensual}} Horas</td>
-                </tr>
-                <tr>
-                    <td>Valor {{const.horasDiurnas.label}}</td>
-                    <td>{{(parametros[0].smlvHora) | currency : '$' }} </td>
-                    <td>{{(parametros[1].smlvHora) | currency : '$' }} </td>
-                    <td>{{(parametros[2].smlvHora) | currency : '$' }} </td>
-                </tr>
-                <tr >
-                    <td colspan="4" align="center"><b>Practicas SENA</b></td>
-                </tr>
-                <tr >
-                    <td>{{const.senaLectiva.label}}</td>
-                    <td>{{parametros[0].senaLectiva}}% de SMLV</td>
-                    <td>{{parametros[1].senaLectiva}}% de SMLV</td>
-                    <td>{{parametros[2].senaLectiva}}% de SMLV</td>
-                </tr>
-                <tr >
-                    <td>{{const.senaProductiva.label}}</td>
-                    <td>{{parametros[0].senaProductiva}}% de SMLV</td>
-                    <td>{{parametros[1].senaProductiva}}% de SMLV</td>
-                    <td>{{parametros[2].senaProductiva}}% de SMLV</td>
-                </tr>
-                <tr>
-                    <td colspan="4" align="center"><b>Recargos:</b></td>
-                </tr>
-                <tr>
-                    <td>{{const.horasDiurnas.label}}</td>
-                    <td>{{parametros[0].horasDiurnas.porcentaje}}% | {{(parametros[0].smlvHora) | currency : '$' }}
-                    </td>
-                    <td>{{parametros[1].horasDiurnas.porcentaje}}% | {{(parametros[1].smlvHora) | currency : '$' }}
-                    </td>
-                    <td>{{parametros[2].horasDiurnas.porcentaje}}% | {{(parametros[2].smlvHora) | currency : '$' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{const.horasNocturnas.label}}</td>
-                    <td>{{parametros[0].horasNocturnas.porcentaje}}% | {{(parametros[0].smlvHora *
-                        parametros[0].horasNocturnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[1].horasNocturnas.porcentaje}}% | {{(parametros[1].smlvHora *
-                        parametros[1].horasNocturnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[2].horasNocturnas.porcentaje}}% | {{(parametros[2].smlvHora *
-                        parametros[2].horasNocturnas.factor) | currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.horasExtrasDiurnas.label}}</td>
-                    <td>{{parametros[0].horasExtrasDiurnas.porcentaje}}% | {{(parametros[0].smlvHora *
-                        parametros[0].horasExtrasDiurnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[1].horasExtrasDiurnas.porcentaje}}% | {{(parametros[1].smlvHora *
-                        parametros[1].horasExtrasDiurnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[2].horasExtrasDiurnas.porcentaje}}% | {{(parametros[2].smlvHora *
-                        parametros[2].horasExtrasDiurnas.factor) | currency : '$' }}</td>
+    <div class="table-responsive">
+        <h4>Parámetros utilizados:</h4>
+        <app-parametros [peticion]="peticion" ></app-parametros>
+    </div>
 
-                </tr>
-                <tr>
-                    <td>{{const.horasExtrasNocturnas.label}}</td>
-                    <td>{{parametros[0].horasExtrasNocturnas.porcentaje}}% | {{(parametros[0].smlvHora *
-                        parametros[0].horasExtrasNocturnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[1].horasExtrasNocturnas.porcentaje}}% | {{(parametros[1].smlvHora *
-                        parametros[1].horasExtrasNocturnas.factor) | currency : '$' }}</td>
-                    <td>{{parametros[2].horasExtrasNocturnas.porcentaje}}% | {{(parametros[2].smlvHora *
-                        parametros[2].horasExtrasNocturnas.factor) | currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.horasDiurnasDominicalesOFestivos.label}}</td>
-                    <td>{{parametros[0].horasDiurnasDominicalesOFestivos.porcentaje}}% | {{(parametros[0].smlvHora *
-                        parametros[0].horasDiurnasDominicalesOFestivos.factor) | currency : '$' }}</td>
-                    <td>{{parametros[1].horasDiurnasDominicalesOFestivos.porcentaje}}% | {{(parametros[1].smlvHora *
-                        parametros[1].horasDiurnasDominicalesOFestivos.factor) | currency : '$' }}</td>
-                    <td>{{parametros[2].horasDiurnasDominicalesOFestivos.porcentaje}}% | {{(parametros[2].smlvHora *
-                        parametros[2].horasDiurnasDominicalesOFestivos.factor) | currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.horasNocturnasDominicalesFestivos.label}}</td>
-                    <td>{{parametros[0].horasNocturnasDominicalesFestivos.porcentaje}}% | {{(parametros[0].smlvHora
-                        * parametros[0].horasNocturnasDominicalesFestivos.factor) | currency : '$' }}</td>
-                    <td>{{parametros[1].horasNocturnasDominicalesFestivos.porcentaje}}% | {{(parametros[1].smlvHora
-                        * parametros[1].horasNocturnasDominicalesFestivos.factor) | currency : '$' }}</td>
-                    <td>{{parametros[2].horasNocturnasDominicalesFestivos.porcentaje}}% | {{(parametros[2].smlvHora
-                        * parametros[2].horasNocturnasDominicalesFestivos.factor) | currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.horasExtrasDiurnasDominicalesOFestivos.label}}</td>
-                    <td>{{parametros[0].horasExtrasDiurnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[0].smlvHora * parametros[0].horasExtrasDiurnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                    <td>{{parametros[1].horasExtrasDiurnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[1].smlvHora * parametros[1].horasExtrasDiurnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                    <td>{{parametros[2].horasExtrasDiurnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[2].smlvHora * parametros[2].horasExtrasDiurnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                </tr>
-                <tr>
-                    <td>{{const.horasExtrasNocturnasDominicalesOFestivos.label}}</td>
-                    <td>{{parametros[0].horasExtrasNocturnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[0].smlvHora * parametros[0].horasExtrasNocturnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                    <td>{{parametros[1].horasExtrasNocturnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[1].smlvHora * parametros[1].horasExtrasNocturnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                    <td>{{parametros[2].horasExtrasNocturnasDominicalesFestivas.porcentaje}}% |
-                        {{(parametros[2].smlvHora * parametros[2].horasExtrasNocturnasDominicalesFestivas.factor) |
-                        currency : '$' }}</td>
-                </tr>
-            </tbody>
-        </table>
 </div>

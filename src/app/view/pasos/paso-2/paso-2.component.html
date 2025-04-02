@@ -1,0 +1,7 @@
+
+<!--SIMULACION del agno con la configuración del sena o salario -->
+<mes-simulacion [peticion]="peticion" [mes]="mes"></mes-simulacion>
+
+<!--FORMULARIO del Sena o salario -->
+<mes-form [peticion]="peticion" 
+    (peticionChange)="simularAgno($event)"></mes-form>

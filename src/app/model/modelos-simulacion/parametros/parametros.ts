@@ -9,6 +9,7 @@ export class Parametros {
         public id : number,
         public reformaLabel : string,
         public reformaName : string,
+        public reformaIndex : number,
         public style : string,
         public colorFill: string,
         public colorStroke: string,

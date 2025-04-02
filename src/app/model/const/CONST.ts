@@ -106,6 +106,14 @@ export const CONST = {
         id: 'smlvHora',
         label: 'Salario Mínimo Legal Vigente por Hora'
     },
+    salario: {
+        id: 'salario',
+        label: 'Salario Mensual Simulación'
+    },
+    salarioHora: {
+        id: 'salarioHora',
+        label: 'Salario por Hora Simulación'
+    },
     tipoDeHoras:
     {
         id: 'tipoDeHoras',
@@ -117,6 +125,29 @@ export const CONST = {
         id: 'tipoDeHorasPonderados',
         label: "Valor a pagar por tipos de horas ponderados por Reforma",
         categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
+    },
+    diagramas :{
+        mes: {
+            barrasSimple : {
+                id : 'ingresoMensualPorTipoDeReforma',
+                label: 'Ingreso mensual según tipo de reforma',
+                yLabel: 'Salario Mensual'
+            }
+        },
+        meses:{
+            barrasSimple : {
+                id : 'ingresoAnualPorTipoDeReforma',
+                label: 'Ingreso anual según tipo de reforma',
+                yLabel: 'Salario anual'
+            }
+        },
+        agnos:{
+            barrasSimple : {
+                id : 'ingresoLaboralPorTipoDeReforma',
+                label: 'Ingreso total según tipo de reforma',
+                yLabel: 'Ingresos percibidos'
+            }
+        }
     },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
     diasSemanaName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
@@ -163,10 +194,5 @@ export const CONST = {
         index: 3,
         reforma: '2025',
         style: 'success'
-    },
-    graficos: {
-        label: {
-            background: '#322513'
-        }
     }
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Simulación de la Semana:</h2>
+    <h2>1-Simulación de la Semana:</h2>
     <p>Te guiaremos paso a paso por la simulación, primero sabrás cómo sería liquidada tu semana según tu horario
         laboral
         dependiendo de los diferentes régimenes que han existido en Colombia</p>
@@ -9,63 +9,7 @@
     <div *ngIf="verNotas">
         <br>
         <h4>Par&aacute;metros utilizados:</h4>
-        <div class="table-responsive">
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Valores</th>
-                        <th *ngFor="let i of const.reformas">
-                            {{ parametros[i].reformaLabel}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{const.jornadaLaboralDiurna.label}}: </td>
-                        <td *ngFor="let i of const.reformas">
-                            {{ parametros[i].diaInicio}} - {{ parametros[i].diaFin}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{const.jornadaLaboralNocturna.label}}: </td>
-                        <td *ngFor="let i of const.reformas">
-                            {{ parametros[i].nocheInicio}} - {{ parametros[i].nocheFin}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{const.jornadaLaboralSemanal.label}}:</td>
-                        <td *ngFor="let i of const.reformas">
-                            {{parametros[i].jornadaLaboralMensual}} Horas
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{const.smlv.label}}:</td>
-                        <td *ngFor="let i of const.reformas">
-                            {{parametros[i].smlv | currency : '$'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{const.smlvHora.label}}:</td>
-                        <td *ngFor="let i of const.reformas">
-                            {{parametros[i].smlvHora | currency : '$'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" align="center"><b>Recargos</b></td>
-                    </tr>
-                    <tr>
-                        <td>{{const.horasNocturnas.label}}:</td>
-                        <td *ngFor="let i of const.reformas">{{parametros[i].horasNocturnas.porcentaje}}%</td>
-                    </tr>
-                    <tr>
-                        <td>{{const.horasExtrasDiurnas.label}}:</td>
-                        <td *ngFor="let i of const.reformas">{{parametros[i].horasExtrasDiurnas.porcentaje}}%</td>
-                    </tr>
-                    <tr>
-                        <td>{{const.horasExtrasNocturnas.label}}:</td>
-                        <td *ngFor="let i of const.reformas">{{parametros[i].horasExtrasNocturnas.porcentaje}}%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <app-parametros [peticion]="peticion"></app-parametros>
         <br>
     </div>
 
@@ -75,10 +19,10 @@
     <grafico-dona [donas]="semana.donas">
     </grafico-dona>
 
-    <grafico-barras-compuesto [barras]="semana.barrasHorasPonderadas">
+    <grafico-barras-compuesto *ngIf="false" [barras]="semana.barrasHorasPonderadas">
     </grafico-barras-compuesto>
 
-    <grafico-barras-simple [barras]="semana.barrasTotal">
+    <grafico-barras-simple *ngIf="false" [barras]="semana.barrasTotal">
     </grafico-barras-simple>
 
     <horas-semana [semana]="semana.horasSemana">

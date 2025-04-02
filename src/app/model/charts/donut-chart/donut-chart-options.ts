@@ -18,7 +18,7 @@ export class DonutChart {
     public chart: ApexChart,
     public responsive: ApexResponsive[],
     public labels: any,
-    public dataLabels : ApexDataLabels
+    public dataLabels : ApexDataLabels,
   ) { }
   
 };

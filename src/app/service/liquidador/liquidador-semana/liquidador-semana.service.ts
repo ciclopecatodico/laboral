@@ -5,7 +5,7 @@ import { LiquidadorHorasService } from '../liquidador-horas/liquidador-horas.ser
 import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { CONST } from '../../../model/const/CONST';
 import { DonutChart } from '../../../model/charts/donut-chart/donut-chart-options';
-import { Semana } from '../../../model/simulacion/agno copy/semana';
+import { Semana } from '../../../model/simulacion/semana/semana';
 import { GraficoService } from '../../grafico/grafico.service';
 import { BarChartCompuesto } from '../../../model/charts/bars-chart/bars-chart-compuesto';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
@@ -47,7 +47,7 @@ export class LiquidadorSemanaService {
     this.series = [];
   }
 
-  public liquidar(peticion: Peticion): Semana {
+  public simular(peticion: Peticion): Semana {
     this.donas = new Array<DonutChart>();
     this.horasTipo = Object.create(BarChartCompuesto);
     this.horasPonderado = Object.create(BarChartCompuesto);
@@ -68,9 +68,8 @@ export class LiquidadorSemanaService {
     horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
 
     this.horasTipo = this.setBarrasTipoHoras();
-    this.horasPonderado = this.setBarrasTipoHorasPonderado();
-    this.horastotal = this.setHorasTotal();
-
+    //this.horasPonderado = this.setBarrasTipoHorasPonderado();
+    //this.horastotal = this.setHorasTotal();
     return new Semana(horasSemana, this.donas, this.horasTipo, this.horasPonderado, this.horastotal);
   }
 
@@ -144,10 +143,11 @@ export class LiquidadorSemanaService {
    * 
    */
   private setHorasTotal(): BarChartSimple {
+    console.log("setHoras");
     let categorias = Array<string>();
     this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
     let totales = this.generarTotalesSeries();
-    return this.graficoService.barrasSimple(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, totales);
+    return this.graficoService.barrasSimple(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, totales , 'Salario');
   }
 
 
@@ -230,6 +230,7 @@ export class LiquidadorSemanaService {
    * @returns 
    */
   private generarTotalesSeries(): number[] {
+    console.log("Generar totales series???");
     let sumatoria = Array<any>();
 
     //valores para ponderar las horas, por defecto 1 que no afecta los valores
@@ -247,6 +248,7 @@ export class LiquidadorSemanaService {
           extraDiurna = reforma.horasExtrasDiurnas.factor * reforma.smlvHora;
           extraNocturna = reforma.horasExtrasNocturnas.factor * reforma.smlvHora;
         }
+        console.log("Reforma", reforma?.reformaName , reforma?.colorFill, reforma?.colorStroke);
 
         let diurnaPonderada = t.horasDiurnas * diurna;
         let nocturnaPonderada = t.horasNocturnas * nocturna;

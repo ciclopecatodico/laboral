@@ -31,6 +31,10 @@ export class LiquidadorSemanaService {
   public totales = new Array<HorasSemana>();
   public donas = new Array<DonutChart>();
 
+  public horasTipo = Object.create(BarChartCompuesto);
+  public horasPonderado = Object.create(BarChartCompuesto);
+  public horastotal = Object.create(BarChartSimple);
+
   public series: ApexAxisChartSeries;
   public parametros: Parametros[];
 
@@ -45,6 +49,10 @@ export class LiquidadorSemanaService {
 
   public liquidar(peticion: Peticion): Semana {
     this.donas = new Array<DonutChart>();
+    this.horasTipo = Object.create(BarChartCompuesto);
+    this.horasPonderado = Object.create(BarChartCompuesto);
+    this.horastotal = Object.create(BarChartSimple);
+    this.totales = new Array<HorasSemana>();
     this.series = [];
     this.semana1950 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1950.index);
     this.semana789 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma789.index);
@@ -59,11 +67,11 @@ export class LiquidadorSemanaService {
     let horasSemana = new Array<HorasSemana>();
     horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
 
-    let horasTipo = this.setBarrasTipoHoras();
-    let horasPonderado = this.setBarrasTipoHorasPonderado();
-    let horastotal = this.setHorasTotal();
+    this.horasTipo = this.setBarrasTipoHoras();
+    this.horasPonderado = this.setBarrasTipoHorasPonderado();
+    this.horastotal = this.setHorasTotal();
 
-    return new Semana(horasSemana, this.donas, horasTipo, horasPonderado, horastotal);
+    return new Semana(horasSemana, this.donas, this.horasTipo, this.horasPonderado, this.horastotal);
   }
 
   public calcularTotales(semana: Array<HorasSemana>, style: string) {
@@ -114,7 +122,7 @@ export class LiquidadorSemanaService {
   private setBarrasTipoHoras(): BarChartCompuesto {
     let categorias = Array<string>();
     this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    this.series = this.generarSeries(false);
+    this.series = structuredClone(this.generarSeries(false));
     return this.graficoService.barrasCompuesto(CONST.tipoDeHoras.id, CONST.tipoDeHoras.label, this.series, categorias, 'Horas', false);
   }
 
@@ -138,7 +146,8 @@ export class LiquidadorSemanaService {
   private setHorasTotal(): BarChartSimple {
     let categorias = Array<string>();
     this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    return this.graficoService.barrasSimple(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label);
+    let totales = this.generarTotalesSeries();
+    return this.graficoService.barrasSimple(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, totales);
   }
 
 
@@ -216,7 +225,49 @@ export class LiquidadorSemanaService {
     return [dirunasSerie, nocturnasSerie, extraDirunasSerie, extraNocturnasSerie];
   }
 
+  /**
+   * Genera la serie de datos agrupado por tipo de horas 
+   * @returns 
+   */
+  private generarTotalesSeries(): number[] {
+    let sumatoria = Array<any>();
+
+    //valores para ponderar las horas, por defecto 1 que no afecta los valores
+    let diurna = 1;
+    let nocturna = 1;
+    let extraDiurna = 1;
+    let extraNocturna = 1;
+
+    this.totales.forEach(
+      t => {
+        let reforma = this.parametros.find(p => p.reformaName === t.reformaName);
+        if (reforma) {
+          diurna = reforma.horasDiurnas.factor * reforma.smlvHora;
+          nocturna = reforma.horasNocturnas.factor * reforma.smlvHora;
+          extraDiurna = reforma.horasExtrasDiurnas.factor * reforma.smlvHora;
+          extraNocturna = reforma.horasExtrasNocturnas.factor * reforma.smlvHora;
+        }
+
+        let diurnaPonderada = t.horasDiurnas * diurna;
+        let nocturnaPonderada = t.horasNocturnas * nocturna;
+        let extraDiurnaPonderada = t.horasExtraDiurna * extraDiurna;
+        let extraNocturnaPonderada = t.horasExtraNocturna * extraNocturna;
+
+        let sum = {
+          x: reforma?.reformaLabel,
+          y: this.round(diurnaPonderada + nocturnaPonderada + extraDiurnaPonderada + extraNocturnaPonderada),
+          fillColor: reforma?.colorFill,
+          strokeColor: reforma?.colorStroke,
+        }
+
+        sumatoria.push(sum)
+      }
+    );
+
+    return sumatoria;
+  }
+
   private round(data: number) {
-    return Math.round(data * 100) / 100;
+    return Math.round(data * 10) / 10;
   }
 }

@@ -14,7 +14,7 @@ export class BarrasSimpleComponent {
   public barras_: BarChartSimple;
 
   constructor(graficoService: GraficoService) {
-    this.barras_ = graficoService.barrasSimple('', '');
+    this.barras_ = graficoService.barrasSimple('', '', []);
   }
 
 

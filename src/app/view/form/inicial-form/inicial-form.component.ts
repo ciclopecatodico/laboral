@@ -20,7 +20,7 @@ import { Credito } from '../../../model/credito/credito';
 })
 export class InicialFormComponent {
 
-  
+
   @Output()
   public peticionHorarioChange = new EventEmitter<Peticion>;
   public peticion_: Peticion;
@@ -33,10 +33,9 @@ export class InicialFormComponent {
   public mostrarSimulacion = false;
 
   public configurationService: ConfigurationService;
+  public contacto: Credito;
 
-  public contacto : Credito;
-
-  constructor( configurationService: ConfigurationService) {
+  constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
     this.peticion_ = configurationService.peticiones[1];
     this.contacto = configurationService.creditos[0];
@@ -140,12 +139,16 @@ export class InicialFormComponent {
    * Procesar la petición realizar todos los cálculos 
    */
   public process() {
-    this.peticion_.turnos = this.turnos;
-    this.mostrarSimulacion = true;
-    this.mostrarFormulario = false;
-    this.mostrarAddTurno = false; 
-    this.mostrarLimpiar = false;
-    this.peticionHorarioChange.emit(this.peticion_);
+    if (!this.validarFormulario()) {
+      alert("Datos inválidos");
+    } else {
+      this.peticion_.turnos = this.turnos;
+      this.mostrarSimulacion = true;
+      this.mostrarFormulario = false;
+      this.mostrarAddTurno = false;
+      this.mostrarLimpiar = false;
+      this.peticionHorarioChange.emit(this.peticion_);
+    }
   }
 
 
@@ -153,7 +156,7 @@ export class InicialFormComponent {
     if (confirm("Eliminará todos los datos")) {
       this.reiniciarTurnos();
       this.peticion_ = this.configurationService.peticiones[1];
-      this.mostrarSimulacion = false; 
+      this.mostrarSimulacion = false;
     }
   }
 
@@ -176,6 +179,18 @@ export class InicialFormComponent {
 
   get peticion() {
     return this.peticion_;
+  }
+
+
+  public validarFormulario(): boolean {
+    let dias = 0;
+    this.turnos.forEach(
+      t => {
+        if (t.dias) {
+          dias += t.dias.length;
+        }
+      })
+    return dias > 0;
   }
 
 }

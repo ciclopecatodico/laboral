@@ -2,15 +2,27 @@ import { Injectable } from '@angular/core';
 import { DonutChart } from '../../model/charts/donut-chart/donut-chart-options';
 import { BarChartSimple } from '../../model/charts/bars-chart/bars-chart-simple';
 import { BarChartCompuesto } from '../../model/charts/bars-chart/bars-chart-compuesto';
-import { Series } from '../../model/charts/series/series';
 import { CONST } from '../../model/const/CONST';
+
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartType,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexXAxis,
+  ApexLegend,
+} from "ng-apexcharts";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GraficoService {
 
-  constructor() { }
+  constructor() {
+
+  }
 
 
   public dona(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
@@ -34,19 +46,24 @@ export class GraficoService {
             }
           }
         }
-      ]
-      ,dataLabels : {
-        enabled : true,
+      ], 
+      dataLabels: {
+        enabled: true,
+        style:{
+          fontSize:'14px',
+          fontWeight: 'bold',
+          colors: ['#322513']
+        },
         formatter: (val, opt) => {
           switch (opt.seriesIndex) {
             case 0:
-              return [ CONST.horasDiurnas.label, series[0]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasDiurnas.label, series[0] + 'h | ' + val as string + '%'] as unknown as string;
             case 1:
-              return [ CONST.horasNocturnas.label, series[1]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasNocturnas.label, series[1] + 'h | ' + val as string + '%'] as unknown as string;
             case 2:
-              return [ CONST.horasExtrasDiurnas.label, series[2]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasExtrasDiurnas.label, series[2] + 'h | ' + val as string + '%'] as unknown as string;
             case 3:
-              return [ CONST.horasExtrasNocturnas.label, series[3]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasExtrasNocturnas.label, series[3] + 'h | ' + val as string + '%'] as unknown as string;
             default:
               return val as string;
           }
@@ -62,12 +79,12 @@ export class GraficoService {
       series: series,
       chart: {
         type: "pie",
-        width: 380
+        width: 480
       },
       labels: labels,
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 240,
           options: {
             chart: {
               width: 200
@@ -78,18 +95,22 @@ export class GraficoService {
           }
         }
       ],
-      dataLabels : {
-        enabled : true,
+      dataLabels: {
+        enabled: true,
+        style:{
+          fontSize:'12px',
+          //colors: ['#363d3e']
+        },
         formatter: (val, opt) => {
           switch (opt.seriesIndex) {
             case 0:
-              return [ CONST.horasDiurnas.label, series[0]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasDiurnas.label, series[0] + 'h | ' + val as string + '%'] as unknown as string;
             case 1:
-              return [ CONST.horasNocturnas.label, series[1]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasNocturnas.label, series[1] + 'h | ' + val as string + '%'] as unknown as string;
             case 2:
-              return [ CONST.horasExtrasDiurnas.label, series[2]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasExtrasDiurnas.label, series[2] + 'h | ' + val as string + '%'] as unknown as string;
             case 3:
-              return [ CONST.horasExtrasNocturnas.label, series[3]+'h | ' + val as string + '%' ] as unknown as string;
+              return [CONST.horasExtrasNocturnas.label, series[3] + 'h | ' + val as string + '%'] as unknown as string;
             default:
               return val as string;
           }
@@ -99,31 +120,21 @@ export class GraficoService {
   }
 
 
-  public barrasSimple(reformaName: string, reformaLabel: string): BarChartSimple {
+  public barrasSimple(reformaName: string, reformaLabel: string, data: any[]): BarChartSimple {
     return {
       name: reformaName,
       label: reformaLabel,
       series: [
         {
-          name: "distibuted",
-          data: [21, 22, 10, 28]
+          name: "Salario",
+          data: data
         }
       ],
       chart: {
         height: 350,
         type: "bar",
-        // events: {
-        //   click: function (chart, w, e) {
-        //     // console.log(chart, w, e)
-        //   }
-        // }
+        toolbar: this.toolbar
       },
-      colors: [
-        "#cfe2ff",
-        "#e2e3e5",
-        "#cff4fc",
-        "#d1e6dd",
-      ],
       plotOptions: {
         bar: {
           columnWidth: "45%",
@@ -131,36 +142,65 @@ export class GraficoService {
         }
       },
       dataLabels: {
-        enabled: true
+        enabled: true,
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 'bold',
+          colors: ['#322513']
+        },
+        formatter: (value) => {
+          return `$ ${this.numberWithCommas(value)}`;
+        },
       },
-      legend: {
-        show: true
-      },
-      grid: {
-        show: false
-      },
+      // legend: {
+      //   show: true
+      // },
+      // grid: {
+      //   show: false
+      // },
       yaxis: {
         title: {
-          text: "Series A"
+          text: 'Salario'
+        },
+        labels: {
+          formatter: (value) => {
+            return `$ ${this.numberWithCommas(value)}`;
+          },
+          style: {
+            fontSize: '15px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: ['#322513']
+          }
         },
       },
       xaxis: {
-        categories: [
-          "John", "Doe",
-          "Joe", "Smith"
-        ],
         labels: {
           style: {
-            colors: [
-              "#322513",
-              "#322513",
-              "#322513",
-              "#322513",
-            ],
-            fontSize: "12px"
+            fontSize: '15px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: ['#322513']
           }
         }
-      }
+      },
+      legend: {
+        show: false,
+      },
+      responsive: [
+        {
+          breakpoint: 360,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
     };
   }
 
@@ -182,8 +222,9 @@ export class GraficoService {
       label: reformaLabel,
       series: series,
       chart: {
+        height: 350,
         type: "bar",
-        height: 350
+        toolbar: this.toolbar
       },
       plotOptions: {
         bar: {
@@ -216,7 +257,7 @@ export class GraficoService {
         categories: categories,
         labels: {
           style: {
-            fontSize: '14px',
+            fontSize: '15px',
             fontFamily: 'Helvetica, Arial, sans-serif',
             fontWeight: 'bold',
             colors: ['#322513']
@@ -239,21 +280,33 @@ export class GraficoService {
       fill: {
         opacity: 1
       },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return "$ " + val + " thousands";
-          }
-        }
-      },
       legend: {
-        show: true
+        show: true,
+        fontSize: '16px',
+        labels : {
+          colors : ['#322513']
+        }
       },
     };
   }
 
 
   private numberWithCommas(x: any) {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    let num: number = parseFloat(x);
+    num = Math.round(num * 10) / 10;
+    return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
+
+
+  private toolbar = {
+    show: true,
+    tools: {
+      download: true,
+      selection: false,
+      zoom: false,
+      zoomin: false,
+      zoomout: false,
+      pan: false
+    }
+  };
 }

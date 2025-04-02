@@ -27,9 +27,9 @@
         </div>
         <!--Fila inferior-->
         <div class="col-4">
-            <input class="" type="checkbox" name="medianoche" id="medianoche" (change)="setHoraFin()"
+            <input class="" type="checkbox" name="medianoche_{{turno.id}}" id="medianoche_{{turno.id}}" (change)="setHoraFin()"
                 [(ngModel)]="medianoche">
-            <label class="" for="medianoche">
+            <label class="" for="medianoche_{{turno.id}}">
                 Medianoche?
             </label>
         </div>

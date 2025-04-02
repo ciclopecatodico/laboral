@@ -13,7 +13,7 @@ import { CONST } from '../../model/const/CONST';
 })
 export class TurnoComponent implements OnInit {
 
-  public turno_ : Turno;
+  public turno_: Turno;
   public lista = new List();
   public horas;
   public horasTurno;
@@ -26,11 +26,12 @@ export class TurnoComponent implements OnInit {
 
   @Output()
   public turnoChange = new EventEmitter<Turno>();
-  
+
   @Output()
   public deleteEmitter = new EventEmitter<number>();
 
-  constructor(){
+
+  constructor() {
     this.turno_ = new Turno(1, 'Turno 1', CONST.turnoInicio, CONST.turnoFin, true);
     this.horas = CONST.turnoHoras;
     this.horasTurno = CONST.turnoHoras;
@@ -39,8 +40,8 @@ export class TurnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.turno_){
-      
+    if (this.turno_) {
+
     }
   }
 
@@ -50,16 +51,16 @@ export class TurnoComponent implements OnInit {
     this.setHoraFin();
   }
 
-  public setHoraFin(){
+  public setHoraFin() {
     let fin = moment(this.horaFin, 'HH:mm');
     let turnoFin = this.horaFin;
-    if(this.medianoche){
+    if (this.medianoche) {
       fin = moment('00:00', 'HH:mm').add(1, 'd');
       turnoFin = CONST.mediaNoche;
       this.horaFin = '00:00';
     }
-    let inicio = moment(this.horaInicio,  'HH:mm');
-    if (fin.isBefore(inicio)) {
+    let inicio = moment(this.horaInicio, 'HH:mm');
+    if (fin.isSameOrBefore(inicio)) {
       this.invalidFin = true;
     } else {
       this.invalidFin = false;
@@ -91,9 +92,9 @@ export class TurnoComponent implements OnInit {
         }
       })
       const duration = moment.duration(baseMm, 'minutes').asMinutes();
-      const horas =  Math.floor(duration / 60);
+      const horas = Math.floor(duration / 60);
       const minutos = duration % 60;
-      this.horasTurno = horas+':'+minutos;
+      this.horasTurno = horas + ':' + minutos;
     }
     this.turnoChange.emit(this.turno_);
   }
@@ -103,14 +104,14 @@ export class TurnoComponent implements OnInit {
   }
 
   @Input()
-  set turno(turno:Turno) {
+  set turno(turno: Turno) {
     //TODO calcular las horas del turno 
-    this.turno_ =  turno;
+    this.turno_ = turno;
     this.horaInicio = turno.inicio;
     this.horaFin = turno.fin;
   }
 
-  get turno(){
+  get turno() {
     return this.turno_;
   }
 

@@ -109,13 +109,13 @@ export const CONST = {
     tipoDeHoras:
     {
         id: 'tipoDeHoras',
-        label:"Tipos de Horas",
+        label: "Tipos de Horas",
         categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
     },
     tipoDeHorasPonderados:
     {
         id: 'tipoDeHorasPonderados',
-        label:"Valor a pagar por tipos de horas ponderados por Reforma",
+        label: "Valor a pagar por tipos de horas ponderados por Reforma",
         categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
     },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
@@ -128,7 +128,7 @@ export const CONST = {
     turnoInicio: '14:00',
     turnoFin: '22:00',
     turnoHoras: '8:00',
-    total:{
+    total: {
         id: 'total',
         label: 'Total'
     },
@@ -143,7 +143,7 @@ export const CONST = {
         label: 'Hombre',
         edadPension: 62
     },
-    reformas: [0,1,2,3],
+    reformas: [0, 1, 2, 3],
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
         index: 0,
         reforma: '1950',
@@ -163,6 +163,10 @@ export const CONST = {
         index: 3,
         reforma: '2025',
         style: 'success'
+    },
+    graficos: {
+        label: {
+            background: '#322513'
+        }
     }
-
 }

@@ -10,6 +10,8 @@ export class Parametros {
         public reformaLabel : string,
         public reformaName : string,
         public style : string,
+        public colorFill: string,
+        public colorStroke: string,
         public descripcion : string,
         public smlv : number,
         public smlvHora : number,

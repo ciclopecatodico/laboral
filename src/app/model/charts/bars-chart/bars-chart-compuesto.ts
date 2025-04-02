@@ -4,11 +4,10 @@ import {
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
+  ApexXAxis,
   ApexLegend,
   ApexStroke,
-  ApexXAxis,
   ApexFill,
-  ApexTooltip
 } from "ng-apexcharts";
 
 /**
@@ -26,8 +25,9 @@ export class BarChartCompuesto {
     public yaxis: ApexYAxis,
     public xaxis: ApexXAxis,
     public fill: ApexFill,
-    public tooltip: ApexTooltip,
     public stroke: ApexStroke,
     public legend: ApexLegend
   ) { }
+
+  
 };

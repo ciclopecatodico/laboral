@@ -56,6 +56,7 @@ export class NavegacionComponent {
   simularSemana(peticion: Peticion) {
     this.mostrarInicialForm = false;
     this.peticion = peticion;
+    this.semana = new Semana([]);
     this.semana = this.liquidadorSemanaService.liquidar(this.peticion);
     this.mostrarSemanaSimulacion = true;
     this.mostrarMesForm = true;

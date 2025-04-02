@@ -4,10 +4,10 @@ import {
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
+  ApexXAxis,
   ApexLegend,
 } from "ng-apexcharts";
 
-import { XAxis } from "./XAxis";
 
 /**
  * Ideal para mostrar el total de ingresos percibidos por reforma
@@ -22,9 +22,9 @@ export class BarChartSimple {
     public dataLabels: ApexDataLabels,
     public plotOptions: ApexPlotOptions,
     public yaxis: ApexYAxis,
-    public xaxis: XAxis,
-    public grid: ApexGrid,
-    public colors: string[],
+    public xaxis: ApexXAxis,
+    //public grid: ApexGrid,
     public legend: ApexLegend,
+    public responsive: ApexResponsive[],
   ) { }
 };

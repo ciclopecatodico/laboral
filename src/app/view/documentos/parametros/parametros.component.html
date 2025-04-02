@@ -39,12 +39,20 @@
                 <td *ngFor="let i of const.reformas">{{(parametros[i].smlv*parametros[i].senaLectiva)/100 | currency : '$'}}</td>
             </tr>
             <tr *ngIf="peticion.sena">
+                <td>{{const.senaLectiva.label}} Salario por Hora</td>
+                <td *ngFor="let i of const.reformas">{{((parametros[i].smlv*parametros[i].senaLectiva)/(100*parametros[i].jornadaLaboralMensual)) | currency : '$'}}</td>
+            </tr>
+            <tr *ngIf="peticion.sena">
                 <td>{{const.senaProductiva.label}}</td>
-                <td *ngFor="let i of const.reformas">{{parametros[0].senaProductiva}}% de SMLV</td>
+                <td *ngFor="let i of const.reformas">{{parametros[i].senaProductiva}}% de SMLV</td>
             </tr>
             <tr *ngIf="peticion.sena">
                 <td>{{const.senaProductiva.label}} Salario</td>
                 <td *ngFor="let i of const.reformas">{{(parametros[i].smlv*parametros[i].senaProductiva)/100 | currency : '$'}}</td>
+            </tr>
+            <tr *ngIf="peticion.sena">
+                <td>{{const.senaProductiva.label}} Salario por Hora</td>
+                <td *ngFor="let i of const.reformas">{{((parametros[i].smlv*parametros[i].senaProductiva)/(100*parametros[i].jornadaLaboralMensual)) | currency : '$'}}</td>
             </tr>
             <tr>
                 <td colspan="5" align="center"><b>Recargos:</b></td>

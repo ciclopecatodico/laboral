@@ -79,12 +79,12 @@ export class GraficoService {
       series: series,
       chart: {
         type: "pie",
-        width: 480
+        width: 400
       },
       labels: labels,
       responsive: [
         {
-          breakpoint: 240,
+          breakpoint: 300,
           options: {
             chart: {
               width: 200

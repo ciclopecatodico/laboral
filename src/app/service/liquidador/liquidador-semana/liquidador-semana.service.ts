@@ -110,7 +110,7 @@ export class LiquidadorSemanaService {
     // for (let i = 0; i < horas.length; i++) {
     //   labels[i] = labels[i] + ' ' + horas[i] + 'h';
     // }
-    return this.graficoService.pastel(reformaName, reformaLabel, horas, labels);
+    return this.graficoService.dona(reformaName, reformaLabel, horas, labels);
   }
 
 

@@ -14,6 +14,8 @@ import {
   ApexXAxis,
   ApexLegend,
 } from "ng-apexcharts";
+import { ValorHoras } from '../../model/liquidacion/valor-horas/valor-horas';
+import { Parametros } from '../../model/modelos-simulacion/parametros/parametros';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,8 @@ export class GraficoService {
       label: reformaLabel,
       series: series,
       chart: {
-        type: "donut"
+        type: "donut",
+        width: 400
       },
       labels: labels,
       responsive: [
@@ -51,8 +54,8 @@ export class GraficoService {
         enabled: true,
         style:{
           fontSize:'14px',
-          fontWeight: 'bold',
-          colors: ['#322513']
+          //fontWeight: 'bold',
+          //colors: ['#322513']
         },
         formatter: (val, opt) => {
           switch (opt.seriesIndex) {
@@ -68,9 +71,13 @@ export class GraficoService {
               return val as string;
           }
         },
-      }
+        
+      },
+      colors : ["#26a69a","#008ffb","#00E396","#546E7A"]
     };
   }
+
+
 
   public pastel(reformaName: string, reformaLabel: string, series: number[], labels: string[]): DonutChart {
     console.log("Generar pastel???");
@@ -98,11 +105,19 @@ export class GraficoService {
       ],
       dataLabels: {
         enabled: true,
+        formatter: (val) => {
+          return val + "???%"
+        },
         style:{
           fontSize:'12px',
           //colors: ['#363d3e']
         },
-        // formatter: (val, opt) => {
+      },
+      colors : ["#008FFB","#FF4560","#FEB019","#00E396"]
+    };
+  }
+
+  // formatter: (val, opt) => {
         //   switch (opt.seriesIndex) {
         //     case 0:
         //       return [CONST.horasDiurnas.label, series[0] + 'h | ' + val as string + '%'] as unknown as string;
@@ -116,9 +131,6 @@ export class GraficoService {
         //       return val as string;
         //   }
         // },
-      }
-    };
-  }
 
 
   public barrasSimple(reformaName: string, reformaLabel: string, data: any[], yLabel :string): BarChartSimple {
@@ -213,7 +225,8 @@ export class GraficoService {
             return "$ " + val + " thousands"
           }
         }
-      }
+      },
+      colors : ["#008FFB","#FF4560","#FEB019","#00E396"]
     };
   }
 
@@ -322,4 +335,27 @@ export class GraficoService {
       pan: false
     }
   };
+
+
+   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
+   public generarSeries(totales : ValorHoras[], parametros : Parametros[]): ApexAxisChartSeries {
+    let sumatoria = Array<any>();
+    //Obtiene el total por tipo de reforma 
+    totales.forEach(vh => {
+      let reforma = parametros.find(p => p.reformaName === vh.reformaName);
+      let sum = {
+        x: vh.reformaLabel,
+        y: this.round(vh.totalValorHoras),
+        fillColor: reforma?.colorFill,
+        strokeColor: reforma?.colorStroke,
+      }
+      sumatoria.push(sum);
+    });
+    return sumatoria;
+  }
+
+
+  private round(data: number) {
+    return Math.round(data * 10) / 10;
+  }
 }

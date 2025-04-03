@@ -1,10 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="row" align="center">
-  <div class="chart" *ngFor="let reforma of donas">
-    <b>{{reforma.label}}</b>
-    <apx-chart [series]="reforma.series" [chart]="reforma.chart" [labels]="reforma.labels"
-      [responsive]="reforma.responsive" [dataLabels]="reforma.dataLabels"></apx-chart>
+  <div class="chart" *ngFor="let dona of donas">
+    <b>{{dona.label}}</b>
+    <apx-chart [series]="dona.series" [dataLabels]="dona.dataLabels" [chart]="dona.chart"
+      [labels]="dona.labels" [responsive]="dona.responsive" [colors]="dona.colors"></apx-chart>
   </div>
 </div>
-
-

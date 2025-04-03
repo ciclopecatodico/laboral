@@ -159,32 +159,11 @@ export class LiquidadorMesesService {
 
   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
 
-
   private generarBarrasTotal(): BarChartSimple {
-    let sumatoria = Array<any>();
-
-    //Obtiene el total por tipo de reforma 
-    this.totales.forEach(vh => {
-      let reforma = this.parametros.find(p => p.reformaName === vh.reformaName);
-
-      let sum = {
-        x: vh.reformaLabel,
-        y: this.round(vh.totalValorHoras),
-        fillColor: reforma?.colorFill,
-        strokeColor: reforma?.colorStroke,
-      }
-      sumatoria.push(sum);
-    });
-
+    let sumatoria = this.graficoService.generarSeries(this.totales, this.parametros);
     let categorias = Array<string>();
     this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
     return this.graficoService.barrasSimple(CONST.diagramas.mes.barrasSimple.id, CONST.diagramas.mes.barrasSimple.label, sumatoria, CONST.diagramas.mes.barrasSimple.yLabel);
-
-  }
-
-
-  private round(data: number) {
-    return Math.round(data * 10) / 10;
   }
 
 }

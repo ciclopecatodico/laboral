@@ -19,7 +19,6 @@ import { MesSimulacionComponent } from './view/simulacion/mes-simulacion/mes-sim
 import { AgnoSimulacionComponent } from './view/simulacion/agno-simulacion/agno-simulacion.component';
 import { CreditsComponent } from './view/credits/credits.component';
 import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
-import { NavegacionComponent } from './view/navegacion/navegacion.component';
 import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
 import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -53,7 +52,6 @@ import { ParametrosComponent } from './view/documentos/parametros/parametros.com
     MesSimulacionComponent,
     AgnoSimulacionComponent,
     CreditsComponent,
-    NavegacionComponent,
     ParametrosViewComponent,
     DonaComponent, 
     BarrasSimpleComponent,

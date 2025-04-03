@@ -24,7 +24,7 @@ export class LiquidadorAgnosService {
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
 
-  public graficoService : GraficoService;
+  public graficoService: GraficoService;
   public parametros: Parametros[];
 
   public inicioSimu = 0;
@@ -49,10 +49,10 @@ export class LiquidadorAgnosService {
 
   public totales = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService,graficoService : GraficoService) {
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService, graficoService: GraficoService) {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
-    this.graficoService = graficoService; 
+    this.graficoService = graficoService;
     this.parametros = configurationService.parametros;
     this.total1950 = structuredClone(this.configurationService.valorHoras);
     this.total789 = structuredClone(this.configurationService.valorHoras);
@@ -68,7 +68,7 @@ export class LiquidadorAgnosService {
   public simularAngos(agno: ValorHoras[], peticion: Peticion): Laboral {
     //Inicializa los arreglos que contienen un año liquidado por cada tipo de reforma
     this.filtraTotalPorReforma(agno);
-    
+
     //debo calcular empezando desde su experiencia laboral y hasta su edad de pension para cada reforma. 
     this.calcularInicioFinSimulacion(peticion);
 
@@ -86,10 +86,10 @@ export class LiquidadorAgnosService {
     this.calcularTotales(this.laboral2101);
     this.calcularTotales(this.laboral2025);
     let valorHoras = new Array<ValorHoras>();
-    
+
     //retornamos un arreglo que contiene todos los agños calculados. 
     valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2101, ...this.laboral2025];
-    
+
     //graficos:
     let barrasHorasPonderadas = undefined;
     let barrasTotal = this.generarBarrasTotal();
@@ -198,31 +198,11 @@ export class LiquidadorAgnosService {
 
 
   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
-  
-  
-    private generarBarrasTotal(): BarChartSimple {
-      let sumatoria = Array<any>();
-      //Obtiene el total por tipo de reforma 
-      this.totales.forEach(vh => {
-        let reforma = this.parametros.find(p => p.reformaName === vh.reformaName);
-  
-        let sum = {
-          x: vh.reformaLabel,
-          y: this.round(vh.totalValorHoras),
-          fillColor: reforma?.colorFill,
-          strokeColor: reforma?.colorStroke,
-        }
-        sumatoria.push(sum);
-      });
-  
-      let categorias = Array<string>();
-      this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-      return this.graficoService.barrasSimple(CONST.diagramas.agnos.barrasSimple.id, CONST.diagramas.agnos.barrasSimple.label, sumatoria, CONST.diagramas.agnos.barrasSimple.yLabel);
-    }
-  
-  
-    private round(data: number) {
-      return Math.round(data * 10) / 10;
-    }
+  private generarBarrasTotal(): BarChartSimple {
+    let sumatoria = this.graficoService.generarSeries(this.totales, this.parametros);
+    let categorias = Array<string>();
+    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
+    return this.graficoService.barrasSimple(CONST.diagramas.agnos.barrasSimple.id, CONST.diagramas.agnos.barrasSimple.label, sumatoria, CONST.diagramas.agnos.barrasSimple.yLabel);
+  }
 
 }

@@ -27,6 +27,7 @@ export class BarChartSimple {
     public xaxis: ApexXAxis,
     public legend: ApexLegend,
     public responsive: ApexResponsive[],
-    public tooltip : ApexTooltip
+    public tooltip : ApexTooltip,
+    public colors: string[]
   ) { }
 };

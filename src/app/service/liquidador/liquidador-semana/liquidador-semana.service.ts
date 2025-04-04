@@ -4,14 +4,12 @@ import { LiquidadorHorasService } from '../liquidador-horas/liquidador-horas.ser
 
 import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { CONST } from '../../../model/const/CONST';
-import { DonutChart } from '../../../model/charts/donut-chart/donut-chart-options';
 import { Semana } from '../../../model/simulacion/semana/semana';
-import { GraficoService } from '../../grafico/grafico.service';
-import { BarChartCompuesto } from '../../../model/charts/bars-chart/bars-chart-compuesto';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { ConfigurationService } from '../../configuration/configuration.service';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
-import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
+import { DonaDatos } from '../../../model/graficos/dona/dona-datos';
+import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
 
 /**
  * Liquida las horas totales diarias para una semana segun los horarios definidos en una reforma. 
@@ -22,38 +20,29 @@ import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simp
 export class LiquidadorSemanaService {
 
   public liquidadorHorasService: LiquidadorHorasService;
-  public graficoService: GraficoService;
 
   public semana1950 = new Array<HorasSemana>();
   public semana789 = new Array<HorasSemana>();
   public semana2021 = new Array<HorasSemana>();
   public semana2025 = new Array<HorasSemana>();
   public totales = new Array<HorasSemana>();
-  public donas = new Array<DonutChart>();
 
-  public horasTipo = Object.create(BarChartCompuesto);
-  public horasPonderado = Object.create(BarChartCompuesto);
-  public horastotal = Object.create(BarChartSimple);
-
-  public series: ApexAxisChartSeries;
+  public donaDatos = new Array<DonaDatos>();
+  public horasTipo: BarrasSimpleDatos;
   public parametros: Parametros[];
 
 
 
-  constructor(configurationService: ConfigurationService, liquidadorHorasService: LiquidadorHorasService, graficoService: GraficoService) {
+  constructor(configurationService: ConfigurationService, liquidadorHorasService: LiquidadorHorasService) {
     this.parametros = configurationService.parametros;
     this.liquidadorHorasService = liquidadorHorasService;
-    this.graficoService = graficoService;
-    this.series = [];
+    this.horasTipo = Object.create(BarrasSimpleDatos);
   }
 
   public simular(peticion: Peticion): Semana {
-    this.donas = new Array<DonutChart>();
-    this.horasTipo = Object.create(BarChartCompuesto);
-    this.horasPonderado = Object.create(BarChartCompuesto);
-    this.horastotal = Object.create(BarChartSimple);
+    this.donaDatos = new Array<DonaDatos>();
+    this.horasTipo = Object.create(BarrasSimpleDatos);
     this.totales = new Array<HorasSemana>();
-    this.series = [];
     this.semana1950 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1950.index);
     this.semana789 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma789.index);
     this.semana2021 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2101.index);
@@ -67,10 +56,10 @@ export class LiquidadorSemanaService {
     let horasSemana = new Array<HorasSemana>();
     horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
 
-    //this.horasTipo = this.setBarrasTipoHoras();
+
     //this.horasPonderado = this.setBarrasTipoHorasPonderado();
     //this.horastotal = this.setHorasTotal();
-    return new Semana(horasSemana, this.donas, this.horasTipo, this.horasPonderado, this.horastotal);
+    return new Semana(horasSemana, this.donaDatos, this.horasTipo);
   }
 
   public calcularTotales(semana: Array<HorasSemana>, style: string) {
@@ -93,8 +82,8 @@ export class LiquidadorSemanaService {
     //para generar el grafico de barras compuesto
     this.totales.push(total);
 
-    let dona = this.setDonaPorHoras(total, semana[0].reformaName, semana[0].reformaLabel);
-    this.donas.push(dona);
+    let dona = this.setDonaPorHoras(total, semana[0]);
+    this.donaDatos.push(dona);
   }
 
 
@@ -104,13 +93,16 @@ export class LiquidadorSemanaService {
    * @param reformaName 
    * @returns 
    */
-  private setDonaPorHoras(horasSemana: HorasSemana, reformaName: string, reformaLabel: string): DonutChart {
-    let labels = structuredClone(CONST.tipoDeHoras.categorias);
+  private setDonaPorHoras(horasSemana: HorasSemana, semana: HorasSemana): DonaDatos {
     let horas = [horasSemana.horasDiurnas, horasSemana.horasNocturnas, horasSemana.horasExtraDiurna, horasSemana.horasExtraNocturna];
-    // for (let i = 0; i < horas.length; i++) {
-    //   labels[i] = labels[i] + ' ' + horas[i] + 'h';
-    // }
-    return this.graficoService.dona(reformaName, reformaLabel, horas, labels);
+    let dona = {
+      series: horas,
+      labels: CONST.tipoDeHoras.categorias,
+      colores: CONST.tipoDeHoras.colores,
+      chartLabel: semana.reformaLabel,
+      labelColor: ['var(--GrapLabel)']
+    }
+    return dona; 
   }
 
 
@@ -210,7 +202,7 @@ export class LiquidadorSemanaService {
           extraDiurna = reforma.horasExtrasDiurnas.factor * reforma.smlvHora;
           extraNocturna = reforma.horasExtrasNocturnas.factor * reforma.smlvHora;
         }
-        console.log("Reforma", reforma?.reformaName , reforma?.colorFill, reforma?.colorStroke);
+        console.log("Reforma", reforma?.reformaName, reforma?.colorFill, reforma?.colorStroke);
 
         let diurnaPonderada = t.horasDiurnas * diurna;
         let nocturnaPonderada = t.horasNocturnas * nocturna;

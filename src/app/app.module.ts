@@ -22,7 +22,7 @@ import { AgnoFormComponent } from './view/form/agno-form/agno-form.component';
 import { ParametrosViewComponent } from './view/documentos/parametros-view/parametros-view.component';
 import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { DonaComponent } from './view/graficos/dona/grafico.component';
+import { DonaComponent } from './view/graficos/dona/dona.component';
 import { BarrasSimpleComponent } from './view/graficos/barras-simple/barras-simple.component';
 import { LaboralSimulacionComponent } from './view/simulacion/laboral-simulacion/laboral-simulacion.component';
 import { SemanaFormComponent } from './view/form/semana-form/semana-form.component';
@@ -33,6 +33,7 @@ import { Paso3Component } from './view/pasos/paso-3/paso-3.component';
 import { Paso4Component } from './view/pasos/paso-4/paso-4.component';
 import { HorasLaboralComponent } from './view/horas/horas-laboral/horas-laboral.component';
 import { ParametrosComponent } from './view/documentos/parametros/parametros.component';
+import { BarrasAcumuladoComponent } from './view/graficos/barras-acumulado/barras-acumulado.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ParametrosComponent } from './view/documentos/parametros/parametros.com
     ParametrosViewComponent,
     DonaComponent, 
     BarrasSimpleComponent,
+    BarrasAcumuladoComponent,
     LaboralSimulacionComponent,
     Paso0Component,
     Paso1Component,

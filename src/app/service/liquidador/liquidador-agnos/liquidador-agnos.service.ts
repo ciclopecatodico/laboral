@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HorasSemana } from '../../../model/liquidacion/horas-semana/horas-semana';
 import { ConfigurationService } from '../../configuration/configuration.service';
 import { CONST } from '../../../model/const/CONST';
 import { Peticion } from '../../../model/peticion/peticion.model';
@@ -7,9 +6,7 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 import { Laboral } from '../../../model/simulacion/laboral/laboral';
-import { GraficoService } from '../../grafico/grafico.service';
-import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
-import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
+import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
 
 
 /**
@@ -25,7 +22,6 @@ export class LiquidadorAgnosService {
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
 
-  public graficoService: GraficoService;
   public parametros: Parametros[];
 
   public inicioSimu = 0;
@@ -50,10 +46,9 @@ export class LiquidadorAgnosService {
 
   public totales = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService, graficoService: GraficoService) {
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
-    this.graficoService = graficoService;
     this.parametros = configurationService.parametros;
     this.total1950 = structuredClone(this.configurationService.valorHoras);
     this.total789 = structuredClone(this.configurationService.valorHoras);
@@ -78,6 +73,8 @@ export class LiquidadorAgnosService {
     this.laboral789 = this.generarAngos(this.total789);
     this.laboral2101 = this.generarAngos(this.total2101);
     this.laboral2025 = this.generarAngos(this.total2025);
+    //Despues de simular los años debo calcular las participaciones por reformas
+
 
     //limpio totales para volver a guardar los datos.
     this.totales = new Array<ValorHoras>;
@@ -91,11 +88,10 @@ export class LiquidadorAgnosService {
     //retornamos un arreglo que contiene todos los agños calculados. 
     valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2101, ...this.laboral2025];
 
-    //graficos:
-    let barrasHorasPonderadas = undefined;
     let barrasSimplesDatos = this.generarBarrasSimpleDatos(this.totales);
+    let barrasAcumulados = this.liquidarAcumulados() ;
 
-    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barrasSimplesDatos, barrasHorasPonderadas);
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barrasSimplesDatos,barrasAcumulados);
   }
 
   /**
@@ -121,8 +117,10 @@ export class LiquidadorAgnosService {
       this.finalSimu = CONST.agnoActual + (edadPension - peticion.edad);
     }
     //los años de experiencia dan el año de inicio de nuestra simulación
-    if (peticion.experiencia) {
+    if (peticion.experiencia != undefined && peticion.experiencia >= 0) {
       this.inicioSimu = CONST.agnoActual - peticion.experiencia;
+    } else {
+      this.inicioSimu = CONST.agnoActual;
     }
   }
 
@@ -202,10 +200,10 @@ export class LiquidadorAgnosService {
 
   private generarBarrasSimpleDatos(valorHoras: ValorHoras[]): BarrasSimpleDatos {
     //generar categorias: 
-    let categorias = Array<string>();
+    let categorias = Array<string[]>();
     let colors = Array<string>();
     this.parametros.forEach(p => {
-      categorias.push(p.reformaLabel);
+      categorias.push([p.reformaLabel, p.reformaAutor]);
       colors.push(p.colorFill);
     });
     //generar datos: 
@@ -216,8 +214,8 @@ export class LiquidadorAgnosService {
 
     });
     return {
-      chartLabel: "Ingresos totales Vida Laboral",
-      dataLabel: "Ingresos totales",
+      chartLabel: "Ingresos totales Vida Laboral Proyectado",
+      dataLabel: "Ingresos",
       colors: colors,
       data: data,
       categories: categorias,
@@ -230,4 +228,76 @@ export class LiquidadorAgnosService {
     };
   }
 
+
+  private liquidarAcumulados() : ApexAxisChartSeries{
+    console.log("Liquidar años acumulados!!!");
+    let sum1950 = 0;
+    let sum789 = 0;
+    let sum2101parcial = 0;
+    let sum2101total = 0;
+    let sum2025 = 0;
+    for (let i = 0; i < this.laboral1950.length - 1; i++) {
+      //sumar todo lo anterior hasta la reforma de uribe
+      let vh1950 = this.laboral1950[i];
+      let agno = parseInt(vh1950.name);
+      if (agno < this.parametros[1].angoInicio) {
+        sum1950 += vh1950.totalValorHoras;
+      }
+      //sumar entre la reforma de uribe y la de duque
+      let vh789 = this.laboral789[i];
+      agno = parseInt(vh789.name);
+      if (agno >= this.parametros[1].angoInicio && agno < this.parametros[2].angoInicio) {
+        sum789 += vh789.totalValorHoras;
+      }
+      //sumar entre la reforma de duque y petro
+      let vh2101 = this.laboral2101[i];
+      agno = parseInt(vh2101.name);
+      if (agno > this.parametros[2].angoInicio && agno < this.parametros[3].angoInicio) {
+        sum2101parcial += vh2101.totalValorHoras;
+      }
+      //sumar como si no se aprobara la reforma de petro
+      if (agno > this.parametros[2].angoInicio) {
+        sum2101total += vh2101.totalValorHoras;
+      }
+      //sumar solo reforma petro
+      let vh2025 = this.laboral2025[i];
+      agno = parseInt(vh2101.name);
+      if (agno > this.parametros[3].angoInicio) {
+        sum2025 += vh2025.totalValorHoras;
+      }
+    }
+
+    sum1950 = Math.round(sum1950*100)/100;
+    sum789 = Math.round(sum789*100)/100;
+    sum2101parcial = Math.round(sum2101parcial*100)/100;
+    sum2101total = Math.round(sum2101total*100)/100;
+    sum2025 = Math.round(sum2025*100)/100;
+
+    let tot1950 =  Math.round(this.laboral1950[this.laboral1950.length-1].totalValorHoras*100)/100;
+    let tot789 = Math.round(this.laboral789[this.laboral789.length-1].totalValorHoras*100)/100;
+    let tot2101 = Math.round(this.laboral2101[this.laboral1950.length-1].totalValorHoras*100)/100;
+    let tot2025 = Math.round(this.laboral2025[this.laboral1950.length-1].totalValorHoras*100)/100;
+    let data = [
+      {
+        name: "Ley 50 1990",
+        data: [tot1950, 0, 0, 0, sum1950, sum1950]
+      },
+      {
+        name: "Ley 789 de 2002",
+        data: [0, tot789, 0, 0, sum789, sum789]
+      },
+      {
+        name: "Ley 2101 de 2021",
+        data: [0, 0, tot2101, 0, sum2101total, sum2101parcial]
+      },
+      {
+        name: "Propuesta 2025",
+        data: [0, 0, 0, tot2025, 0, sum2025]
+      }
+    ];
+
+    console.log("Datos: ", JSON.stringify(data));
+
+    return data;
+  }
 }

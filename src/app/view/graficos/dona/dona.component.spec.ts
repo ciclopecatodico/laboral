@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DonaComponent } from './grafico.component';
+import { DonaComponent } from './dona.component';
 
 describe('DonaComponent', () => {
   let component: DonaComponent;

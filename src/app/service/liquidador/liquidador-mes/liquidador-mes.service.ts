@@ -7,9 +7,7 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { MesModel } from '../../../model/modelos-simulacion/mes-model/mes-model';
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Mes } from '../../../model/simulacion/mes/mes';
-import { BarChartCompuesto } from '../../../model/charts/bars-chart/bars-chart-compuesto';
-import { GraficoService } from '../../grafico/grafico.service';
-import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
+import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
 
 
 @Injectable({
@@ -18,7 +16,6 @@ import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-dat
 export class LiquidadorMesService {
 
   private configurationService: ConfigurationService;
-  private graficoService: GraficoService;
   public parametros: Parametros[];
 
   /**
@@ -42,9 +39,8 @@ export class LiquidadorMesService {
 
   public series: ApexAxisChartSeries;
 
-  constructor(configurationService: ConfigurationService, graficoService: GraficoService) {
+  constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
-    this.graficoService = graficoService;
     this.parametros = configurationService.parametros;
     this.series = [];
   }
@@ -234,18 +230,15 @@ export class LiquidadorMesService {
     });
   }
 
-
-
   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
-
   private generarBarrasSimpleDatos(valorHoras: ValorHoras[]): BarrasSimpleDatos {
     //generar categorias: 
-    let categorias = Array<string>();
+    let categorias = Array<string[]>();
     let colors = Array<string>();
-    this.parametros.forEach(p => { 
-      categorias.push(p.reformaLabel);
+    this.parametros.forEach(p => {
+      categorias.push([p.reformaLabel,p.reformaAutor]);
       colors.push(p.colorFill);
-     });
+    });
     //generar datos: 
     let data = Array<number>();
     
@@ -254,7 +247,7 @@ export class LiquidadorMesService {
       
     });
     return {
-      chartLabel:"Salario mensual",
+      chartLabel:"Ingreso mensual proyectado",
       dataLabel: "Salario",
       colors: colors,
       data: data,

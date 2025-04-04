@@ -1,25 +1,25 @@
 import {
   ApexNonAxisChartSeries,
-  ApexResponsive,
   ApexChart,
-  ApexDataLabels
+  ApexResponsive,
+  ApexDataLabels,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 
 
 /**
  * Para mostrar la compocición porcentual de los diferentes tipos de horas.  
  */
-export class DonutChart {
+export class Dona {
 
   constructor(
-    public name: string,
-    public label : string,
     public series: ApexNonAxisChartSeries,
     public chart: ApexChart,
     public responsive: ApexResponsive[],
     public labels: any,
     public dataLabels : ApexDataLabels,
     public colors: string[],
+    public title: ApexTitleSubtitle
   ) { }
   
 };

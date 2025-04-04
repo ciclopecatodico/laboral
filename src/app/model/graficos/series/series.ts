@@ -1,9 +1,3 @@
-import {
-  ApexNonAxisChartSeries,
-  ApexResponsive,
-  ApexChart
-} from "ng-apexcharts";
-
 export class Series {
 
   constructor(

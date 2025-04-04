@@ -20,12 +20,15 @@ export class MesFormComponent {
   private router: Router;
   public peticion_: Peticion;
   public parametros: Parametros;
+  public cafe = 0;
+  private error ="";
 
 
   constructor(configurationService: ConfigurationService, router: Router) {
     this.router = router;
     this.peticion_ = new Peticion('', 1);
     this.parametros = configurationService.parametros[CONST.reforma2025.index];
+    this.cafe = CONST.cafe;
   }
 
 
@@ -33,7 +36,7 @@ export class MesFormComponent {
     if (this.formularioValido()) {
       this.peticionChange.emit(this.peticion_);
     } else {
-      alert("Datos invalidos")
+      alert(this.error);
     }
   }
 
@@ -56,15 +59,18 @@ export class MesFormComponent {
   private formularioValido(): boolean {
     if (this.peticion_.sena) {
       if (!this.peticion_.etapa) {
+        this.error=CONST.formularioErrorMsg.mes.senaEtapa;
         return false;
       }
       //si es del sena debe poner una duración en la práctica
       if (this.peticion.duracion == undefined || this.peticion.duracion < 1) {
+        this.error=CONST.formularioErrorMsg.mes.senaDuracion;
         return false;
       }
     } else {
       this.peticion_.sena = false; 
       if (this.peticion_.salario < this.parametros.smlv) {
+        this.error=CONST.formularioErrorMsg.mes.salario;
         return false;
       }
     }

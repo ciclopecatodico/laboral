@@ -6,7 +6,8 @@ import {
   ApexYAxis,
   ApexXAxis,
   ApexGrid,
-  ApexLegend
+  ApexLegend,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 
 

@@ -1,5 +1,5 @@
-import { BarrasSimpleDatos } from "../../charts/barras/baras-simple-datos";
-import { BarChartCompuesto } from "../../charts/bars-chart/bars-chart-compuesto";
+import { BarrasSimpleDatos } from "../../graficos/barras/baras-simple-datos";
+import { BarChartCompuesto } from "../../graficos/bars-chart/bars-chart-compuesto";
 import { ValorHoras } from "../../liquidacion/valor-horas/valor-horas";
 
 export class Agno {

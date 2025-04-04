@@ -1,8 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="row" align="center">
-  <div class="chart" *ngFor="let dona of donas">
-    <b>{{dona.label}}</b>
-    <apx-chart [series]="dona.series" [dataLabels]="dona.dataLabels" [chart]="dona.chart"
-      [labels]="dona.labels" [responsive]="dona.responsive" [colors]="dona.colors"></apx-chart>
+  <div class="chart" *ngFor="let chartOptions of donas">
+    <apx-chart 
+      [series]="chartOptions.series"
+      [dataLabels]="chartOptions.dataLabels" 
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels" 
+      [responsive]="chartOptions.responsive" 
+      [colors]="chartOptions.colors"
+      [title]="chartOptions.title"
+      >
+    </apx-chart>
   </div>
 </div>

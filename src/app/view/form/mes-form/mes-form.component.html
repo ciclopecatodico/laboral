@@ -39,6 +39,12 @@
             <input class="form-control" type="number" id="salario" name="salario" [(ngModel)]="peticion.salario">
         </div>
     </div>
+    <div class="row">
+        <div class="col" *ngIf="peticion.salario >= cafe">
+            <br>
+            ;-) Se aceptan donaciones y/o café!  
+        </div>
+    </div>
     <br>
     <div class="row">
         <div class="col">

@@ -20,6 +20,7 @@ export class AgnoFormComponent {
   private router : Router; 
   private peticion_: Peticion;
   public parametros: Parametros;
+  private error = '';
 
 
   constructor(configurationService: ConfigurationService,  router : Router) {
@@ -32,9 +33,8 @@ export class AgnoFormComponent {
   public simularLaboral() {
     if(this.formularioValido()){
       this.peticionChange.emit(this.peticion_);
-      console.log("peticionChange Emitido!!");
     }else{
-      alert("Datos invalidos");
+      alert(this.error);
     }
   }
 
@@ -55,20 +55,27 @@ export class AgnoFormComponent {
 
 
   private formularioValido(): boolean {
-    //console.log("Peticion:", JSON.stringify(this.peticion_))
     if (this.peticion_.sena) {
       return false;
     }
     if (this.peticion_.edad == undefined || this.peticion_.edad < 18) {
+      this.error= CONST.formularioErrorMsg.agno.edad
       return false;
     }
     if (this.peticion_.experiencia == undefined || this.peticion_.experiencia < 0) {
+      this.error= CONST.formularioErrorMsg.agno.experiencia;
       return false;
     }
     if (this.peticion_.sexo == undefined) {
+      this.error= CONST.formularioErrorMsg.agno.sexo;
       return false;
+    }else{
+      let edadPension = this.peticion_.sexo===CONST.hombre.sexo?CONST.hombre.edadPension:CONST.mujer.edadPension;
+      if(this.peticion_.edad>=edadPension){
+        this.error = CONST.formularioErrorMsg.agno.edadPension;
+        return false; 
+      }
     }
-    //console.log("Peticion:", JSON.stringify(this.peticion_))
     return true;
   }
 

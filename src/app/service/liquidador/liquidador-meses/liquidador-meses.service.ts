@@ -7,9 +7,7 @@ import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
 import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 import { Agno } from '../../../model/simulacion/agno/ango';
-import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
-import { GraficoService } from '../../grafico/grafico.service';
-import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
+import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
 
 
 /**
@@ -28,7 +26,6 @@ export class LiquidadorMesesService {
 
   public configurationService: ConfigurationService;
   public liquidadorMesService: LiquidadorMesService;
-  public graficoService: GraficoService;
   public parametros: Parametros[];
 
   /**
@@ -41,10 +38,9 @@ export class LiquidadorMesesService {
 
   public totales = new Array<ValorHoras>;
 
-  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService, graficoService: GraficoService) {
+  constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
     this.configurationService = configurationService;
     this.liquidadorMesService = liquidadorMesService;
-    this.graficoService = graficoService;
     this.parametros = configurationService.parametros;
   }
 
@@ -160,10 +156,10 @@ export class LiquidadorMesesService {
 
   private generarBarrasSimpleDatos(valorHoras: ValorHoras[]): BarrasSimpleDatos {
     //generar categorias: 
-    let categorias = Array<string>();
+    let categorias = Array<string[]>();
     let colors = Array<string>();
     this.parametros.forEach(p => {
-      categorias.push(p.reformaLabel);
+      categorias.push([p.reformaLabel,p.reformaAutor]);
       colors.push(p.colorFill);
     });
     //generar datos: 
@@ -174,7 +170,7 @@ export class LiquidadorMesesService {
 
     });
     return {
-      chartLabel: "Ingreso Anual Simulado",
+      chartLabel: "Ingreso Anual Proyectado",
       dataLabel: "Ingreso",
       colors: colors,
       data: data,

@@ -7,7 +7,7 @@ import { ConfigurationService } from '../../configuration/configuration.service'
 import { Turno } from '../../../model/turno/turno';
 import { List } from '../../../model/listas/list';
 import { CONST } from '../../../model/const/CONST';
-import { DonutChart } from '../../../model/charts/donut-chart/donut-chart-options';
+import { Dona } from '../../../model/graficos/dona/dona';
 
 
 /**
@@ -22,7 +22,7 @@ export class LiquidadorHorasService {
   public list = new List();
   public horasList: HorasSemana[];
   public parametros: Parametros[];
-  public charts: DonutChart[];
+  public charts: Dona[];
 
   constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;

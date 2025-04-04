@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BarrasSimple } from '../../../model/charts/barras/baras-simple';
-import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
+import { BarrasSimple } from '../../../model/graficos/barras/baras-simple';
+import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
+import { CONST } from '../../../model/const/CONST';
 
 @Component({
   selector: 'grafico-barras-simple',
@@ -16,18 +17,6 @@ export class BarrasSimpleComponent implements OnInit {
   public chartOptions: BarrasSimple;
 
   constructor() {
-    // this.datos = {
-    //   chartLabel: "Salario mensual",
-    //   dataLabel: "Salario",
-    //   colors: ["var(--G50B)", "var(--U789B)", "var(--D2101B)", "var(--P2025B)"],
-    //   data: [1950000, 1548000, 1021400, 2758000],
-    //   categories: ["Gaviria", "Uribe", "Duque", "Petro"],
-    //   labelColor: ['var(--GrapLabel)'],
-    //   prefix: '$ ',
-    //   sufix: ' M',
-    //   factor: 100000,
-    //   decimales: 10
-    // };
     this.chartOptions = this.ejemplo();
   }
 
@@ -39,6 +28,9 @@ export class BarrasSimpleComponent implements OnInit {
 
 
   private generate(data: BarrasSimpleDatos): BarrasSimple {
+    //Cambiamos el inicio del diagrama
+    let min = Math.min( ...data.data);
+    min = Math.round(min*CONST.yAxisMin);
     return {
       series: [
         {
@@ -74,7 +66,7 @@ export class BarrasSimpleComponent implements OnInit {
         style: {
           fontSize: '14px',
           fontFamily: 'Helvetica, Arial, sans-serif',
-          colors: data.labelColor
+          colors: ["var(--GrapLabel)"]
         }
       },
       legend: {
@@ -84,6 +76,7 @@ export class BarrasSimpleComponent implements OnInit {
         show: false
       },
       yaxis: {
+        min: min,
         labels: {
           //   show: true,
           formatter: function (y) {
@@ -98,7 +91,7 @@ export class BarrasSimpleComponent implements OnInit {
             fontSize: '15px',
             fontFamily: 'Helvetica, Arial, sans-serif',
             fontWeight: 'bold',
-            colors: data.labelColor
+            colors: "var(--GrapLabel)"
           }
         }
       },
@@ -109,7 +102,7 @@ export class BarrasSimpleComponent implements OnInit {
             fontSize: '15px',
             fontFamily: 'Helvetica, Arial, sans-serif',
             fontWeight: 'bold',
-            colors: data.labelColor
+            colors: "var(--GrapLabel)"
           }
         }
       },
@@ -121,7 +114,7 @@ export class BarrasSimpleComponent implements OnInit {
           fontSize: '17px',
           fontFamily: 'Helvetica, Arial, sans-serif',
           fontWeight: 'bold',
-          color: data.labelColor[0]
+          color: "var(--GrapLabel)"
         }
       }
     };

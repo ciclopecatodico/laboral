@@ -1,6 +1,5 @@
-import { BarrasSimpleDatos } from "../../charts/barras/baras-simple-datos";
-import { BarChartCompuesto } from "../../charts/bars-chart/bars-chart-compuesto";
-import { BarChartSimple } from "../../charts/bars-chart/bars-chart-simple";
+import { BarrasSimpleDatos } from "../../graficos/barras/baras-simple-datos";
+import { Series } from "../../graficos/series/series";
 import { ValorHoras } from "../../liquidacion/valor-horas/valor-horas";
 
 export class Laboral {
@@ -11,6 +10,6 @@ export class Laboral {
         public salario: number,
         public valores: ValorHoras[],
         public barrasSimpleDatos ?: BarrasSimpleDatos,//total percibido por horas
-        public barrasHorasPonderadas?: BarChartCompuesto, //horas ponderadas por el recargo agrupadas por reforma
+        public barrasAcumulado ? : ApexAxisChartSeries
     ) { }
 }

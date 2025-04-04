@@ -117,14 +117,16 @@ export const CONST = {
     tipoDeHoras:
     {
         id: 'tipoDeHoras',
-        label: "Tipos de Horas",
-        categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
+        label: 'Tipos de Horas',
+        categorias: ['Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas'],
+        colores: ['#26a69a','#008ffb','#00E396','#546E7A']
     },
     tipoDeHorasPonderados:
     {
         id: 'tipoDeHorasPonderados',
-        label: "Valor a pagar por tipos de horas ponderados por Reforma",
-        categorias: ["Diurnas", "Nocturnas", "Extra Diurnas", "Extra Nocturnas"]
+        label: 'Valor a pagar por tipos de horas ponderados por Reforma',
+        categorias: ['Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas'],
+        colores: ['#26a69a','#008ffb','#00E396','#546E7A']
     },
     diagramas :{
         mes: {
@@ -147,6 +149,19 @@ export const CONST = {
                 label: 'Ingreso total según tipo de reforma',
                 yLabel: 'Ingresos percibidos'
             }
+        }
+    },
+    formularioErrorMsg: {
+        mes:{
+            senaEtapa: 'Debe seleccionar una etapa del SENA',
+            senaDuracion: 'Se requiere duración de la práctica',
+            salario: 'El salario debe ser mayor o igual al SMLV'
+        },
+        agno:{
+            edad : 'Edad debe ser mayor a 18',
+            experiencia: 'Experiencia debe ser mayor a 0',
+            sexo: 'Debe seleccionar una modalidad de pensión',
+            edadPension: 'La edad debe ser menor a la edad de Pensión',
         }
     },
     diasSemanaLaboralName: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
@@ -194,5 +209,7 @@ export const CONST = {
         index: 3,
         reforma: '2025',
         style: 'success'
-    }
+    },
+    yAxisMin: 0.0, //punto donde inician las graficas 
+    cafe : 3141592
 }

@@ -6,7 +6,7 @@ export class BarrasSimpleDatos {
     public dataLabel: string,
     public colors: string[],
     public data: number[],
-    public categories: string[],
+    public categories: string[] | string[][],
     public labelColor: string[],
     public prefix: string,
     public sufix: string,

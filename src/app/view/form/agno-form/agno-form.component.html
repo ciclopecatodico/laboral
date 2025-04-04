@@ -4,13 +4,13 @@
     <p>Proyección vida laboral</p>
     <div class="row">
         <label for="edad">Cuál es tu edad?</label>
-        <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad">
+        <input class="form-control" type="number" id="edad" name="edad" [(ngModel)]="peticion.edad" min="18" max="5">
     </div>
     <br>
     <div class="row">
         <label for="experiencia">Hace cuantos años trabajas?</label>
         <input class="form-control" type="number" id="experiencia" name="experiencia"
-            [(ngModel)]="peticion.experiencia">
+            [(ngModel)]="peticion.experiencia" min="0">
     </div>
     <br>
     <div class="row">

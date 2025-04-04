@@ -91,10 +91,10 @@ export class LiquidadorAgnosService {
     valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2101, ...this.laboral2025];
 
     let barrasSimplesDatos = this.generarBarrasSimpleDatos(this.totales);
-    let barrasAcumulados = this.liquidarAcumulados() ;
+    let barrasAcumulados = this.liquidarAcumulados();
     let barraComparacion = this.generarBarrasSimpleAcumulados();
 
-    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barraComparacion ,barrasAcumulados);
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barraComparacion, barrasAcumulados);
   }
 
   /**
@@ -232,7 +232,7 @@ export class LiquidadorAgnosService {
   }
 
 
-  private liquidarAcumulados() : ApexAxisChartSeries{
+  private liquidarAcumulados(): ApexAxisChartSeries {
     console.log("Liquidar años acumulados!!!");
     let sum1950 = 0;
     let sum789 = 0;
@@ -255,37 +255,38 @@ export class LiquidadorAgnosService {
       //sumar entre la reforma de duque y petro
       let vh2101 = this.laboral2101[i];
       agno = parseInt(vh2101.name);
-      if (agno > this.parametros[2].angoInicio && agno < this.parametros[3].angoInicio) {
+      if (agno >= this.parametros[2].angoInicio && agno < this.parametros[3].angoInicio) {
         sum2101parcial += vh2101.totalValorHoras;
       }
       //sumar como si no se aprobara la reforma de petro
-      if (agno > this.parametros[2].angoInicio) {
+      if (agno >= this.parametros[2].angoInicio) {
         sum2101total += vh2101.totalValorHoras;
       }
       //sumar solo reforma petro
       let vh2025 = this.laboral2025[i];
       agno = parseInt(vh2101.name);
-      if (agno > this.parametros[3].angoInicio) {
+      if (agno >= this.parametros[3].angoInicio) {
         sum2025 += vh2025.totalValorHoras;
       }
     }
 
-    sum1950 = Math.round(sum1950*100)/100;
-    sum789 = Math.round(sum789*100)/100;
-    sum2101parcial = Math.round(sum2101parcial*100)/100;
-    sum2101total = Math.round(sum2101total*100)/100;
-    sum2025 = Math.round(sum2025*100)/100;
 
-    let tot1950 =  Math.round(this.laboral1950[this.laboral1950.length-1].totalValorHoras*100)/100;
-    let tot789 = Math.round(this.laboral789[this.laboral789.length-1].totalValorHoras*100)/100;
-    let tot2101 = Math.round(this.laboral2101[this.laboral1950.length-1].totalValorHoras*100)/100;
-    let tot2025 = Math.round(this.laboral2025[this.laboral1950.length-1].totalValorHoras*100)/100;
-    
     //Estos son los totales con y sin reforma
-    this.totalSinReforma = sum1950 + sum789 + sum2101total;
-    this.totalConreforma =   sum1950 + sum789 + sum2101parcial +sum2025;
+    this.totalSinReforma = Math.round(sum1950 + sum789 + sum2101total);
+    this.totalConreforma = Math.round(sum1950 + sum789 + sum2101parcial + sum2025);
     
-    
+    sum1950 = Math.round(sum1950) ;
+    sum789 = Math.round(sum789) ;
+    sum2101parcial = Math.round(sum2101parcial);
+    sum2101total = Math.round(sum2101total);
+    sum2025 = Math.round(sum2025);
+
+    let tot1950 = Math.round(this.laboral1950[this.laboral1950.length - 1].totalValorHoras ) ;
+    let tot789 = Math.round(this.laboral789[this.laboral789.length - 1].totalValorHoras );
+    let tot2101 = Math.round(this.laboral2101[this.laboral1950.length - 1].totalValorHoras ) ;
+    let tot2025 = Math.round(this.laboral2025[this.laboral1950.length - 1].totalValorHoras ) ;
+
+
     let data = [
       {
         name: "Ley 50 1990",
@@ -320,11 +321,11 @@ export class LiquidadorAgnosService {
       colors.push(p.colorFill);
     });
     //generar datos: 
-    let data = [this.totalSinReforma, this.totalConreforma, this.totalConreforma-this.totalSinReforma];
+    let data = [this.totalSinReforma, this.totalConreforma, this.totalConreforma - this.totalSinReforma];
     return {
       chartLabel: "Ingresos totales simulados",
       dataLabel: "Ingresos",
-      colors: ['var(--U789B)','var(--P2025B)', 'var(--U789B)'],
+      colors: ['var(--U789B)', 'var(--P2025B)', 'var(--U789B)'],
       data: data,
       categories: ["Sin Reforma", "Con Reforma", "Diferencia"],
       labelColor: ['var(--GrapLabel)'],

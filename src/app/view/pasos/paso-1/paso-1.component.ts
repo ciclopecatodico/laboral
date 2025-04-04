@@ -15,19 +15,21 @@ export class Paso1Component implements OnInit {
 
   public simuladorService: SimuladorService;
   private storageService: StorageService;
-  public semana = Object.create(Semana);
-  public peticion = Object.create(Peticion);
+  public semana: Semana;
+  public peticion: Peticion;
   private router: Router
 
   constructor(storageService: StorageService, simuladorService: SimuladorService, router: Router) {
     this.storageService = storageService;
     this.simuladorService = simuladorService;
     this.router = router;
+    this.semana = Object.create(Semana);
+    this.peticion = Object.create(Peticion);
   }
 
   simularMes(peticion: Peticion) {
-    console.log("Paso1 simular Mes->", JSON.stringify(peticion));
     this.simuladorService.simularMes(peticion);
+    this.storageService.save('peticion', this.peticion);
     this.router.navigate(['/paso-2']);
   }
 

@@ -7,6 +7,10 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>{{const.agnoInicio.label}}</td>
+                <td *ngFor="let i of const.reformas" align="center">{{parametros[i].angoInicio}}</td>
+            </tr>
             <tr *ngIf="verSMLV">
                 <td>{{const.smlv.label}}</td>
                 <td *ngFor="let i of const.reformas">{{(parametros[i].smlv) | currency : '$' }} </td>

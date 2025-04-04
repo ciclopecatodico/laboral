@@ -1,5 +1,14 @@
 <div class="container">
     <h2>1-Simulación de la Semana:</h2>
+    <h3>Datos ingresados:</h3>
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre:</th>
+                <td>{{peticion.nombres}}</td>
+            </tr>
+        </tbody>
+    </table>
     <p>Te guiaremos paso a paso por la simulación, primero sabrás cómo sería liquidada tu semana según tu horario
         laboral
         dependiendo de los diferentes régimenes que han existido en Colombia</p>
@@ -9,11 +18,11 @@
     <div *ngIf="verNotas">
         <br>
         <h4>Par&aacute;metros utilizados:</h4>
-            <app-parametros [peticion]="peticion"></app-parametros>
+        <app-parametros [peticion]="peticion"></app-parametros>
         <br>
     </div>
     <!--  -->
-    <grafico-dona [datos]="semana.donas" >
+    <grafico-dona [datos]="semana.donas">
     </grafico-dona>
 
     <horas-semana [semana]="semana.horasSemana">

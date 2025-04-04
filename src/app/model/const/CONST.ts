@@ -114,6 +114,9 @@ export const CONST = {
         id: 'salarioHora',
         label: 'Salario por Hora Simulación'
     },
+    agnoInicio: {
+        label: 'Año inicio aplicación reforma',
+    },
     tipoDeHoras:
     {
         id: 'tipoDeHoras',
@@ -211,5 +214,4 @@ export const CONST = {
         style: 'success'
     },
     yAxisMin: 0.0, //punto donde inician las graficas 
-    cafe : 3141592
 }

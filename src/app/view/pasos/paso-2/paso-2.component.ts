@@ -27,7 +27,6 @@ export class Paso2Component implements OnInit {
 
 
   simularAgno(peticion: Peticion) {
-    console.log("Paso3 simular agno->", JSON.stringify(peticion));
     this.simuladorService.simularAgno(peticion);
     this.router.navigate(['/paso-3']);
   }

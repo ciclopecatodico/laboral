@@ -20,15 +20,14 @@ export class MesFormComponent {
   private router: Router;
   public peticion_: Peticion;
   public parametros: Parametros;
-  public cafe = 0;
-  private error ="";
+  public income = Number("0x2FEFD8");
 
+  private error ="";
 
   constructor(configurationService: ConfigurationService, router: Router) {
     this.router = router;
     this.peticion_ = new Peticion('', 1);
     this.parametros = configurationService.parametros[CONST.reforma2025.index];
-    this.cafe = CONST.cafe;
   }
 
 
@@ -77,4 +76,8 @@ export class MesFormComponent {
     return true;
   }
 
+  public atob(msg : string){
+    return atob(msg);
+  }
+  
 }

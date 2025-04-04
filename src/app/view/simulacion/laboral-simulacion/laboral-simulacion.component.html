@@ -62,24 +62,48 @@
         <br>
         <app-parametros [peticion]="peticion"></app-parametros>
         <br>
-        <p>Simulacion proyectada a los años que has trabajado</p>
-        <p>Cada color representa la simulación de una Reforma Laboral </p>
-        <p>Todos los cálculos se realizan en salarios de 2025</p>
-        <p>No se incluye el subsidio de transporte ni primas ni cesantías ni vacaciones para los cálculos en este
-            momento.</p>
+        <ul>
+            <li>Simulacion proyectada a los años que has trabajado</li>
+            <li>Cada color representa la simulación de una Reforma Laboral</li>
+            <li>Todos los cálculos se realizan en salarios de 2025</li>
+            <li>No se incluye el subsidio de transporte ni primas ni cesantías ni vacaciones para los cálculos en este
+                momento.</li>
+        </ul>
     </div>
     <br>
     <br>
-    Así se vería tu historia laboral simulando cada una de las reformas hechas desde 1990 y con la propuesta actual:
+    <p>
+        Las primeras barras muestran cómo se vería tu historia laboral simulando cada una de las reformas hechas desde
+        1990 y con la propuesta actual:
+    </p>
+    <p>
+        Luego puedes ver la comparacíón de cómo se proyectan tus ingresos <b> Sin la reforma</b> laboral y <b>Con
+            Reforma
+        </b>
+    </p>
+    <p>
+        <b>Sin Reforma:</b> Te muestra cómo es la proyección de la simulación de toda tu historia laboral liquidada
+        aplicando cada una de las reformas vigentes durante el periodo en que has trabajado, dependiendo de tu
+        experiencia es posible que te aplique desde la Ley 50 de 1990 y Sin aplicar la propuesta actual.
+    </p>
+    <p>
+        <b>Con Reforma:</b> Proyecta tu historia laboral pero aplicando los cambios propuestos en la reforma 2025 a partir
+        del año de inicio que para esta simulación es 2029. 
+    </p>
     <br>
 
     <grafico-barras-acumulado [data]="laboral.barrasAcumulado"></grafico-barras-acumulado>
-    
+
+    <br>
+    <p>
+        Los ingresos totales <b> Sin la reforma</b> y <b>Con Reforma</b> y la <b>Diferencia</b> que podría existir entre
+        ellos:
+    </p>
     <br>
     <grafico-barras-simple [datos]="laboral.barrasSimpleDatos">
     </grafico-barras-simple>
-    
     <br>
+    <p>El detalle de los años simulados desde el inicio de tu experiencia laboral hasta tu edad de pensión:</p>
     <horas-laboral [laboral]="laboral.valores">
     </horas-laboral>
     <div class="row">

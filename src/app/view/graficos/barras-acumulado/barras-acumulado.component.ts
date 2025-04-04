@@ -54,7 +54,6 @@ export class BarrasAcumuladoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Data en componente:", JSON.stringify(this.data))
     this.chartOptions = this.generateChart();
   }
 

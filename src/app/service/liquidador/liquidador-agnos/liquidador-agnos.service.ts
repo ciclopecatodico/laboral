@@ -233,7 +233,6 @@ export class LiquidadorAgnosService {
 
 
   private liquidarAcumulados(): ApexAxisChartSeries {
-    console.log("Liquidar años acumulados!!!");
     let sum1950 = 0;
     let sum789 = 0;
     let sum2101parcial = 0;
@@ -306,8 +305,6 @@ export class LiquidadorAgnosService {
       }
     ];
 
-    console.log("Datos: ", JSON.stringify(data));
-
     return data;
   }
 
@@ -323,7 +320,7 @@ export class LiquidadorAgnosService {
     //generar datos: 
     let data = [this.totalSinReforma, this.totalConreforma, this.totalConreforma - this.totalSinReforma];
     return {
-      chartLabel: "Ingresos totales simulados",
+      chartLabel: "Ingresos totales historia laboral simulados",
       dataLabel: "Ingresos",
       colors: ['var(--U789B)', 'var(--P2025B)', 'var(--U789B)'],
       data: data,

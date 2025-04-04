@@ -27,7 +27,6 @@ export class Paso3Component implements OnInit {
 
   
   simularLaboral(peticion: Peticion){
-    console.log("Paso3 simular laboral->",JSON.stringify(peticion));
     this.simuladorService.simularLaboral(peticion);
     this.router.navigate(['/paso-4']);
   }

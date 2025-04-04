@@ -40,9 +40,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col" *ngIf="peticion.salario >= cafe">
+        <div class="col" *ngIf="peticion.salario > income">
             <br>
-            ;-) Se aceptan donaciones y/o café!  
+            {{atob('U2UgYWNlcHRhbiBkb25hY2lvbmVzIHkvbyBjYWZlISA7LSkg')}}
+        </div>
+        <div class="col" *ngIf="peticion.salario == income">
+            <br>
+            {{atob('U2VyaW91c2x5PyBUaGF0IG51bWJlcj8gSSBsb3ZlIGl0ISBOZXJkIQ==')}} 
         </div>
     </div>
     <br>

@@ -19,9 +19,6 @@ export class SemanaSimulacionComponent implements OnInit {
   @Input()
   public peticion: Peticion;
 
-  @Output()
-  public peticionChange = new EventEmitter<Peticion>;
-
   private configurationService: ConfigurationService;
   public verNotas = false;
   public const = CONST;
@@ -33,14 +30,10 @@ export class SemanaSimulacionComponent implements OnInit {
     this.parametros = configurationService.parametros;
     this.peticion = Object.create(Peticion);
     this.semana = Object.create(Semana);
-
   }
 
   ngOnInit(): void {
     this.peticion.salario = this.configurationService.parametros[0].smlv;
   }
-
-
-
 
 }

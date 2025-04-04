@@ -9,6 +9,7 @@ import { LiquidadorMesService } from '../liquidador-mes/liquidador-mes.service';
 import { Agno } from '../../../model/simulacion/agno/ango';
 import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
 import { GraficoService } from '../../grafico/grafico.service';
+import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
 
 
 /**
@@ -108,12 +109,10 @@ export class LiquidadorMesesService {
     //retornamos un arreglo que contiene todos los agños calculados. 
     meses = [...this.agno1950, ...this.agno789, ...this.agno2101, ...this.agno2025];
 
-
     let barrasHorasPonderadas = undefined;
-    let barrasTotal = this.generarBarrasTotal();
+    let barrasTotal = this.generarBarrasSimpleDatos(this.totales);
 
-
-    return new Agno(peticion.salario, meses, barrasHorasPonderadas, barrasTotal);
+    return new Agno(peticion.salario, meses, barrasTotal, barrasHorasPonderadas);
   }
 
 
@@ -159,11 +158,34 @@ export class LiquidadorMesesService {
 
   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
 
-  private generarBarrasTotal(): BarChartSimple {
-    let sumatoria = this.graficoService.generarSeries(this.totales, this.parametros);
+  private generarBarrasSimpleDatos(valorHoras: ValorHoras[]): BarrasSimpleDatos {
+    //generar categorias: 
     let categorias = Array<string>();
-    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    return this.graficoService.barrasSimple(CONST.diagramas.mes.barrasSimple.id, CONST.diagramas.mes.barrasSimple.label, sumatoria, CONST.diagramas.mes.barrasSimple.yLabel);
+    let colors = Array<string>();
+    this.parametros.forEach(p => {
+      categorias.push(p.reformaLabel);
+      colors.push(p.colorFill);
+    });
+    //generar datos: 
+    let data = Array<number>();
+
+    valorHoras.forEach(vh => {
+      data.push(vh.totalValorHoras);
+
+    });
+    return {
+      chartLabel: "Ingreso Anual Simulado",
+      dataLabel: "Ingreso",
+      colors: colors,
+      data: data,
+      categories: categorias,
+      labelColor: ['var(--GrapLabel)'],
+      prefix: '',
+      sufix: ' M',
+      factor: 10000,
+      decimales: 100,
+      separador: '.'
+    };
   }
 
 }

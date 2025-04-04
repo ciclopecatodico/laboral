@@ -67,7 +67,7 @@ export class LiquidadorSemanaService {
     let horasSemana = new Array<HorasSemana>();
     horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
 
-    this.horasTipo = this.setBarrasTipoHoras();
+    //this.horasTipo = this.setBarrasTipoHoras();
     //this.horasPonderado = this.setBarrasTipoHorasPonderado();
     //this.horastotal = this.setHorasTotal();
     return new Semana(horasSemana, this.donas, this.horasTipo, this.horasPonderado, this.horastotal);
@@ -112,44 +112,6 @@ export class LiquidadorSemanaService {
     // }
     return this.graficoService.dona(reformaName, reformaLabel, horas, labels);
   }
-
-
-  /**
-   * Crea un grafico que compara los diferentes tipos de horas por reforma 
-   * @returns 
-   */
-  private setBarrasTipoHoras(): BarChartCompuesto {
-    let categorias = Array<string>();
-    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    this.series = structuredClone(this.generarSeries(false));
-    return this.graficoService.barrasCompuesto(CONST.tipoDeHoras.id, CONST.tipoDeHoras.label, this.series, categorias, 'Horas', false);
-  }
-
-
-  /**
- * Crea un grafico que compara los diferentes tipos de horas por reforma 
- * @returns 
- */
-  private setBarrasTipoHorasPonderado(): BarChartCompuesto {
-    let categorias = Array<string>();
-    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-
-    this.series = this.generarSeries(true);
-    return this.graficoService.barrasCompuesto(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, this.series, categorias, 'Valor', true);
-  }
-
-
-  /**
-   * 
-   */
-  private setHorasTotal(): BarChartSimple {
-    console.log("setHoras");
-    let categorias = Array<string>();
-    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    let totales = this.generarTotalesSeries();
-    return this.graficoService.barrasSimple(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, totales , 'Salario');
-  }
-
 
 
   /**

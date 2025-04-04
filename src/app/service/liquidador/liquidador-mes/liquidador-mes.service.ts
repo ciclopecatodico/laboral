@@ -8,8 +8,8 @@ import { MesModel } from '../../../model/modelos-simulacion/mes-model/mes-model'
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Mes } from '../../../model/simulacion/mes/mes';
 import { BarChartCompuesto } from '../../../model/charts/bars-chart/bars-chart-compuesto';
-import { BarChartSimple } from '../../../model/charts/bars-chart/bars-chart-simple';
 import { GraficoService } from '../../grafico/grafico.service';
+import { BarrasSimpleDatos } from '../../../model/charts/barras/baras-simple-datos';
 
 
 @Injectable({
@@ -75,9 +75,9 @@ export class LiquidadorMesService {
     let valorHoras = [this.valorHoras1950, this.valorHoras789, this.valorHoras2101, this.valorHoras2025];
 
     let barrasHorasPonderadas = undefined;
-    let barrasTotal = this.generarBarrasTotal(valorHoras);
+    let barrasSimpleDatos = this.generarBarrasSimpleDatos(valorHoras);
 
-    return new Mes(peticion.salario, valorHoras, barrasHorasPonderadas, barrasTotal,);
+    return new Mes(peticion.salario, valorHoras, barrasSimpleDatos, barrasHorasPonderadas);
   }
 
   /**
@@ -238,39 +238,45 @@ export class LiquidadorMesService {
 
   /**GENERACIÓN DE DATOS PARA LOS GRÁFICOS  */
 
-
-  private generarBarrasTotal(valorHoras: ValorHoras[]): BarChartSimple {
-    let sumatoria = Array<any>();
-
-    //Obtiene el total por tipo de reforma 
-    valorHoras.forEach(vh => {
-      let reforma = this.parametros.find(p => p.reformaName === vh.reformaName);
-
-      let sum = {
-        x: vh.reformaLabel,
-        y: this.round(vh.totalValorHoras),
-        fillColor: reforma?.colorFill,
-        strokeColor: reforma?.colorStroke,
-      }
-      sumatoria.push(sum);
-    });
-
+  private generarBarrasSimpleDatos(valorHoras: ValorHoras[]): BarrasSimpleDatos {
+    //generar categorias: 
     let categorias = Array<string>();
-    this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-    return this.graficoService.barrasSimple(CONST.diagramas.mes.barrasSimple.id, CONST.diagramas.mes.barrasSimple.label, sumatoria, CONST.diagramas.mes.barrasSimple.yLabel);
-
+    let colors = Array<string>();
+    this.parametros.forEach(p => { 
+      categorias.push(p.reformaLabel);
+      colors.push(p.colorFill);
+     });
+    //generar datos: 
+    let data = Array<number>();
+    
+    valorHoras.forEach(vh => {
+      data.push(vh.totalValorHoras);
+      
+    });
+    return {
+      chartLabel:"Salario mensual",
+      dataLabel: "Salario",
+      colors: colors,
+      data: data,
+      categories: categorias,
+      labelColor: ['var(--GrapLabel)'],
+      prefix: '',
+      sufix: ' M',
+      factor: 1000,
+      decimales: 1000,
+      separador: '.'
+    };
   }
 
   /**
 * Crea un grafico que compara los diferentes tipos de horas por reforma 
 * @returns 
 */
-  private setBarrasTipoHorasPonderado(): BarChartCompuesto {
+  private setBarrasTipoHorasPonderado() {
+    //TODO
     let categorias = Array<string>();
     this.parametros.forEach(p => { categorias.push(p.reformaLabel) });
-
     this.series = this.generarSeries(true);
-    return this.graficoService.barrasCompuesto(CONST.tipoDeHorasPonderados.id, CONST.tipoDeHorasPonderados.label, this.series, categorias, 'Valor', true);
   }
 
   /**

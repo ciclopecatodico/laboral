@@ -69,12 +69,12 @@
             momento.</p>
     </div>
     <br>
-
-    <grafico-barras-simple [barras]="laboral.barrasTotal">
-    </grafico-barras-simple>
-
     <br>
-    Así se vería tu historia laboral liquidada por cada una de las reformas desde hechas 1990 y con la propuesta:
+    Así se vería tu historia laboral simulando cada una de las reformas hechas desde 1990 y con la propuesta actual:
+    <br>
+    <grafico-barras-simple [datos]="laboral.barrasSimpleDatos">
+    </grafico-barras-simple>
+    <br>
     <horas-laboral [laboral]="laboral.valores">
     </horas-laboral>
     <div class="row">

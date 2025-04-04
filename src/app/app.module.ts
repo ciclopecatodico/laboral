@@ -24,7 +24,6 @@ import { HorasAgnoComponent } from './view/horas/horas-agno/horas-agno.component
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DonaComponent } from './view/graficos/dona/grafico.component';
 import { BarrasSimpleComponent } from './view/graficos/barras-simple/barras-simple.component';
-import { BarrasCompuestoComponent } from './view/graficos/barras-compuesto/barras-compuesto.component';
 import { LaboralSimulacionComponent } from './view/simulacion/laboral-simulacion/laboral-simulacion.component';
 import { SemanaFormComponent } from './view/form/semana-form/semana-form.component';
 import { Paso0Component } from './view/pasos/paso-0/paso-0.component';
@@ -55,7 +54,6 @@ import { ParametrosComponent } from './view/documentos/parametros/parametros.com
     ParametrosViewComponent,
     DonaComponent, 
     BarrasSimpleComponent,
-    BarrasCompuestoComponent,
     LaboralSimulacionComponent,
     Paso0Component,
     Paso1Component,

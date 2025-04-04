@@ -42,29 +42,26 @@ export class BarrasAcumuladoComponent implements OnInit {
 
 
   @Input()
-  public data : ApexAxisChartSeries | undefined;
+  public data: ApexAxisChartSeries | undefined;
 
   public chartOptions: ChartOptions;
 
 
-  constructor( ){
+  constructor() {
     this.data = this.generateSample();
     this.chartOptions = this.generateChart();
   }
 
-  
+
   ngOnInit(): void {
     console.log("Data en componente:", JSON.stringify(this.data))
     this.chartOptions = this.generateChart();
   }
 
-  private calcularReformas(){
-    
-  }
 
-  private generateChart():ChartOptions{
+  private generateChart(): ChartOptions {
     return {
-      series: this.data?this.data:this.generateSample(),
+      series: this.data ? this.data : this.generateSample(),
       chart: {
         type: "bar",
         height: 350,
@@ -90,11 +87,11 @@ export class BarrasAcumuladoComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: ["Gaviria", "Uribe", "Duque", "Petro", "Sin Reforma","Con Reforma"],
+        categories: ["Gaviria", "Uribe", "Duque", "Petro", "Sin Reforma", "Con Reforma"],
         labels: {
-          formatter: function(val) {
+          formatter: function (val) {
             let num = parseInt(val);
-            num = Math.round(num/1000)/1000;
+            num = Math.round(num / 1000) / 1000;
             let x = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD'
@@ -106,6 +103,17 @@ export class BarrasAcumuladoComponent implements OnInit {
             fontFamily: 'Helvetica, Arial, sans-serif',
             fontWeight: 'bold',
             colors: "var(--GrapLabel)"
+          }
+        },
+        tooltip: {
+          formatter: function (val) {
+            let num = parseInt(val);
+            num = Math.round(num / 1000) / 1000;
+            let x = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(num);
+            return x + " ___M";
           }
         }
       },
@@ -120,12 +128,18 @@ export class BarrasAcumuladoComponent implements OnInit {
             fontWeight: 'bold',
             colors: "var(--GrapLabel)"
           }
-        }
+        },
+
       },
       tooltip: {
         y: {
-          formatter: function(val) {
-            return val + " M";
+          formatter: function (y) {
+            let num = Math.round(y / 1000) / 1000;
+            let x = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(num);
+            return x + " M";
           }
         }
       },
@@ -137,9 +151,9 @@ export class BarrasAcumuladoComponent implements OnInit {
         horizontalAlign: "center",
         //offsetX: 40
       },
-      dataLabels : {
-        formatter: function(val:number) {
-          let num = Math.round(val/1000)/1000;
+      dataLabels: {
+        formatter: function (val: number) {
+          let num = Math.round(val / 1000) / 1000;
           let x = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD'
@@ -153,27 +167,27 @@ export class BarrasAcumuladoComponent implements OnInit {
           colors: ["var(--GrapLabel)"]
         }
       },
-      colors : ["var(--G50BA)","var(--U789BA)","var(--D2101BA)","var(--P2025BA)"]
+      colors: ["var(--G50BA)", "var(--U789BA)", "var(--D2101BA)", "var(--P2025BA)"]
     };
   }
 
 
-  private generateSample(){
+  private generateSample() {
     return [{
       name: "Ley 50 1990",
-      data: [1000,0,0,0,100, 100]
+      data: [1000, 0, 0, 0, 100, 100]
     },
     {
       name: "Ley 789 de 2002",
-      data: [0,800,0,0,600, 600]
+      data: [0, 800, 0, 0, 600, 600]
     },
     {
       name: "Ley 2101 de 2021",
-      data: [0,0,870,0,100, 250]
+      data: [0, 0, 870, 0, 100, 250]
     },
     {
       name: "Propuesta 2025",
-      data: [0,0,0,1100,200,0]
+      data: [0, 0, 0, 1100, 200, 0]
     }];
   }
 }

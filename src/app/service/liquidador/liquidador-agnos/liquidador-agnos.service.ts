@@ -26,6 +26,8 @@ export class LiquidadorAgnosService {
 
   public inicioSimu = 0;
   public finalSimu = 0;
+  public totalSinReforma = 0;
+  public totalConreforma = 0;
 
   /**
 * Horas registradas para cada semana
@@ -90,8 +92,9 @@ export class LiquidadorAgnosService {
 
     let barrasSimplesDatos = this.generarBarrasSimpleDatos(this.totales);
     let barrasAcumulados = this.liquidarAcumulados() ;
+    let barraComparacion = this.generarBarrasSimpleAcumulados();
 
-    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barrasSimplesDatos,barrasAcumulados);
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barraComparacion ,barrasAcumulados);
   }
 
   /**
@@ -277,6 +280,12 @@ export class LiquidadorAgnosService {
     let tot789 = Math.round(this.laboral789[this.laboral789.length-1].totalValorHoras*100)/100;
     let tot2101 = Math.round(this.laboral2101[this.laboral1950.length-1].totalValorHoras*100)/100;
     let tot2025 = Math.round(this.laboral2025[this.laboral1950.length-1].totalValorHoras*100)/100;
+    
+    //Estos son los totales con y sin reforma
+    this.totalSinReforma = sum1950 + sum789 + sum2101total;
+    this.totalConreforma =   sum1950 + sum789 + sum2101parcial +sum2025;
+    
+    
     let data = [
       {
         name: "Ley 50 1990",
@@ -299,5 +308,31 @@ export class LiquidadorAgnosService {
     console.log("Datos: ", JSON.stringify(data));
 
     return data;
+  }
+
+
+  private generarBarrasSimpleAcumulados(): BarrasSimpleDatos {
+    //generar categorias: 
+    let categorias = Array<string[]>();
+    let colors = Array<string>();
+    this.parametros.forEach(p => {
+      categorias.push([p.reformaLabel, p.reformaAutor]);
+      colors.push(p.colorFill);
+    });
+    //generar datos: 
+    let data = [this.totalSinReforma, this.totalConreforma, this.totalConreforma-this.totalSinReforma];
+    return {
+      chartLabel: "Ingresos totales simulados",
+      dataLabel: "Ingresos",
+      colors: ['var(--U789B)','var(--P2025B)', 'var(--U789B)'],
+      data: data,
+      categories: ["Sin Reforma", "Con Reforma", "Diferencia"],
+      labelColor: ['var(--GrapLabel)'],
+      prefix: '',
+      sufix: ' M',
+      factor: 100000,
+      decimales: 10,
+      separador: '.'
+    };
   }
 }

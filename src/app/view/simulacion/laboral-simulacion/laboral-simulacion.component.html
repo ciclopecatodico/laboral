@@ -72,12 +72,13 @@
     <br>
     Así se vería tu historia laboral simulando cada una de las reformas hechas desde 1990 y con la propuesta actual:
     <br>
+
+    <grafico-barras-acumulado [data]="laboral.barrasAcumulado"></grafico-barras-acumulado>
+    
+    <br>
     <grafico-barras-simple [datos]="laboral.barrasSimpleDatos">
     </grafico-barras-simple>
-    <br>
-    <h3>Grafico barras acumulado</h3>
-    <grafico-barras-acumulado [data]="laboral.barrasAcumulado"></grafico-barras-acumulado>
-
+    
     <br>
     <horas-laboral [laboral]="laboral.valores">
     </horas-laboral>

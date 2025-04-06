@@ -94,7 +94,7 @@ export class LiquidadorAgnosService {
     let barrasAcumulados = this.liquidarAcumulados();
     let barraComparacion = this.generarBarrasSimpleAcumulados();
 
-    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barraComparacion, barrasAcumulados);
+    return new Laboral(this.inicioSimu, this.finalSimu, peticion.salario, valorHoras, barraComparacion, barrasAcumulados, this.totalConreforma - this.totalSinReforma);
   }
 
   /**

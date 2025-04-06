@@ -1,4 +1,3 @@
-
 <div class="table-responsive">
     <table class="table align-middle">
         <thead>
@@ -8,8 +7,9 @@
         </thead>
         <tbody>
             <ng-template ngFor let-i="index" let-c="count" let-mes [ngForOf]="meses">
-                <tr ngClass="{{'table-'+mes.style}}">
-                    <th scope="row">{{mes.label}}</th>
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}"
+                    [hidden]="(mes.name != excluir && hidden[mes.reformaIndex])">
+                    <th scope="row">{{mes.label}} </th>
                     <td scope="row">{{mes.reformaLabel}}</td>
                     <td scope="row">{{mes.horasDiurnas | number}}</td>
                     <td scope="row">{{mes.horasExtraDiurna | number}}</td>
@@ -21,7 +21,8 @@
                     <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas | number}}</td>
                     <th scope="row">{{mes.totalHoras | number}}</th>
                 </tr>
-                <tr ngClass="{{'table-'+mes.style}}">
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}"
+                    [hidden]="(mes.name != excluir && hidden[mes.reformaIndex])">
                     <td scope="row">Total:</td>
                     <td scope="row">{{mes.reformaName}}</td>
                     <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>

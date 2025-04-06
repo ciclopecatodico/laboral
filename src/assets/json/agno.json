@@ -18,7 +18,7 @@
                 "id": 2,
                 "nombre": "febrero",
                 "label": "Febrero",
-                "diaInicial": "miercoles",
+                "diaInicial": "sabado",
                 "festivos": [],
                 "dias": 28
             },
@@ -26,17 +26,17 @@
                 "id": 3,
                 "nombre": "marzo",
                 "label": "Marzo",
-                "diaInicial": "miercoles",
+                "diaInicial": "sabado",
                 "festivos": [
                     24
                 ],
                 "dias": 31
             },
             {
-                "id": 1,
+                "id": 4,
                 "nombre": "abril",
                 "label": "Abril",
-                "diaInicial": "miercoles",
+                "diaInicial": "martes",
                 "festivos": [
                     17,
                     18 
@@ -44,20 +44,20 @@
                 "dias": 30
             },
             {
-                "id": 1,
+                "id": 5,
                 "nombre": "mayo",
                 "label": "Mayo",
-                "diaInicial": "miercoles",
+                "diaInicial": "jueves",
                 "festivos": [
                     1
                 ],
                 "dias": 31
             },
             {
-                "id": 1,
+                "id": 6,
                 "nombre": "junio",
                 "label": "Junio",
-                "diaInicial": "miercoles",
+                "diaInicial": "domingo",
                 "festivos": [
                     2,
                     23,
@@ -66,20 +66,20 @@
                 "dias": 30
             },
             {
-                "id": 1,
+                "id": 7,
                 "nombre": "julio",
                 "label": "Julio",
-                "diaInicial": "miercoles",
+                "diaInicial": "martes",
                 "festivos": [
                     20
                 ],
                 "dias": 31
             },
             {
-                "id": 1,
+                "id": 8,
                 "nombre": "agosto",
                 "label": "Agosto",
-                "diaInicial": "miercoles",
+                "diaInicial": "viernes",
                 "festivos": [
                     7,
                     18
@@ -87,17 +87,17 @@
                 "dias": 31
             },
             {
-                "id": 1,
+                "id": 9,
                 "nombre": "septiembre",
                 "label": "Septiembre",
-                "diaInicial": "miercoles",
+                "diaInicial": "lunes",
                 "festivos": [
                    
                 ],
                 "dias": 30
             },
             {
-                "id": 1,
+                "id": 10,
                 "nombre": "octubre",
                 "label": "Octubre",
                 "diaInicial": "miercoles",
@@ -107,10 +107,10 @@
                 "dias": 31
             },
             {
-                "id": 1,
+                "id": 11,
                 "nombre": "noviembre",
                 "label": "Noviembre",
-                "diaInicial": "miercoles",
+                "diaInicial": "sabado",
                 "festivos": [
                     3,
                     17
@@ -118,10 +118,10 @@
                 "dias": 30
             },
             {
-                "id": 1,
+                "id": 12,
                 "nombre": "diciembre",
                 "label": "Diciembre",
-                "diaInicial": "miercoles",
+                "diaInicial": "lunes",
                 "festivos": [
                     8,
                     25

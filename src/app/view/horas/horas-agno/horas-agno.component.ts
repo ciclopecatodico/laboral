@@ -55,29 +55,6 @@ export class HorasAgnoComponent {
     }
   }
 
-  hidden_(mes: ValorHoras) {
-    console.log("hiden:", mes.name);
-    console.log("hiden:", mes.reformaName);
-    if (mes.name === 'total') {
-      return false;
-    }
-    let reforma = mes.reformaName;
-    switch (reforma) {
-      case "1950":
-        return !this.showReforma1950;
-
-      case "789":
-        return !this.showReforma789;
-
-      case "2101":
-        return !this.showReforma2101;
-
-      case "2025":
-        return !this.showReforma2025;
-    }
-    return false;
-  }
-
   get verMes() {
     return JSON.stringify(this.meses);
   }

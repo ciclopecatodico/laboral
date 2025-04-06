@@ -14,6 +14,7 @@ export class CreditsComponent {
 
   constructor(configuration: ConfigurationService){
     this.credits = configuration.creditos;
+    //meter el mensaje aquí 
   }
 
 }

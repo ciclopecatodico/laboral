@@ -7,7 +7,8 @@
         </thead>
         <tbody>
             <ng-template ngFor let-i="index" let-c="count" let-mes [ngForOf]="meses">
-                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="(mes.name != 'total' && hidden[mes.reformaIndex])">
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}"
+                    [hidden]="(mes.name != 'total' && hidden[mes.reformaIndex])">
                     <th scope="row">{{mes.label}}</th>
                     <td scope="row">{{mes.reformaLabel}}</td>
                     <td scope="row">{{mes.horasDiurnas | number}}</td>
@@ -20,7 +21,8 @@
                     <td scope="row">{{mes.horasExtrasNocturnasDominicalesFestivas | number}}</td>
                     <th scope="row">{{mes.totalHoras | number}}</th>
                 </tr>
-                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}" [hidden]="(mes.name != 'total' && hidden[mes.reformaIndex])">
+                <tr (click)="toogle(mes.reformaName)" ngClass="{{'table-'+mes.style}}"
+                    [hidden]="(mes.name != 'total' && hidden[mes.reformaIndex])">
                     <td scope="row">Total:</td>
                     <td scope="row">{{mes.reformaName}}</td>
                     <td scope="row">{{mes.valorHorasDiurnas | currency: '$'}}</td>

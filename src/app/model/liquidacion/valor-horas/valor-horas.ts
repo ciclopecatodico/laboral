@@ -11,22 +11,17 @@ export class ValorHoras {
         public reformaLabel: string, //Etiqueta a usar para la reforma
         public reformaIndex: number,
         public style: string, //estilo css a aplicar 
-
         public festivos: number,    //Festivos que trabajo la persona
         public dominicales: number,    //Dominicales que trabajo la persona
-
         public horasDiurnas: number,
         public horasNocturnas: number,
         public horasExtraDiurna: number,
         public horasExtraNocturna: number,
-        
         public horasDiurnasDominicalesOFestivos: number,
         public horasNocturnasDominicalesFestivos: number,
         public horasExtrasDiurnasDominicalesFestivas: number,
         public horasExtrasNocturnasDominicalesFestivas: number,
-
         public totalHoras: number,
-
         public valorHora: number,
         public valorHorasDiurnas: number,
         public valorHorasNocturnas: number,
@@ -38,4 +33,25 @@ export class ValorHoras {
         public valorHorasExtrasNocturnasDominicalesFestivas: number,
         public totalValorHoras: number,
     ) { }
+
+    static minstructor(id: number,
+        name: string,
+        label: string,
+        reformaName: string,
+        reformaLabel: string,
+        reformaIndex: number,
+        style: string,
+        festivos: number,
+        dominicales: number): ValorHoras {
+        return new ValorHoras(id,
+            name,
+            label,
+            reformaName,
+            reformaLabel,
+            reformaIndex,
+            style,
+            festivos,
+            dominicales,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    }
 }

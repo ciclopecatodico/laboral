@@ -48,10 +48,10 @@ export class LiquidadorSemanaService {
     this.semana2021 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2101.index);
     this.semana2025 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2025.index);
 
-    this.calcularTotales(this.semana1950, CONST.reforma1950.style);
-    this.calcularTotales(this.semana789, CONST.reforma789.style);
-    this.calcularTotales(this.semana2021, CONST.reforma2101.style);
-    this.calcularTotales(this.semana2025, CONST.reforma2025.style);
+    this.calcularTotales(this.semana1950, this.parametros[CONST.reforma1950.index], CONST.reforma1950.style);
+    this.calcularTotales(this.semana789, this.parametros[CONST.reforma789.index], CONST.reforma789.style);
+    this.calcularTotales(this.semana2021, this.parametros[CONST.reforma2101.index], CONST.reforma2101.style);
+    this.calcularTotales(this.semana2025, this.parametros[CONST.reforma2025.index], CONST.reforma2025.style);
 
     let horasSemana = new Array<HorasSemana>();
     horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
@@ -62,7 +62,7 @@ export class LiquidadorSemanaService {
     return new Semana(horasSemana, this.donaDatos, this.horasTipo);
   }
 
-  public calcularTotales(semana: Array<HorasSemana>, style: string) {
+  public calcularTotales(semana: Array<HorasSemana>, parametro: Parametros, style: string) {
     let horasDiurnas = 0;
     let horasNocturnas = 0;
     let horasExtraDiurna = 0;
@@ -82,7 +82,7 @@ export class LiquidadorSemanaService {
     //para generar el grafico de barras compuesto
     this.totales.push(total);
 
-    let dona = this.setDonaPorHoras(total, semana[0]);
+    let dona = this.setDonaPorHoras(parametro, total, semana[0]);
     this.donaDatos.push(dona);
   }
 
@@ -93,16 +93,26 @@ export class LiquidadorSemanaService {
    * @param reformaName 
    * @returns 
    */
-  private setDonaPorHoras(horasSemana: HorasSemana, semana: HorasSemana): DonaDatos {
+  private setDonaPorHoras(parametro: Parametros, horasSemana: HorasSemana, semana: HorasSemana): DonaDatos {
+
+    let sum = horasSemana.horasDiurnas + horasSemana.horasNocturnas + horasSemana.horasExtraDiurna + horasSemana.horasExtraNocturna;
     let horas = [horasSemana.horasDiurnas, horasSemana.horasNocturnas, horasSemana.horasExtraDiurna, horasSemana.horasExtraNocturna];
+    let categorias = CONST.tipoDeHoras.categorias;
+    let colores= CONST.tipoDeHoras.colores;
+    //Si las horas son diferentes a la jonada especifico unas horas vacías
+    if (CONST.contarHorasSinRegistrar && parametro.jornadaLaboralSemanal > sum) {
+      horas = [horasSemana.horasDiurnas, horasSemana.horasNocturnas, horasSemana.horasExtraDiurna, horasSemana.horasExtraNocturna, parametro.jornadaLaboralSemanal - sum];
+      categorias = CONST.tipoDeHorasMenorAJornada.categorias;
+      colores= CONST.tipoDeHorasMenorAJornada.colores;
+    }
     let dona = {
       series: horas,
-      labels: CONST.tipoDeHoras.categorias,
-      colores: CONST.tipoDeHoras.colores,
+      labels: categorias,
+      colores: colores,
       chartLabel: semana.reformaLabel,
       labelColor: ['var(--GrapLabel)']
     }
-    return dona; 
+    return dona;
   }
 
 

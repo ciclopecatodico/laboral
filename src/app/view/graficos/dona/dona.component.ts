@@ -10,20 +10,20 @@ import { CONST } from '../../../model/const/CONST';
   templateUrl: './dona.component.html',
   styleUrl: './dona.component.css'
 })
-export class DonaComponent implements OnInit{
+export class DonaComponent implements OnInit {
 
 
   @Input()
-  public  datos: DonaDatos[] | undefined;
+  public datos: DonaDatos[] | undefined;
 
-  public donas : Dona[] | undefined;
+  public donas: Dona[] | undefined;
 
 
   constructor() {
     let dato = {
-      series: [5,10,20,40], 
-      labels: ["Uno", "Dos", "Tres","Cuatro"],
-      colores: ["#26a69a","#008ffb","#00E396","#546E7A"],
+      series: [5, 10, 20, 40],
+      labels: ["Uno", "Dos", "Tres", "Cuatro"],
+      colores: ["#26a69a", "#008ffb", "#00E396", "#546E7A"],
       chartLabel: "Titulo Dona",
       labelColor: ["#008FFB"]
     }
@@ -34,14 +34,14 @@ export class DonaComponent implements OnInit{
     this.genrarDonas();
   }
 
-  private genrarDonas(){
+  private genrarDonas() {
     this.donas = new Array<Dona>();
-    this.datos?.forEach( d => {
+    this.datos?.forEach(d => {
       this.donas?.push(this.dona(d));
     });
   }
 
-  private dona(datos:DonaDatos): Dona {
+  private dona(datos: DonaDatos): Dona {
     return {
       series: datos.series,
       chart: {
@@ -61,31 +61,35 @@ export class DonaComponent implements OnInit{
             }
           }
         }
-      ], 
+      ],
       dataLabels: {
         enabled: true,
-        style:{
-          fontSize:'14px',
+        style: {
+          fontSize: '13px',
           //fontWeight: 'bold',
-          //colors: ['#322513']
+          colors: ['var(--GrapLabel)']
         },
         formatter: (val, opt) => {
+          let p = val as number;
+          p = Math.round(p * 10) / 10;
           switch (opt.seriesIndex) {
             case 0:
-              return [CONST.horasDiurnas.label, datos.series[0] + 'h | ' + val as string + '%'] as unknown as string;
+              return [CONST.horasDiurnas.label, datos.series[0] + 'h | ' + p + '%'] as unknown as string;
             case 1:
-              return [CONST.horasNocturnas.label, datos.series[1] + 'h | ' + val as string + '%'] as unknown as string;
+              return [CONST.horasNocturnas.label, datos.series[1] + 'h | ' + p + '%'] as unknown as string;
             case 2:
-              return [CONST.horasExtrasDiurnas.label, datos.series[2] + 'h | ' + val as string + '%'] as unknown as string;
+              return [CONST.horasExtrasDiurnas.label, datos.series[2] + 'h | ' + p + '%'] as unknown as string;
             case 3:
-              return [CONST.horasExtrasNocturnas.label, datos.series[3] + 'h | ' + val as string + '%'] as unknown as string;
+              return [CONST.horasExtrasNocturnas.label, datos.series[3] + 'h | ' + p + '%'] as unknown as string;
+            case 4:
+              return [CONST.tipoDeHorasMenorAJornada.label, datos.series[4] + 'h | ' + p + '%'] as unknown as string;
             default:
               return val as string;
           }
         },
-        
+
       },
-      colors : datos.colores,
+      colors: datos.colores,
       title: {
         text: datos.chartLabel,
         align: 'center',

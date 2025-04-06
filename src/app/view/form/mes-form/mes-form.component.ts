@@ -72,6 +72,10 @@ export class MesFormComponent {
         this.error=CONST.formularioErrorMsg.mes.salario;
         return false;
       }
+      if (this.peticion_.salario >= this.parametros.smlv*13) {
+        this.error=CONST.formularioErrorMsg.mes.salarioIntegral;
+        return false;
+      }
     }
     return true;
   }

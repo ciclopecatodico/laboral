@@ -87,8 +87,9 @@
         experiencia es posible que te aplique desde la Ley 50 de 1990 y Sin aplicar la propuesta actual.
     </p>
     <p>
-        <b>Con Reforma:</b> Proyecta tu historia laboral pero aplicando los cambios propuestos en la reforma 2025 a partir
-        del año de inicio que para esta simulación es 2029. 
+        <b>Con Reforma:</b> Proyecta tu historia laboral pero aplicando los cambios propuestos en la reforma 2025 a
+        partir
+        del año de inicio que para esta simulación es 2029.
     </p>
     <br>
 
@@ -103,6 +104,34 @@
     <grafico-barras-simple [datos]="laboral.barrasSimpleDatos">
     </grafico-barras-simple>
     <br>
+    <div *ngIf="laboral.diferencia && laboral.diferencia>0">
+        La diferencia entre que se apruebe la reforma y no se apruebe para ti {{peticion.nombres}} es:
+        <ul>
+            <li><b>{{laboral.diferencia | currency : '$'}} en {{agnosTrabajando}} Años</b></li>
+            <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}} por mes </b></li>
+            <li><b>{{laboral.diferencia/(agnosTrabajando*12*360) | currency : '$'}} por día</b></li>
+        </ul>
+        Que comparado con el salario de un congresista de <b>{{const.salarioCongresista | currency : '$'}} </b> por Mes (año 2025)
+        significa que:
+        <ul>
+            <li>Al Congresista le tomarán <b> {{politicoMes | number: '1.1-1'}} Meses </b> recibir lo que te quita a tí
+                en
+                <b> {{agnosTrabajando}} Años</b>
+            </li>
+            <li>Al Congresista le tomarán <b>{{politicoDia | number: '1.1-1'}} Días </b> recibir lo que te quita a tí en
+                <b> {{agnosTrabajando*12}} Meses</b>
+            </li>
+        </ul>
+        <br>
+        <br>
+    </div>
+    <div *ngIf="laboral.diferencia == undefined || laboral.diferencia == 0">
+        La simulación generada no encontró cambios en la proyección Con Reforma y Sin Reforma para los datos ingresados.
+        <br>
+        <br>
+    </div>
+
+    <h3>Detalle año a año:</h3>
     <p>El detalle de los años simulados desde el inicio de tu experiencia laboral hasta tu edad de pensión:</p>
     <horas-laboral [laboral]="laboral.valores">
     </horas-laboral>

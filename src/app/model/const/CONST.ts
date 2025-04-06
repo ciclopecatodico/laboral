@@ -98,6 +98,18 @@ export const CONST = {
         id: 'horasExtrasNocturnasDominicalesOFestivos',
         label: 'Horas Extras Nocturnas Dominicales o Festivos'
     },
+    descansoRemunerado: {
+        id: 'descansoRemunerado',
+        label: ' Descanso Remunerado'
+    },
+    festivo: {
+        id: 'festivo',
+        label: ' Festivo'
+    },
+    festivoRemunerado: {
+        id: 'festivoRemunerado',
+        label: ' Remunerado'
+    },
     smlv: {
         id: 'smlv',
         label: 'Salario Mínimo Legal Vigente'
@@ -122,46 +134,54 @@ export const CONST = {
         id: 'tipoDeHoras',
         label: 'Tipos de Horas',
         categorias: ['Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas'],
-        colores: ['#26a69a','#008ffb','#00E396','#546E7A']
+        colores: ['var(--HDiur)', 'var(--HNoct)', 'var(--HDiuExt)', 'var(--HNoctExt)']
+    },
+    tipoDeHorasMenorAJornada:
+    {
+        id: 'tipoDeHorasMenorAJornada',
+        label: 'Sin registrar',
+        categorias: ['Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas', 'Sin Registrar'],
+        colores: ['var(--HDiur)', 'var(--HNoct)', 'var(--HDiuExt)', 'var(--HNoctExt)', 'var(--HNoRegist)']
     },
     tipoDeHorasPonderados:
     {
         id: 'tipoDeHorasPonderados',
         label: 'Valor a pagar por tipos de horas ponderados por Reforma',
         categorias: ['Diurnas', 'Nocturnas', 'Extra Diurnas', 'Extra Nocturnas'],
-        colores: ['#26a69a','#008ffb','#00E396','#546E7A']
+        colores: ['#26a69a', '#008ffb', '#00E396', '#546E7A']
     },
-    diagramas :{
+    diagramas: {
         mes: {
-            barrasSimple : {
-                id : 'ingresoMensualPorTipoDeReforma',
+            barrasSimple: {
+                id: 'ingresoMensualPorTipoDeReforma',
                 label: 'Ingreso mensual según tipo de reforma',
                 yLabel: 'Salario Mensual'
             }
         },
-        meses:{
-            barrasSimple : {
-                id : 'ingresoAnualPorTipoDeReforma',
+        meses: {
+            barrasSimple: {
+                id: 'ingresoAnualPorTipoDeReforma',
                 label: 'Ingreso anual según tipo de reforma',
                 yLabel: 'Salario anual'
             }
         },
-        agnos:{
-            barrasSimple : {
-                id : 'ingresoLaboralPorTipoDeReforma',
+        agnos: {
+            barrasSimple: {
+                id: 'ingresoLaboralPorTipoDeReforma',
                 label: 'Ingreso total según tipo de reforma',
                 yLabel: 'Ingresos percibidos'
             }
         }
     },
     formularioErrorMsg: {
-        mes:{
+        mes: {
             senaEtapa: 'Debe seleccionar una etapa del SENA',
             senaDuracion: 'Se requiere duración de la práctica',
-            salario: 'El salario debe ser mayor o igual al SMLV'
+            salario: 'El salario debe ser mayor o igual al SMLV',
+            salarioIntegral: 'La simulación no está diseñada para salarios integrales o superiores pero podrías considerar hacer una donación!'
         },
-        agno:{
-            edad : 'Edad debe ser mayor a 18',
+        agno: {
+            edad: 'Edad debe ser mayor a 18',
             experiencia: 'Experiencia debe ser mayor a 0',
             sexo: 'Debe seleccionar una modalidad de pensión',
             edadPension: 'La edad debe ser menor a la edad de Pensión',
@@ -214,4 +234,6 @@ export const CONST = {
         style: 'success'
     },
     yAxisMin: 0.0, //punto donde inician las graficas 
+    contarHorasSinRegistrar: false,
+    salarioCongresista: 48142046
 }

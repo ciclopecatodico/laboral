@@ -13,6 +13,7 @@ export class Peticion {
         public etapa?: string,
         public duracion?: number,
         public festivos?: boolean,
+        public mesId?: number,
         public turnos?: Turno[]
     ) { }
 }

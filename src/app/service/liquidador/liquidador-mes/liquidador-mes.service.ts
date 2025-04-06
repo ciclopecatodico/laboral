@@ -8,6 +8,7 @@ import { MesModel } from '../../../model/modelos-simulacion/mes-model/mes-model'
 import { ValorHoras } from '../../../model/liquidacion/valor-horas/valor-horas';
 import { Mes } from '../../../model/simulacion/mes/mes';
 import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-datos';
+import { AgnoModel } from '../../../model/modelos-simulacion/agno-model/agno-model';
 
 
 @Injectable({
@@ -16,7 +17,9 @@ import { BarrasSimpleDatos } from '../../../model/graficos/barras/baras-simple-d
 export class LiquidadorMesService {
 
   private configurationService: ConfigurationService;
+  private agno : AgnoModel;
   public parametros: Parametros[];
+
 
   /**
    * Total horas semana por regimen
@@ -32,21 +35,34 @@ export class LiquidadorMesService {
   public semana2025 = new Array<HorasSemana>();
 
 
-  public valorHoras1950 = Object.create(ValorHoras);
-  public valorHoras789 = Object.create(ValorHoras);
-  public valorHoras2101 = Object.create(ValorHoras);
-  public valorHoras2025 = Object.create(ValorHoras);
+  public valorHorasDia1950: Array<ValorHoras>;
+  public valorHorasDia789: Array<ValorHoras>;
+  public valorHorasDia2101: Array<ValorHoras>;
+  public valorHorasDia2025: Array<ValorHoras>;
+
+  public valorHoras1950: ValorHoras;
+  public valorHoras789: ValorHoras;
+  public valorHoras2101: ValorHoras;
+  public valorHoras2025: ValorHoras;
 
   public series: ApexAxisChartSeries;
 
   constructor(configurationService: ConfigurationService) {
     this.configurationService = configurationService;
     this.parametros = configurationService.parametros;
+    this.agno = configurationService.agnoModel; 
     this.series = [];
+    this.valorHoras1950 = Object.create(ValorHoras);
+    this.valorHoras789 = Object.create(ValorHoras);
+    this.valorHoras2101 = Object.create(ValorHoras);
+    this.valorHoras2025 = Object.create(ValorHoras);
+    this.valorHorasDia1950 = new Array<ValorHoras>();
+    this.valorHorasDia789 = new Array<ValorHoras>();
+    this.valorHorasDia2101 = new Array<ValorHoras>();
+    this.valorHorasDia2025 = new Array<ValorHoras>();
   }
 
   public simularMes(horasSemana: HorasSemana[], peticion: Peticion): Mes {
-
     //Inicializa los arreglos que contienen las horas liquidadas por cada tipo de reforma
     this.llenarHorasTotalesPorSemanaYReforma(horasSemana);
     //Limpiar variables que almacenan la simulacion
@@ -54,24 +70,31 @@ export class LiquidadorMesService {
     this.valorHoras789 = Object.create(ValorHoras);
     this.valorHoras2101 = Object.create(ValorHoras);
     this.valorHoras2025 = Object.create(ValorHoras);
-    //obtener el año que trae los parametros de
-    let agno = this.configurationService.agnoModel;
-    let mesIndex = 2 //Marzo 0 1 2
+
     //
     let valorHora1950 = this.calcularValorHora(peticion, CONST.reforma1950.index);
     let valorHora789 = this.calcularValorHora(peticion, CONST.reforma789.index);
     let valorHora2101 = this.calcularValorHora(peticion, CONST.reforma2101.index);
     let valorHora2025 = this.calcularValorHora(peticion, CONST.reforma2025.index);
 
-    this.valorHoras1950 = this.contarHorasMes(this.semana1950, agno.meses[mesIndex], peticion, valorHora1950, CONST.reforma1950.index);
-    this.valorHoras789 = this.contarHorasMes(this.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
-    this.valorHoras2101 = this.contarHorasMes(this.semana2101, agno.meses[mesIndex], peticion, valorHora2101, CONST.reforma2101.index);
-    this.valorHoras2025 = this.contarHorasMes(this.semana2025, agno.meses[mesIndex], peticion, valorHora2025, CONST.reforma2025.index);
+    //inicializar los arreglos
+    this.valorHorasDia1950 = new Array<ValorHoras>();
+    this.valorHorasDia789 = new Array<ValorHoras>();
+    this.valorHorasDia2101 = new Array<ValorHoras>();
+    this.valorHorasDia2025 = new Array<ValorHoras>();
+
+    //liquidar todos los días
+    this.valorHoras1950 = this.contarHorasMesConDias(this.valorHorasDia1950, this.semana1950, peticion, valorHora1950, CONST.reforma1950.index);
+    this.valorHoras789 = this.contarHorasMesConDias(this.valorHorasDia789, this.semana789, peticion, valorHora789, CONST.reforma789.index);
+    this.valorHoras2101 = this.contarHorasMesConDias(this.valorHorasDia2101, this.semana2101,  peticion, valorHora2101, CONST.reforma2101.index);
+    this.valorHoras2025 = this.contarHorasMesConDias(this.valorHorasDia2025, this.semana2025, peticion, valorHora2025, CONST.reforma2025.index);
 
     let valorHoras = [this.valorHoras1950, this.valorHoras789, this.valorHoras2101, this.valorHoras2025];
 
     let barrasHorasPonderadas = undefined;
     let barrasSimpleDatos = this.generarBarrasSimpleDatos(valorHoras);
+
+    valorHoras = [...this.valorHorasDia1950, this.valorHoras1950, ...this.valorHorasDia789, this.valorHoras789, ...this.valorHorasDia2101, this.valorHoras2101, ...this.valorHorasDia2025, this.valorHoras2025];
 
     return new Mes(peticion.salario, valorHoras, barrasSimpleDatos, barrasHorasPonderadas);
   }
@@ -80,30 +103,122 @@ export class LiquidadorMesService {
    * Liquida las horas totales de un mes 
    * @param horasSemana
    */
-  public contarHorasMes(horasSemana: HorasSemana[], mes: MesModel, peticion: Peticion, valorHoras: number, parametroId: number): ValorHoras {
+  public contarHorasMesConDias(horasDia: ValorHoras[], horasSemana: HorasSemana[], peticion: Peticion, valorHora: number, parametroId: number): ValorHoras {
+    //si viene un valor para el mes lo uso, sino pongo marzo
+    let mes = this.agno.meses.find(m => m.id === peticion.mesId);
+    if(mes== undefined){
+      mes = this.agno.meses[2];
+    }
+    let parametros = this.parametros[parametroId];
+    //liquida los días empezando por el primer día del mes
+    //Todos los meses se liquidan a 30 días
+    let diaIndex = CONST.diasSemanaName.findIndex(d => d === mes.diaInicial)
+    let mesLiquidar = structuredClone(this.configurationService.valorHoras);
+    // El día de descanso se gana cuando se ha trabajado la jornada semanal
+
+
+    //Obtengo el valor de la hora dependiendo de los parámetros 
+    mesLiquidar.valorHora = valorHora;
+    let esFestivo = false;
+    for (let i = 0; i < CONST.diasMes; i++) {
+      let j = (i + diaIndex) % 7;
+      let valorHoraDia = ValorHoras.minstructor(i, CONST.diasSemanaName[j], (i+1) +' '+ CONST.diasSemanaLabel[j], parametros.reformaName, parametros.reformaLabel, parametros.reformaIndex, parametros.style, 0, 0);
+      valorHoraDia.valorHora = valorHora;
+      //validar si no tiene horas ese día se debe contabilizar como jornada diurna normal
+      //pues corresponde al día de descanso 
+      //El indice 7 contiene el total de horas de la semana
+      if (horasSemana[j].totalHoras === 0 && horasSemana[7].totalHoras >= parametros.jornadaLaboralSemanal) {
+        //los días de descanso se pagan como una Jornada Laboral Diurna normal.
+        mesLiquidar.horasDiurnas += parametros.jornadaLaboralDiaria;
+        valorHoraDia.horasDiurnas = parametros.jornadaLaboralDiaria;
+        valorHoraDia.label = valorHoraDia.label + CONST.descansoRemunerado.label;
+        this.liquidarValorHoras(valorHoraDia, parametros);
+        //Agregar el dia
+        
+        horasDia.push(valorHoraDia);
+        continue;
+      }
+      //verifico si el día e festivo y lo marco como tal 
+      if (mes.festivos.find(f => (f - 1) == i) != undefined) {
+        valorHoraDia.label = valorHoraDia.label + CONST.festivo.label;
+        //es festivo depende de la petición
+        esFestivo = (peticion.festivos?true:false);
+      }
+      //caso especial liquidar un domingo o un día festivo
+      if (horasSemana[j].name === CONST.diaDomingo[0] || esFestivo) {
+        //suma las horas diurnas al domingo. 
+        mesLiquidar.horasDiurnasDominicalesOFestivos += horasSemana[j].horasDiurnas;
+        mesLiquidar.horasNocturnasDominicalesFestivos += horasSemana[j].horasNocturnas;
+        mesLiquidar.horasExtrasDiurnasDominicalesFestivas += horasSemana[j].horasExtraDiurna;
+        mesLiquidar.horasExtrasNocturnasDominicalesFestivas += horasSemana[j].horasExtraNocturna;
+        //guardando datos en cada día 
+        valorHoraDia.horasDiurnasDominicalesOFestivos = horasSemana[j].horasDiurnas;
+        valorHoraDia.horasNocturnasDominicalesFestivos = horasSemana[j].horasNocturnas;
+        valorHoraDia.horasExtrasDiurnasDominicalesFestivas = horasSemana[j].horasExtraDiurna;
+        valorHoraDia.horasExtrasNocturnasDominicalesFestivas = horasSemana[j].horasExtraNocturna;
+        if(esFestivo){
+          valorHoraDia.label = valorHoraDia.label + CONST.festivoRemunerado.label;
+        }
+      } else {
+        //Si no tabaja los festivos y no es ni dominical ni festivo lo liquido como un día normal: 
+        mesLiquidar.horasDiurnas += horasSemana[j].horasDiurnas;
+        mesLiquidar.horasExtraDiurna += horasSemana[j].horasExtraDiurna;
+        mesLiquidar.horasNocturnas += horasSemana[j].horasNocturnas;
+        mesLiquidar.horasExtraNocturna += horasSemana[j].horasExtraNocturna;
+        //guardando datos en cada día 
+        valorHoraDia.horasDiurnas = horasSemana[j].horasDiurnas;
+        valorHoraDia.horasExtraDiurna = horasSemana[j].horasNocturnas;
+        valorHoraDia.horasNocturnas = horasSemana[j].horasExtraDiurna;
+        valorHoraDia.horasExtraNocturna = horasSemana[j].horasExtraNocturna;
+      }
+      this.liquidarValorHoras(valorHoraDia, parametros);
+      //Agregar el dia
+      horasDia.push(valorHoraDia);
+      //hacemos festivo falso para que solo vuelva a entrar a los festivos cuando encuentre otro festivo. 
+      esFestivo = false;
+    }
+    this.liquidarValorHoras(mesLiquidar, parametros);
+    mesLiquidar.id = 1;
+    mesLiquidar.label = mes.label;
+    mesLiquidar.name = mes.nombre;
+    mesLiquidar.festivos = mes.festivos.length;
+    return mesLiquidar;
+  }
+
+
+
+
+  /**
+   * Liquida las horas totales de un mes 
+   * @param horasSemana
+   */
+  public contarHorasMes(horasSemana: HorasSemana[], mes: MesModel, peticion: Peticion, valorHora: number, parametroId: number): ValorHoras {
 
     let parametros = this.parametros[parametroId];
     //liquida los días empezando por el primer día del mes
     //Todos los meses se liquidan a 30 días
     let diaIndex = CONST.diasSemanaName.findIndex(d => d === mes.diaInicial)
     let mesLiquidar = structuredClone(this.configurationService.valorHoras);
+    // El día de descanso se gana cuando se ha trabajado la jornada semanal
+    let jornadaSemanalIngresada = 0;
+    horasSemana.forEach(d => jornadaSemanalIngresada += d.totalHoras);
 
     //Obtengo el valor de la hora dependiendo de los parámetros 
-    mesLiquidar.valorHora = valorHoras;
-
+    mesLiquidar.valorHora = valorHora;
     let esFestivo = false;
     for (let i = 0; i < CONST.diasMes; i++) {
       let j = (i + diaIndex) % 7;
-      //validar si no tiene horas ese día se debe contabilizar como jornada diurna normal 
-      if (horasSemana[j].totalHoras === 0) {
+      //validar si no tiene horas ese día se debe contabilizar como jornada diurna normal
+      //pues corresponde al día de descanso 
+      if (horasSemana[j].totalHoras === 0 && jornadaSemanalIngresada >= parametros.jornadaLaboralSemanal) {
         //los días de descanso se pagan como una Jornada Laboral Diurna normal.
         mesLiquidar.horasDiurnas += parametros.jornadaLaboralDiaria;
         continue;
       }
-      //Si trabaja los festivos entonces identifico si el día es festivo
-      if (peticion.festivos && (mes.festivos.find(f => (f - 1) == i) != undefined)) {
-        esFestivo = true;
-        //console.log("Es festivo!");
+      //verifico si el día e festivo y lo marco como tal 
+      if (mes.festivos.find(f => (f - 1) == i) != undefined) {
+        //es festivo depende de la petición
+        esFestivo = (peticion.festivos?true:false);
       }
       //caso especial liquidar un domingo o un día festivo
       if (horasSemana[j].name === CONST.diaDomingo[0] || esFestivo) {
@@ -118,55 +233,54 @@ export class LiquidadorMesService {
         mesLiquidar.horasExtraDiurna += horasSemana[j].horasExtraDiurna;
         mesLiquidar.horasNocturnas += horasSemana[j].horasNocturnas;
         mesLiquidar.horasExtraNocturna += horasSemana[j].horasExtraNocturna;
+
       }
       //hacemos festivo falso para que solo vuelva a entrar a los festivos cuando encuentre otro festivo. 
       esFestivo = false;
     }
-
-    //totalizar las horas del mes: 
-    mesLiquidar.totalHoras += mesLiquidar.horasDiurnas;
-    mesLiquidar.totalHoras += mesLiquidar.horasExtraDiurna;
-    mesLiquidar.totalHoras += mesLiquidar.horasNocturnas;
-    mesLiquidar.totalHoras += mesLiquidar.horasExtraNocturna;
-    mesLiquidar.totalHoras += mesLiquidar.horasDiurnasDominicalesOFestivos;
-    mesLiquidar.totalHoras += mesLiquidar.horasNocturnasDominicalesFestivos;
-    mesLiquidar.totalHoras += mesLiquidar.horasExtrasDiurnasDominicalesFestivas;
-    mesLiquidar.totalHoras += mesLiquidar.horasExtrasNocturnasDominicalesFestivas;
-
-    //con el valor de la hora liquido el mes según los factores definidos en cada parámetro. 
-
-
-    mesLiquidar.valorHorasDiurnas = mesLiquidar.horasDiurnas * (mesLiquidar.valorHora * parametros.horasDiurnas.factor);
-    mesLiquidar.valorHorasExtraDiurna = mesLiquidar.horasExtraDiurna * (mesLiquidar.valorHora * parametros.horasExtrasDiurnas.factor);
-    mesLiquidar.valorHorasNocturnas = mesLiquidar.horasNocturnas * (mesLiquidar.valorHora * parametros.horasNocturnas.factor);
-    mesLiquidar.valorHorasExtraNocturna = mesLiquidar.horasExtraNocturna * (mesLiquidar.valorHora * parametros.horasExtrasNocturnas.factor);
-    mesLiquidar.valorHorasDiurnasDominicalesOFestivos = mesLiquidar.horasDiurnasDominicalesOFestivos * (mesLiquidar.valorHora * parametros.horasDiurnasDominicalesOFestivos.factor);
-    mesLiquidar.valorHorasNocturnasDominicalesFestivos = mesLiquidar.horasNocturnasDominicalesFestivos * (mesLiquidar.valorHora * parametros.horasNocturnasDominicalesFestivos.factor);
-    mesLiquidar.valorHorasExtrasDiurnasDominicalesFestivas = mesLiquidar.horasExtrasDiurnasDominicalesFestivas * (mesLiquidar.valorHora * parametros.horasExtrasDiurnasDominicalesFestivas.factor);
-    mesLiquidar.valorHorasExtrasNocturnasDominicalesFestivas = mesLiquidar.horasExtrasNocturnasDominicalesFestivas * (mesLiquidar.valorHora * parametros.horasExtrasNocturnasDominicalesFestivas.factor);
-
-
-    //totalizar valor las horas del mes: 
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasDiurnas;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasExtraDiurna;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasNocturnas;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasExtraNocturna;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasDiurnasDominicalesOFestivos;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasNocturnasDominicalesFestivos;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasExtrasDiurnasDominicalesFestivas;
-    mesLiquidar.totalValorHoras += mesLiquidar.valorHorasExtrasNocturnasDominicalesFestivas;
-
+    this.liquidarValorHoras(mesLiquidar, parametros);
     mesLiquidar.id = 1;
     mesLiquidar.label = mes.label;
     mesLiquidar.name = mes.nombre;
     mesLiquidar.festivos = mes.festivos.length;
-    mesLiquidar.style = parametros.style;
-    mesLiquidar.reformaLabel = parametros.reformaLabel;
-    mesLiquidar.reformaName = parametros.reformaName;
-    mesLiquidar.reformaIndex = parametros.reformaIndex;
-
     return mesLiquidar;
+  }
 
+
+  private liquidarValorHoras(valorHoras: ValorHoras, parametros: Parametros) {
+    //totalizar las horas del mes: 
+    valorHoras.totalHoras += valorHoras.horasDiurnas;
+    valorHoras.totalHoras += valorHoras.horasExtraDiurna;
+    valorHoras.totalHoras += valorHoras.horasNocturnas;
+    valorHoras.totalHoras += valorHoras.horasExtraNocturna;
+    valorHoras.totalHoras += valorHoras.horasDiurnasDominicalesOFestivos;
+    valorHoras.totalHoras += valorHoras.horasNocturnasDominicalesFestivos;
+    valorHoras.totalHoras += valorHoras.horasExtrasDiurnasDominicalesFestivas;
+    valorHoras.totalHoras += valorHoras.horasExtrasNocturnasDominicalesFestivas;
+
+    //con el valor de la hora liquido el mes según los factores definidos en cada parámetro. 
+    valorHoras.valorHorasDiurnas = valorHoras.horasDiurnas * (valorHoras.valorHora * parametros.horasDiurnas.factor);
+    valorHoras.valorHorasExtraDiurna = valorHoras.horasExtraDiurna * (valorHoras.valorHora * parametros.horasExtrasDiurnas.factor);
+    valorHoras.valorHorasNocturnas = valorHoras.horasNocturnas * (valorHoras.valorHora * parametros.horasNocturnas.factor);
+    valorHoras.valorHorasExtraNocturna = valorHoras.horasExtraNocturna * (valorHoras.valorHora * parametros.horasExtrasNocturnas.factor);
+    valorHoras.valorHorasDiurnasDominicalesOFestivos = valorHoras.horasDiurnasDominicalesOFestivos * (valorHoras.valorHora * parametros.horasDiurnasDominicalesOFestivos.factor);
+    valorHoras.valorHorasNocturnasDominicalesFestivos = valorHoras.horasNocturnasDominicalesFestivos * (valorHoras.valorHora * parametros.horasNocturnasDominicalesFestivos.factor);
+    valorHoras.valorHorasExtrasDiurnasDominicalesFestivas = valorHoras.horasExtrasDiurnasDominicalesFestivas * (valorHoras.valorHora * parametros.horasExtrasDiurnasDominicalesFestivas.factor);
+    valorHoras.valorHorasExtrasNocturnasDominicalesFestivas = valorHoras.horasExtrasNocturnasDominicalesFestivas * (valorHoras.valorHora * parametros.horasExtrasNocturnasDominicalesFestivas.factor);
+
+    //totalizar valor las horas del mes: 
+    valorHoras.totalValorHoras += valorHoras.valorHorasDiurnas;
+    valorHoras.totalValorHoras += valorHoras.valorHorasExtraDiurna;
+    valorHoras.totalValorHoras += valorHoras.valorHorasNocturnas;
+    valorHoras.totalValorHoras += valorHoras.valorHorasExtraNocturna;
+    valorHoras.totalValorHoras += valorHoras.valorHorasDiurnasDominicalesOFestivos;
+    valorHoras.totalValorHoras += valorHoras.valorHorasNocturnasDominicalesFestivos;
+    valorHoras.totalValorHoras += valorHoras.valorHorasExtrasDiurnasDominicalesFestivas;
+    valorHoras.totalValorHoras += valorHoras.valorHorasExtrasNocturnasDominicalesFestivas;
+    valorHoras.style = parametros.style;
+    valorHoras.reformaLabel = parametros.reformaLabel;
+    valorHoras.reformaName = parametros.reformaName;
+    valorHoras.reformaIndex = parametros.reformaIndex;
   }
 
   /**
@@ -236,18 +350,18 @@ export class LiquidadorMesService {
     let categorias = Array<string[]>();
     let colors = Array<string>();
     this.parametros.forEach(p => {
-      categorias.push([p.reformaLabel,p.reformaAutor]);
+      categorias.push([p.reformaLabel, p.reformaAutor]);
       colors.push(p.colorFill);
     });
     //generar datos: 
     let data = Array<number>();
-    
+
     valorHoras.forEach(vh => {
       data.push(vh.totalValorHoras);
-      
+
     });
     return {
-      chartLabel:"Ingreso mensual proyectado",
+      chartLabel: "Ingreso mensual proyectado",
       dataLabel: "Salario",
       colors: colors,
       data: data,

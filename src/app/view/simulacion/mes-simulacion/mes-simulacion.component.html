@@ -25,12 +25,32 @@
         <app-parametros [peticion]="peticion"></app-parametros>
         <br>
     </div>
-    
+
     <grafico-barras-simple [datos]="mes.barrasSimpleDatos">
     </grafico-barras-simple>
+    <!-- Funciona la simulacion de meses pero no sé como describirla-->
 
+    <p>Puedes simular diferentes meses del año con y sin festivos para que veas cómo se liquidan los diferentes tipos de
+        horas según el día de la seman, el mes del año, si se tienen en cuenta los festivos o no. </p>
+    <div class="row">
+        <div class="col">
+            <label for="meses" class="form-label">Mese a Simular:</label>
+            <select id="meses" class="form-select" [(ngModel)]="peticion_.mesId">
+                <option [ngValue]="null">Seleccione</option>
+                <option *ngFor="let mes of meses" [ngValue]="mes.id">{{mes.label}}</option>
+            </select>
+        </div>
+        <div class="col">
+            <input class="form-check-input" type="checkbox" id="festivos" name="festivos"
+                [(ngModel)]="peticion_.festivos">
+            <label for="festivos" class="form-label">Incluir trabajo en los fesivos?</label>
+        </div>
+        <div class="col">
+            <button button type="button" class="btn btn-success" (click)="simularMes()">Simular</button>
+        </div>
+    </div>
 
-    <horas-mes [meses]="mes.meses">
+    <horas-mes [meses]="mes.meses" [excluir]="excluir">
     </horas-mes>
 
 </div>

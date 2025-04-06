@@ -17,20 +17,54 @@ export class LaboralSimulacionComponent {
   public peticion_: Peticion;
   public verNotas = false;
   public const = CONST;
+  public agnosTrabajando = 0;
+  public valorAgno = 0;
+  public valorMes = 0;
+  public valorDia = 0;
 
-  private router : Router;
+  public politicoMes = 0;
+  public politicoDia = 0;
+  public politicoHora = 0;
+
+  private router: Router;
 
   @Input()
-  public laboral = new Laboral(0,0,0,[]);
+  public laboral_ = new Laboral(0, 0, 0, []);
 
-  constructor(router : Router) {
+  constructor(router: Router) {
     this.router = router;
     this.peticion_ = Object.create(Peticion);
+  }
+
+
+  private comparar() {
+    this.agnosTrabajando = this.laboral.fin - this.laboral.inicio;
+    if (this.laboral_.diferencia && this.laboral_.diferencia > 0) {
+      this.valorAgno = this.laboral_.diferencia / this.agnosTrabajando;
+      this.valorMes = this.laboral_.diferencia / (this.agnosTrabajando * 12);
+      this.valorDia = this.laboral_.diferencia / (this.agnosTrabajando * 12 * 30 );
+   
+       //politico dias:
+      this.politicoMes = this.laboral_.diferencia / this.const.salarioCongresista;
+      this.politicoDia = this.laboral_.diferencia / (this.const.salarioCongresista/30);
+ 
+    }
+  }
+
+  @Input()
+  set laboral(laboral: Laboral) {
+    this.laboral_ = laboral;
+    this.comparar();
+  }
+
+  get laboral() {
+    return this.laboral_;
   }
 
   @Input()
   set peticion(peticion: Peticion) {
     this.peticion_ = peticion;
+
   }
 
   get peticion() {
@@ -41,7 +75,7 @@ export class LaboralSimulacionComponent {
     return JSON.stringify(this.laboral);
   }
 
-  public volver(){
+  public volver() {
     this.router.navigate(['paso-3']);
   }
 }

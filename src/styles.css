@@ -69,6 +69,13 @@
     --D2:#feb01999;
     --P2:#00e39699;
 
+    --HDiur : #26a69a;
+    --HNoct: #008ffb;
+    --HDiuExt: #00E396;
+    --HNoctExt: #546E7A;
+    --HNoRegist: #966dcc;
+
+
     --gaviria: var(--G1);
     --uribe: var(--U7);
     --duque: var(--D2);

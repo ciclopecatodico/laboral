@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
   ApexDataLabels,
   ApexXAxis,
   ApexPlotOptions,
@@ -63,7 +62,8 @@ export class BarrasAcumuladoComponent implements OnInit {
       series: this.data ? this.data : this.generateSample(),
       chart: {
         type: "bar",
-        height: 350,
+        height: 500,
+        //width : '1',
         stacked: true
       },
       plotOptions: {

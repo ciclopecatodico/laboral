@@ -62,7 +62,7 @@ export class BarrasAcumuladoComponent implements OnInit {
       series: this.data ? this.data : this.generateSample(),
       chart: {
         type: "bar",
-        height: 500,
+        height: 400,
         //width : '1',
         stacked: true
       },

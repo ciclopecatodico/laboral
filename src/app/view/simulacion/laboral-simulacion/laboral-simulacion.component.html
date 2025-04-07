@@ -89,7 +89,7 @@
     <p>
         <b>Con Reforma:</b> Proyecta tu historia laboral pero aplicando los cambios propuestos en la reforma 2025 a
         partir
-        del año de inicio que para esta simulación es 2029.
+        del año de inicio que para esta simulación es <b>{{parametros[const.reforma2025.index].angoInicio}}</b>.
     </p>
     <br>
 
@@ -105,13 +105,14 @@
     </grafico-barras-simple>
     <br>
     <div *ngIf="laboral.diferencia && laboral.diferencia>0">
-        La diferencia entre que se apruebe la reforma y no se apruebe para ti {{peticion.nombres}} es:
+        La diferencia entre <b>Con Reforma</b>y <b>Sin Reforma</b> para ti {{peticion.nombres}} es:
         <ul>
-            <li><b>{{laboral.diferencia | currency : '$'}} en {{agnosTrabajando}} Años</b></li>
-            <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}} por mes </b></li>
-            <li><b>{{laboral.diferencia/(agnosTrabajando*12*360) | currency : '$'}} por día</b></li>
+            <li><b>{{laboral.diferencia | currency : '$'}}</b> en <b>{{agnosTrabajando}}</b> Años</li>
+            <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}}</b> por mes </li>
+            <li><b>{{laboral.diferencia/(agnosTrabajando*12*360) | currency : '$'}}</b> por día</li>
         </ul>
-        Que comparado con el salario de un congresista de <b>{{const.salarioCongresista | currency : '$'}} </b> por Mes (año 2025)
+        Que comparado con el salario de un congresista de <b>{{const.salarioCongresista | currency : '$'}} </b> por Mes
+        (año 2025)
         significa que:
         <ul>
             <li>Al Congresista le tomarán <b> {{politicoMes | number: '1.1-1'}} Meses </b> recibir lo que te quita a tí

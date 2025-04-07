@@ -3,6 +3,8 @@ import { Peticion } from '../../../model/peticion/peticion.model';
 import { Laboral } from '../../../model/simulacion/laboral/laboral';
 import { CONST } from '../../../model/const/CONST';
 import { Router } from '@angular/router';
+import { Parametros } from '../../../model/modelos-simulacion/parametros/parametros';
+import { ConfigurationService } from '../../../service/configuration/configuration.service';
 
 @Component({
   selector: 'laboral-simulacion',
@@ -26,13 +28,15 @@ export class LaboralSimulacionComponent {
   public politicoDia = 0;
   public politicoHora = 0;
 
+  public parametros: Parametros[];
   private router: Router;
 
   @Input()
   public laboral_ = new Laboral(0, 0, 0, []);
 
-  constructor(router: Router) {
+  constructor(router: Router, configruationService: ConfigurationService) {
     this.router = router;
+    this.parametros = configruationService.parametros; 
     this.peticion_ = Object.create(Peticion);
   }
 

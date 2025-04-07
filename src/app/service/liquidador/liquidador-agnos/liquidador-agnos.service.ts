@@ -242,29 +242,29 @@ export class LiquidadorAgnosService {
       //sumar todo lo anterior hasta la reforma de uribe
       let vh1950 = this.laboral1950[i];
       let agno = parseInt(vh1950.name);
-      if (agno < this.parametros[1].angoInicio) {
+      if (agno < this.parametros[CONST.reforma789.index].angoInicio) {
         sum1950 += vh1950.totalValorHoras;
       }
       //sumar entre la reforma de uribe y la de duque
       let vh789 = this.laboral789[i];
       agno = parseInt(vh789.name);
-      if (agno >= this.parametros[1].angoInicio && agno < this.parametros[2].angoInicio) {
+      if (agno >= this.parametros[CONST.reforma789.index].angoInicio && agno < this.parametros[CONST.reforma2101.index].angoInicio) {
         sum789 += vh789.totalValorHoras;
       }
       //sumar entre la reforma de duque y petro
       let vh2101 = this.laboral2101[i];
       agno = parseInt(vh2101.name);
-      if (agno >= this.parametros[2].angoInicio && agno < this.parametros[3].angoInicio) {
+      if (agno >= this.parametros[CONST.reforma2101.index].angoInicio && agno < this.parametros[CONST.reforma2025.index].angoInicio) {
         sum2101parcial += vh2101.totalValorHoras;
       }
       //sumar como si no se aprobara la reforma de petro
-      if (agno >= this.parametros[2].angoInicio) {
+      if (agno >= this.parametros[CONST.reforma2101.index].angoInicio) {
         sum2101total += vh2101.totalValorHoras;
       }
       //sumar solo reforma petro
       let vh2025 = this.laboral2025[i];
       agno = parseInt(vh2101.name);
-      if (agno >= this.parametros[3].angoInicio) {
+      if (agno >= this.parametros[CONST.reforma2025.index].angoInicio) {
         sum2025 += vh2025.totalValorHoras;
       }
     }
@@ -288,19 +288,19 @@ export class LiquidadorAgnosService {
 
     let data = [
       {
-        name: "Ley 50 1990",
+        name: this.parametros[CONST.reforma1950.index].reformaLabel,
         data: [tot1950, 0, 0, 0, sum1950, sum1950]
       },
       {
-        name: "Ley 789 de 2002",
+        name: this.parametros[CONST.reforma789.index].reformaLabel,
         data: [0, tot789, 0, 0, sum789, sum789]
       },
       {
-        name: "Ley 2101 de 2021",
+        name: this.parametros[CONST.reforma2101.index].reformaLabel,
         data: [0, 0, tot2101, 0, sum2101total, sum2101parcial]
       },
       {
-        name: "Propuesta 2025",
+        name: this.parametros[CONST.reforma2025.index].reformaLabel,
         data: [0, 0, 0, tot2025, 0, sum2025]
       }
     ];

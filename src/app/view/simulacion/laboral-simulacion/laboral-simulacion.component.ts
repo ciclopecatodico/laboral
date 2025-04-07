@@ -42,7 +42,7 @@ export class LaboralSimulacionComponent {
 
 
   private comparar() {
-    this.agnosTrabajando = this.laboral.fin - this.laboral.inicio;
+    this.agnosTrabajando = this.laboral.fin - this.const.agnoActual;
     if (this.laboral_.diferencia && this.laboral_.diferencia > 0) {
       this.valorAgno = this.laboral_.diferencia / this.agnosTrabajando;
       this.valorMes = this.laboral_.diferencia / (this.agnosTrabajando * 12);

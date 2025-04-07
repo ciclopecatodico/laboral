@@ -31,6 +31,33 @@
                 <td>{{const.salarioHora.label}}</td>
                 <td *ngFor="let i of const.reformas">{{(peticion.salario/parametros[i].jornadaLaboralMensual) | currency : '$' }} </td>
             </tr>
+            <tr>
+                <td colspan="5" align="center"><b>Jornadas:</b></td>
+            </tr>
+            <tr>
+                <td>{{const.jornadaDiurnaInicio.label}}</td>
+                <td *ngFor="let i of const.reformas">
+                    {{parametros[i].diaInicio }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{const.jornadaDiurnaFin.label}}</td>
+                <td *ngFor="let i of const.reformas">
+                    {{parametros[i].diaFin }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{const.jornadaNocturnaInicio.label}}</td>
+                <td *ngFor="let i of const.reformas">
+                    {{parametros[i].nocheInicio }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{const.jornadaNocturnaFin.label}}</td>
+                <td *ngFor="let i of const.reformas">
+                    {{parametros[i].nocheFin }}
+                </td>
+            </tr>
             <tr *ngIf="peticion.sena">
                 <td colspan="5" align="center"><b>Practicas SENA</b></td>
             </tr>

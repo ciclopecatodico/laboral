@@ -78,7 +78,7 @@
         "diaFin": "10:00 PM",
         "nocheInicio": "10:00 PM",
         "nocheFin": "06:00 AM",
-        "jornadaLaboralDiaria": 8,
+        "jornadaLaboralDiaria": 10,
         "jornadaLaboralSemanal": 48,
         "jornadaLaboralMensual": 240,
         "maximoHorasExtras": 4,

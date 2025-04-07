@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Parametros } from '../../model/modelos-simulacion/parametros/parametros';
 import { Peticion } from '../../model/peticion/peticion.model';
 
-import * as parametrosConf from '../../../assets/json/parametros.json';
-import * as peticionesConf from '../../../assets/json/peticiones.json';
-import * as semanaConf from '../../../assets/json/semana.json';
-import * as agnoConf from '../../../assets/json/agno.json';
-import * as creditosConf from '../../../assets/json/creditos.json';
-import * as valorHorasConf from '../../../assets/json/valorHoras.json';
+import * as parametrosConf from  '../../../../public/publico/parametros/parametros.json';
+import * as peticionesConf from '../../../../public/publico/parametros/peticiones.json';
+import * as semanaConf from '../../../../public/publico/parametros/semana.json';
+import * as agnoConf from '../../../../public/publico/parametros/agno.json';
+import * as creditosConf from '../../../../public/publico/parametros/creditos.json';
+import * as valorHorasConf from '../../../../public/publico/parametros/valorHoras.json';
+import * as congresistasConf from '../../../../public/publico/parametros/congresistas.json';
 import { HorasSemana } from '../../model/liquidacion/horas-semana/horas-semana';
 import { AgnoModel } from '../../model/modelos-simulacion/agno-model/agno-model';
 import { Credito } from '../../model/credito/credito';
 import { ValorHoras } from '../../model/liquidacion/valor-horas/valor-horas';
-
-
+import { Config } from '../../model/config/config';
 
 
 @Injectable({
@@ -50,5 +50,9 @@ export class ConfigurationService {
     return (valorHorasConf as any).default[0];
   }
 
+
+  get congresistas(): Array<Config>{
+    return(congresistasConf as any).default;
+  }
 
 }

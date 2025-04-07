@@ -235,5 +235,7 @@ export const CONST = {
     },
     yAxisMin: 0.0, //punto donde inician las graficas 
     contarHorasSinRegistrar: false,
-    salarioCongresista: 48142046
+    salarioCongresista: 48142046,
+    congresistasFolder: 'publico/congresistas/',
+    congresistasTime: 2000
 }

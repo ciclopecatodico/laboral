@@ -34,6 +34,7 @@ import { Paso4Component } from './view/pasos/paso-4/paso-4.component';
 import { HorasLaboralComponent } from './view/horas/horas-laboral/horas-laboral.component';
 import { ParametrosComponent } from './view/documentos/parametros/parametros.component';
 import { BarrasAcumuladoComponent } from './view/graficos/barras-acumulado/barras-acumulado.component';
+import { CongresistasComponent } from './view/congresistas/congresistas.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { BarrasAcumuladoComponent } from './view/graficos/barras-acumulado/barra
     Paso2Component,
     Paso3Component,
     Paso4Component,
-    ParametrosComponent
+    ParametrosComponent,
+    CongresistasComponent
   ],
   imports: [
     BrowserModule,

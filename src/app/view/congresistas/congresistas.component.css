@@ -1,0 +1,16 @@
+/* @media screen and (min-width: 680px) {
+    .hpImg img {
+        width: 295px;
+        height: 274px;
+    }
+}
+
+
+@media screen and (max-width: 680px) {
+
+} */
+
+.hpImg img{
+    width: 147px !important;
+    height: 137px !important;
+}

@@ -1,0 +1,72 @@
+[
+    {
+        "name": "lunes",
+        "label" : "Lunes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "martes",
+        "label" : "Martes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "miercoles",
+        "label" : "Miércoles",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "jueves",
+        "label" : "Jueves",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "viernes",
+        "label" : "Viernes",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "sabado",
+        "label" : "Sábado",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    },
+    {
+        "name": "domingo",
+        "label" : "Domingo",
+        "horarios": [],
+        "horasDiurnas": 0,
+        "horasNocturnas": 0,
+        "horasExtraDiurna": 0,
+        "horasExtraNocturna": 0,
+        "totalHoras" : 0
+    }
+]

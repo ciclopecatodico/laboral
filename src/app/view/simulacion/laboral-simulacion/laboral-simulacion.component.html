@@ -107,10 +107,13 @@
     <div *ngIf="laboral.diferencia && laboral.diferencia>0">
         Al tumbar la reforma los congresistas te negaron:
         <ul>
-            <li><b>{{laboral.diferencia | currency : '$'}}</b> que recibirías en <b>{{agnosTrabajando}}</b> Años</li>
-            <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}}</b> pesos mensuales que recibirías
+            <li><b>{{laboral.diferencia | currency : '$'}}</b> 
+                que recibirías en <b>{{agnosTrabajando}}</b> Años</li>
+            <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}}</b> 
+                pesos mensuales que recibirías
                 durante <b>{{ agnosTrabajando * 12}} meses </b></li>
-            <li><b>{{laboral.diferencia/(agnosTrabajando*12*360) | currency : '$'}}</b> pesos diarios que recibirías en
+            <li><b>{{laboral.diferencia/(agnosTrabajando*360) | currency : '$'}}</b> 
+                pesos diarios que recibirías en
                 <b>{{ (agnosTrabajando * 360) | number : '1.0'}} días </b>
             </li>
         </ul>

@@ -16,7 +16,7 @@ export class ParametrosComponent {
   public parametros: Parametros[];
   private peticion_: Peticion;
   public salarioHora = [0, 0, 0, 0];
-
+  @Input()
   public verSMLV = true;
 
   constructor(configurationService: ConfigurationService) {

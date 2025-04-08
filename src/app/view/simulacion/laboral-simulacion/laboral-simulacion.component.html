@@ -111,7 +111,7 @@
             <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}}</b> pesos mensuales que recibirías
                 durante <b>{{ agnosTrabajando * 12}} meses </b></li>
             <li><b>{{laboral.diferencia/(agnosTrabajando*12*360) | currency : '$'}}</b> pesos diarios que recibirías en
-                <b>{{ (agnosTrabajando * 12 * 360) | number : '1.0'}} días </b>
+                <b>{{ (agnosTrabajando * 360) | number : '1.0'}} días </b>
             </li>
         </ul>
         Que comparado con el salario de un congresista de <b>{{const.salarioCongresista | currency : '$'}} </b> por Mes

@@ -23,6 +23,10 @@
                 <td>{{const.jornadaLaboralMensual.label}}</td>
                 <td *ngFor="let i of const.reformas">{{parametros[i].jornadaLaboralMensual}} Horas</td>
             </tr>
+            <tr>
+                <td>{{const.jornadaLaboralSemanal.label}}</td>
+                <td *ngFor="let i of const.reformas">{{parametros[i].jornadaLaboralSemanal}} Horas</td>
+            </tr>
             <tr *ngIf="verSMLV">
                 <td>Valor {{const.smlvHora.label}}</td>
                 <td *ngFor="let i of const.reformas">{{(parametros[i].smlvHora) | currency : '$' }} </td>

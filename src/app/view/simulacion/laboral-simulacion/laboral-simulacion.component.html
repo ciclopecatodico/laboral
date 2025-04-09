@@ -108,12 +108,13 @@
         Al tumbar la reforma los congresistas te negaron:
         <ul>
             <li><b>{{laboral.diferencia | currency : '$'}}</b> 
-                que recibirías en <b>{{agnosTrabajando}}</b> Años</li>
+                pesos adicionales que recibirías en 
+                <b>{{agnosTrabajando}}</b> Años</li>
             <li><b>{{laboral.diferencia/(agnosTrabajando*12) | currency : '$'}}</b> 
-                pesos mensuales que recibirías
-                durante <b>{{ agnosTrabajando * 12}} meses </b></li>
+                pesos mensuales adicionales que recibirías en 
+                <b>{{ agnosTrabajando * 12}} meses </b></li>
             <li><b>{{laboral.diferencia/(agnosTrabajando*360) | currency : '$'}}</b> 
-                pesos diarios que recibirías en
+                pesos diarios adicionales que recibirías en
                 <b>{{ (agnosTrabajando * 360) | number : '1.0'}} días </b>
             </li>
         </ul>

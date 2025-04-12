@@ -62,6 +62,15 @@
                     {{parametros[i].nocheFin }}
                 </td>
             </tr>
+            <tr>
+                <td colspan="5" align="center"><b>Máximo horas extra:</b></td>
+            </tr>
+            <tr>
+                <td>{{const.maximoHorasExtra.label}}</td>
+                <td *ngFor="let i of const.reformas">
+                    {{parametros[i].maximoHorasExtras }}
+                </td>
+            </tr>
             <tr *ngIf="peticion.sena">
                 <td colspan="5" align="center"><b>Practicas SENA</b></td>
             </tr>

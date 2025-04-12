@@ -29,6 +29,7 @@ export class Parametros {
         public jornadaLaboralDiaria : number,
         public jornadaLaboralSemanal : number,
         public jornadaLaboralMensual : number,
+        public jornadaLaboralDiariaMaxima : number,
         public maximoHorasExtras : number,
         public horasDiurnas : ParametroHora,
         public horasNocturnas: ParametroHora,

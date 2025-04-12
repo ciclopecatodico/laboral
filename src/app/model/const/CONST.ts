@@ -53,6 +53,11 @@ export const CONST = {
         id: 'jornadaLaboralMensual',
         label: 'Jornada Laboral Mensual'
     },
+    maximoHorasExtra:
+    {
+        id: 'maximoHorasExtra',
+        label: 'Máximo de Horas Extra Semanales'
+    },
     horasDiurnas:
     {
         id: 'horasDiurnas',
@@ -194,9 +199,9 @@ export const CONST = {
     diasMes: 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
-    turnoInicio: '14:00',
-    turnoFin: '22:00',
-    turnoHoras: '8:00',
+    turnoInicio: '08:00',
+    turnoFin: '17:00',
+    turnoHoras: '09:00',
     total: {
         id: 'total',
         label: 'Total'

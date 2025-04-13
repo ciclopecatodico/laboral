@@ -20,10 +20,11 @@
         "diaFin": "06:00 PM",
         "nocheInicio": "06:00 PM",
         "nocheFin": "06:00 AM",
-        "jornadaLaboralDiaria": 10,
+        "jornadaLaboralDiaria": 8,
         "jornadaLaboralSemanal": 48,
         "jornadaLaboralMensual": 240,
-        "maximoHorasExtras": 4,
+        "jornadaLaboralDiariaMaxima" : 10,
+        "maximoHorasExtras": 12,
         "horasDiurnas": {
             "factor": 1,
             "porcentaje": 100
@@ -78,10 +79,11 @@
         "diaFin": "10:00 PM",
         "nocheInicio": "10:00 PM",
         "nocheFin": "06:00 AM",
-        "jornadaLaboralDiaria": 10,
+        "jornadaLaboralDiaria": 8,
         "jornadaLaboralSemanal": 48,
         "jornadaLaboralMensual": 240,
-        "maximoHorasExtras": 4,
+        "jornadaLaboralDiariaMaxima" : 10,
+        "maximoHorasExtras": 12,
         "horasDiurnas": {
             "factor": 1,
             "porcentaje": 100
@@ -136,10 +138,11 @@
         "diaFin": "10:00 PM",
         "nocheInicio": "10:00 PM",
         "nocheFin": "06:00 AM",
-        "jornadaLaboralDiaria": 10,
+        "jornadaLaboralDiaria": 7,
         "jornadaLaboralSemanal": 42,
         "jornadaLaboralMensual": 210,
-        "maximoHorasExtras": 4,
+        "jornadaLaboralDiariaMaxima" : 10,
+        "maximoHorasExtras": 12,
         "horasDiurnas": {
             "factor": 1,
             "porcentaje": 100
@@ -194,10 +197,11 @@
         "diaFin": "06:00 PM",
         "nocheInicio": "06:00 PM",
         "nocheFin": "06:00 AM",
-        "jornadaLaboralDiaria": 10,
+        "jornadaLaboralDiaria": 7,
         "jornadaLaboralSemanal": 42,
         "jornadaLaboralMensual": 210,
-        "maximoHorasExtras": 4,
+        "jornadaLaboralDiariaMaxima" : 10,
+        "maximoHorasExtras": 12,
         "horasDiurnas": {
             "factor": 1,
             "porcentaje": 100

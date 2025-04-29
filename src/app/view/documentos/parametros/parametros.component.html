@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Valores</th>
-                <th *ngFor="let i of const.reformas"> {{ parametros[i].reformaLabel}}</th>
+                <th *ngFor="let i of const.reformas"> <a href="{{ parametros[i].link}}" target="_blank">{{ parametros[i].reformaLabel}}</a></th>
             </tr>
         </thead>
         <tbody>

@@ -16,6 +16,7 @@ export class Parametros {
         public colorFill: string,
         public colorStroke: string,
         public descripcion : string,
+        public link: string, 
         public smlv : number,
         public smlvHora : number,
         public subsidioTransporte: number, 

@@ -10,6 +10,7 @@
         "colorFill": "var(--G50B)",
         "colorStroke": "#20c997",
         "descripcion": "Valores para calcular antes de la reforma laboral de URIBE en 2004",
+        "link": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=281",
         "smlv": 1423500,
         "smlvHora": 5931.25,
         "subsidioTransporte": 200000,
@@ -69,6 +70,7 @@
         "colorFill": "var(--U789B)",
         "colorStroke": "#dc3545",
         "descripcion": "Valores para calcular después de la reforma laboral de URIBE en 2004",
+        "link": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=6778",
         "smlv": 1423500,
         "smlvHora": 5931.25,
         "subsidioTransporte": 200000,
@@ -128,6 +130,7 @@
         "colorFill": "var(--D2101B)",
         "colorStroke":"#fd7e14",
         "descripcion": "Ley 2101 de 2021 que ajusta la jornada laboral mensual",
+        "link": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=166506",
         "smlv": 1423500,
         "smlvHora": 6470.4,
         "subsidioTransporte": 200000,
@@ -187,6 +190,7 @@
         "colorFill": "var(--P2025B)",
         "colorStroke": "#67bb03",
         "descripcion": "Valores para calcular con la reforma laboral de PETRO en 2025",
+        "link": "https://www.camara.gov.co/sites/default/files/2023-08/PL.166-2023C%20%28REFORMA%20LABORAL%29.pdf",
         "smlv": 1423500,
         "smlvHora": 6470.4,
         "subsidioTransporte": 200000,
@@ -219,8 +223,8 @@
             "porcentaje": 75
         },
         "horasDiurnasDominicalesOFestivos": {
-            "factor": 1.75,
-            "porcentaje": 75
+            "factor": 2,
+            "porcentaje": 100
         },
         "horasNocturnasDominicalesFestivos": {
             "factor": 2.1,

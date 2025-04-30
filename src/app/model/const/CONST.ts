@@ -199,9 +199,9 @@ export const CONST = {
     diasMes: 30,
     mediaNoche: '24:00',
     turnoNombrePrefix: 'Turno',
-    turnoInicio: '08:00',
-    turnoFin: '17:00',
-    turnoHoras: '09:00',
+    turnoInicio: '14:00',
+    turnoFin: '22:00',
+    turnoHoras: '08:00',
     total: {
         id: 'total',
         label: 'Total'

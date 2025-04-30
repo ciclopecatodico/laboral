@@ -38,6 +38,7 @@ export class LiquidadorHorasService {
     this.inicializarHorasList(parametros);
     //calcula las horas por tipo día a día 
     if (peticion.turnos) {
+      console.log("Jornada Semanal:" + parametros.jornadaLaboralSemanal);
       //calculas las horas diurnas por tipo de hora día a día 
       for (let turno of peticion.turnos) {
         if (turno.dias != null && turno.dias.length > 0) {
@@ -45,13 +46,33 @@ export class LiquidadorHorasService {
           this.calcularTiposDeHoras(turno, parametros);
         }
       }
+      //CASO 2
       //pero si se supera la jornada laboral semanal entonces calculo las horas extras a partir de la jornada laboral diaria 
       let totalSemana = 0;
       this.horasList.forEach(h => totalSemana += h.totalHoras);
       let horasExtra = totalSemana - parametros.jornadaLaboralSemanal;
+      console.log("Caso 1: " + parametroId + "Total Sem:" + totalSemana +  " pend:" + horasExtra);
       if (horasExtra > 0) {
         this.calcularHorasExtra(horasExtra, parametros, peticion);
       }
+      //CASO 3
+      //Si después de calcular las horas extra día a día sigue teniendo horas extra entonces recalculo pero desde el último día hacia el primero
+      totalSemana = 0;
+      this.horasList.forEach(h => totalSemana += h.totalHoras);
+      let horasExtraCalculadas = 0;
+      this.horasList.forEach(h => horasExtraCalculadas += h.horasExtraDiurna + h.horasExtraNocturna);
+      horasExtra = totalSemana - parametros.jornadaLaboralSemanal - horasExtraCalculadas;
+      
+      console.log("Caso 2: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
+      if (horasExtra > 0) {
+        this.calcularHorasExtraFinalSemana(horasExtra);
+      }
+      totalSemana = 0;
+      this.horasList.forEach(h => totalSemana += h.totalHoras);
+      horasExtraCalculadas = 0
+      this.horasList.forEach(h => horasExtraCalculadas += h.horasExtraDiurna + h.horasExtraNocturna);
+      horasExtra = totalSemana - parametros.jornadaLaboralSemanal - horasExtraCalculadas;
+      console.log("Caso 3: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
     }
     //calcula 
     this.redonderar(this.horasList);
@@ -90,6 +111,51 @@ export class LiquidadorHorasService {
         }
       }
     }
+  }
+
+
+  /**
+   * Convierte las horas diurnas o nocturnas de cada día en horas extra según corresponda
+   * empezando por el último día de la semana y hacia el primero
+   * @param horasExtra cantidad de horas extra que debo liquidar
+   */
+  private calcularHorasExtraFinalSemana(horasExtra: number) {
+    for (let i = this.horasList.length - 1; i >= 0; i--) {
+      let dia = this.horasList[i];
+      if (dia.horasNocturnas > 0 && horasExtra > 0) {
+        if (dia.horasNocturnas >= horasExtra) {
+          // horasExtra = 0;
+          // dia.horasExtraNocturna += dia.horasNocturnas;
+          // dia.horasNocturnas = 0;
+          dia.horasExtraNocturna += horasExtra;
+          dia.horasNocturnas -= horasExtra;
+          horasExtra = 0;
+        } else {
+          // horasExtra -= dia.horasNocturnas;
+          // dia.horasExtraNocturna += dia.horasNocturnas;
+          // dia.horasNocturnas = 0;
+          horasExtra -= dia.horasNocturnas;
+          dia.horasExtraNocturna += dia.horasNocturnas;
+          dia.horasNocturnas = 0;
+        }
+      }
+      if (dia.horasDiurnas > 0 && horasExtra > 0) {
+        if (dia.horasDiurnas >= horasExtra) {
+          dia.horasExtraDiurna += horasExtra;
+          dia.horasDiurnas -= horasExtra;
+          horasExtra = 0;
+        } else {
+          // dia.horasDiurnas -= horasExtra;
+          // dia.horasExtraDiurna += horasExtra;
+          // horasExtra = 0; 
+
+          horasExtra -= dia.horasDiurnas;
+          dia.horasExtraDiurna += dia.horasDiurnas;
+          dia.horasDiurnas = 0;
+        }
+      }
+    }
+
   }
 
   private inicializarHorasList(parametro: Parametros) {
@@ -187,7 +253,7 @@ export class LiquidadorHorasService {
     let horasDiurnas1 = this.calcularHorasDentroDelTurno(horario, jornadaDiurna);
     let horasTotales = horasNocturnas1 + horasDiurnas1;
     //Modifica para solo contar las horas extras si se sobrepasó la jornada maxima semanal 
-    if (horasTotales > jornadaLaboralDiaria) {
+    if (horasTotales > jornadaLaboralDiaria && horasExtra > 0) {
       //Habría horas extras diurnas así: 
       horasExtrasDiurnas = horasTotales - jornadaLaboralDiaria;
       horasDiurnas = horasDiurnas1 - horasExtrasDiurnas;
@@ -199,7 +265,7 @@ export class LiquidadorHorasService {
     //calculo las horas nocturnas en la noche
     let horasNocturnas2 = this.calcularHorasDentroDelTurno(horario, jornadaNocturna2);
     horasTotales = horasNocturnas1 + horasDiurnas1 + horasNocturnas2;
-    if (horasTotales > jornadaLaboralDiaria) {
+    if (horasTotales > jornadaLaboralDiaria && horasExtra > 0) {
       horasExtraNocturnas = horasTotales - jornadaLaboralDiaria;
       horasExtraNocturnas = horasExtraNocturnas - horasExtrasDiurnas;
       horasNocturnas = (horasNocturnas1 + horasNocturnas2) - horasExtraNocturnas;

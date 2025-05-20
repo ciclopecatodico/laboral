@@ -21,16 +21,16 @@ export class LiquidadorSemanaService {
 
   public liquidadorHorasService: LiquidadorHorasService;
 
-  public semana1950 = new Array<HorasSemana>();
-  public semana789 = new Array<HorasSemana>();
-  public semana2021 = new Array<HorasSemana>();
-  public semana2025 = new Array<HorasSemana>();
+  public semana1950!: Array<HorasSemana>;
+  public semana789!: Array<HorasSemana>;
+  public semana1846 !: Array<HorasSemana>;
+  public semana2021 !:  Array<HorasSemana>;
+  public semana2025 !:  Array<HorasSemana>;
   public totales = new Array<HorasSemana>();
 
   public donaDatos = new Array<DonaDatos>();
   public horasTipo: BarrasSimpleDatos;
   public parametros: Parametros[];
-
 
 
   constructor(configurationService: ConfigurationService, liquidadorHorasService: LiquidadorHorasService) {
@@ -45,17 +45,18 @@ export class LiquidadorSemanaService {
     this.totales = new Array<HorasSemana>();
     this.semana1950 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1950.index);
     this.semana789 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma789.index);
+    this.semana1846 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma1846.index);
     this.semana2021 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2101.index);
     this.semana2025 = this.liquidadorHorasService.calcularSemana(peticion, CONST.reforma2025.index);
 
     this.calcularTotales(this.semana1950, this.parametros[CONST.reforma1950.index], CONST.reforma1950.style);
     this.calcularTotales(this.semana789, this.parametros[CONST.reforma789.index], CONST.reforma789.style);
+    this.calcularTotales(this.semana1846, this.parametros[CONST.reforma1846.index], CONST.reforma1846.style);
     this.calcularTotales(this.semana2021, this.parametros[CONST.reforma2101.index], CONST.reforma2101.style);
     this.calcularTotales(this.semana2025, this.parametros[CONST.reforma2025.index], CONST.reforma2025.style);
 
     let horasSemana = new Array<HorasSemana>();
-    horasSemana = [...this.semana1950, ...this.semana789, ...this.semana2021, ...this.semana2025];
-
+    horasSemana = [...this.semana1950, ...this.semana789, ...this.semana1846, ...this.semana2021, ...this.semana2025];
 
     //this.horasPonderado = this.setBarrasTipoHorasPonderado();
     //this.horastotal = this.setHorasTotal();

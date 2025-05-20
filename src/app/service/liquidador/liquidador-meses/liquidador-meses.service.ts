@@ -31,12 +31,13 @@ export class LiquidadorMesesService {
   /**
    * Guarda la liquidación de los meses de un año y su total. 
    */
-  public agno1950 = new Array<ValorHoras>;
-  public agno789 = new Array<ValorHoras>;
-  public agno2101 = new Array<ValorHoras>;
-  public agno2025 = new Array<ValorHoras>;
+  public agno1950 !: Array<ValorHoras>;
+  public agno789 !: Array<ValorHoras>;
+  public agno1846 !: Array<ValorHoras>;
+  public agno2101 !: Array<ValorHoras>;
+  public agno2025 !: Array<ValorHoras>;
 
-  public totales = new Array<ValorHoras>;
+  public totales !: Array<ValorHoras>;
 
   constructor(configurationService: ConfigurationService, liquidadorMesService: LiquidadorMesService) {
     this.configurationService = configurationService;
@@ -55,6 +56,7 @@ export class LiquidadorMesesService {
     //Limpiar variables que almacenan la simulacion
     this.agno1950 = new Array<ValorHoras>;
     this.agno789 = new Array<ValorHoras>;
+    this.agno1846 = new Array<ValorHoras>;
     this.agno2101 = new Array<ValorHoras>;
     this.agno2025 = new Array<ValorHoras>;
     //obtener el año que trae los parametros de
@@ -62,6 +64,7 @@ export class LiquidadorMesesService {
 
     let valorHora1950 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma1950.index);
     let valorHora789 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma789.index);
+    let valorHora1846 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma1846.index);
     let valorHora2101 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma2101.index);
     let valorHora2025 = this.liquidadorMesService.calcularValorHora(peticion, CONST.reforma2025.index);
 
@@ -82,6 +85,9 @@ export class LiquidadorMesesService {
       let mes789 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana789, agno.meses[mesIndex], peticion, valorHora789, CONST.reforma789.index);
       this.agno789.push(mes789);
 
+      let mes1846 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana1846, agno.meses[mesIndex], peticion, valorHora1846, CONST.reforma1846.index);
+      this.agno1846.push(mes1846);
+
       let mes2101 = this.liquidadorMesService.contarHorasMes(this.liquidadorMesService.semana2101, agno.meses[mesIndex], peticion, valorHora2101, CONST.reforma2101.index);
       this.agno2101.push(mes2101);
 
@@ -93,17 +99,19 @@ export class LiquidadorMesesService {
     this.totales = new Array<ValorHoras>;
     this.calcularTotales(this.agno1950);
     this.calcularTotales(this.agno789);
+    this.calcularTotales(this.agno1846);
     this.calcularTotales(this.agno2101);
     this.calcularTotales(this.agno2025);
 
     this.liquidadorMesService.redonderar(this.agno1950);
     this.liquidadorMesService.redonderar(this.agno789);
+    this.liquidadorMesService.redonderar(this.agno1846);
     this.liquidadorMesService.redonderar(this.agno2101);
     this.liquidadorMesService.redonderar(this.agno2025);
 
     let meses = new Array<ValorHoras>();
     //retornamos un arreglo que contiene todos los agños calculados. 
-    meses = [...this.agno1950, ...this.agno789, ...this.agno2101, ...this.agno2025];
+    meses = [...this.agno1950, ...this.agno789, ...this.agno1846, ...this.agno2101, ...this.agno2025];
 
     let barrasHorasPonderadas = undefined;
     let barrasTotal = this.generarBarrasSimpleDatos(this.totales);
@@ -159,7 +167,7 @@ export class LiquidadorMesesService {
     let categorias = Array<string[]>();
     let colors = Array<string>();
     this.parametros.forEach(p => {
-      categorias.push([p.reformaLabel,p.reformaAutor]);
+      categorias.push([p.reformaLabel, p.reformaAutor]);
       colors.push(p.colorFill);
     });
     //generar datos: 
@@ -170,7 +178,7 @@ export class LiquidadorMesesService {
 
     });
     return {
-      chartLabel: "Ingreso Anual Proyectado",
+      chartLabel: "Ingreso Proyectado",
       dataLabel: "Ingreso",
       colors: colors,
       data: data,

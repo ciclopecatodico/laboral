@@ -217,7 +217,7 @@ export const CONST = {
         label: 'Hombre',
         edadPension: 62
     },
-    reformas: [0, 1, 2, 3],
+    reformas: [0, 1, 2, 3, 4],
     reforma1950: {         //estos valores deben coincidir con assets/json/parametros.json !!!
         index: 0,
         reforma: '1950',
@@ -228,13 +228,18 @@ export const CONST = {
         reforma: '789',
         style: 'secondary'
     },
-    reforma2101: {
+    reforma1846: {
         index: 2,
-        reforma: '2101',
+        reforma: '1846',
         style: 'info'
     },
-    reforma2025: {
+    reforma2101: {
         index: 3,
+        reforma: '2101',
+        style: 'warning'
+    },
+    reforma2025: {
+        index: 4,
         reforma: '2025',
         style: 'success'
     },

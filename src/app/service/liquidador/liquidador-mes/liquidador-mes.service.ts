@@ -31,19 +31,22 @@ export class LiquidadorMesService {
    */
   public semana1950 = new Array<HorasSemana>();
   public semana789 = new Array<HorasSemana>();
+  public semana1846 = new Array<HorasSemana>();
   public semana2101 = new Array<HorasSemana>();
   public semana2025 = new Array<HorasSemana>();
 
 
-  public valorHorasDia1950: Array<ValorHoras>;
-  public valorHorasDia789: Array<ValorHoras>;
-  public valorHorasDia2101: Array<ValorHoras>;
-  public valorHorasDia2025: Array<ValorHoras>;
+  public valorHorasDia1950!: Array<ValorHoras>;
+  public valorHorasDia789!: Array<ValorHoras>;
+  public valorHorasDia1846!: Array<ValorHoras>;
+  public valorHorasDia2101!: Array<ValorHoras>;
+  public valorHorasDia2025!: Array<ValorHoras>;
 
-  public valorHoras1950: ValorHoras;
-  public valorHoras789: ValorHoras;
-  public valorHoras2101: ValorHoras;
-  public valorHoras2025: ValorHoras;
+  public valorHoras1950!: ValorHoras;
+  public valorHoras789!: ValorHoras;
+  public valorHoras1846!: ValorHoras;
+  public valorHoras2101!: ValorHoras;
+  public valorHoras2025!: ValorHoras;
 
   public series: ApexAxisChartSeries;
 
@@ -52,14 +55,6 @@ export class LiquidadorMesService {
     this.parametros = configurationService.parametros;
     this.agno = configurationService.agnoModel; 
     this.series = [];
-    this.valorHoras1950 = Object.create(ValorHoras);
-    this.valorHoras789 = Object.create(ValorHoras);
-    this.valorHoras2101 = Object.create(ValorHoras);
-    this.valorHoras2025 = Object.create(ValorHoras);
-    this.valorHorasDia1950 = new Array<ValorHoras>();
-    this.valorHorasDia789 = new Array<ValorHoras>();
-    this.valorHorasDia2101 = new Array<ValorHoras>();
-    this.valorHorasDia2025 = new Array<ValorHoras>();
   }
 
   public simularMes(horasSemana: HorasSemana[], peticion: Peticion): Mes {
@@ -68,33 +63,37 @@ export class LiquidadorMesService {
     //Limpiar variables que almacenan la simulacion
     this.valorHoras1950 = Object.create(ValorHoras);
     this.valorHoras789 = Object.create(ValorHoras);
+    this.valorHoras1846 = Object.create(ValorHoras);
     this.valorHoras2101 = Object.create(ValorHoras);
     this.valorHoras2025 = Object.create(ValorHoras);
 
     //
     let valorHora1950 = this.calcularValorHora(peticion, CONST.reforma1950.index);
     let valorHora789 = this.calcularValorHora(peticion, CONST.reforma789.index);
+    let valorHora1846 = this.calcularValorHora(peticion, CONST.reforma1846.index);
     let valorHora2101 = this.calcularValorHora(peticion, CONST.reforma2101.index);
     let valorHora2025 = this.calcularValorHora(peticion, CONST.reforma2025.index);
 
     //inicializar los arreglos
     this.valorHorasDia1950 = new Array<ValorHoras>();
     this.valorHorasDia789 = new Array<ValorHoras>();
+    this.valorHorasDia1846 = new Array<ValorHoras>();
     this.valorHorasDia2101 = new Array<ValorHoras>();
     this.valorHorasDia2025 = new Array<ValorHoras>();
 
     //liquidar todos los días
     this.valorHoras1950 = this.contarHorasMesConDias(this.valorHorasDia1950, this.semana1950, peticion, valorHora1950, CONST.reforma1950.index);
     this.valorHoras789 = this.contarHorasMesConDias(this.valorHorasDia789, this.semana789, peticion, valorHora789, CONST.reforma789.index);
+    this.valorHoras1846 = this.contarHorasMesConDias(this.valorHorasDia1846, this.semana1846, peticion, valorHora1846, CONST.reforma1846.index);
     this.valorHoras2101 = this.contarHorasMesConDias(this.valorHorasDia2101, this.semana2101,  peticion, valorHora2101, CONST.reforma2101.index);
     this.valorHoras2025 = this.contarHorasMesConDias(this.valorHorasDia2025, this.semana2025, peticion, valorHora2025, CONST.reforma2025.index);
 
-    let valorHoras = [this.valorHoras1950, this.valorHoras789, this.valorHoras2101, this.valorHoras2025];
+    let valorHoras = [this.valorHoras1950, this.valorHoras789, this.valorHoras1846, this.valorHoras2101, this.valorHoras2025];
 
     let barrasHorasPonderadas = undefined;
     let barrasSimpleDatos = this.generarBarrasSimpleDatos(valorHoras);
 
-    valorHoras = [...this.valorHorasDia1950, this.valorHoras1950, ...this.valorHorasDia789, this.valorHoras789, ...this.valorHorasDia2101, this.valorHoras2101, ...this.valorHorasDia2025, this.valorHoras2025];
+    valorHoras = [...this.valorHorasDia1950, this.valorHoras1950, ...this.valorHorasDia789, this.valorHoras789, ...this.valorHorasDia1846, this.valorHoras1846, ...this.valorHorasDia2101, this.valorHoras2101, ...this.valorHorasDia2025, this.valorHoras2025];
 
     return new Mes(peticion.salario, valorHoras, barrasSimpleDatos, barrasHorasPonderadas);
   }
@@ -291,6 +290,7 @@ export class LiquidadorMesService {
   public llenarHorasTotalesPorSemanaYReforma(horasSemana: HorasSemana[]) {
     this.semana1950 = horasSemana.filter(h => (h.reformaName === CONST.reforma1950.reforma));
     this.semana789 = horasSemana.filter(h => (h.reformaName === CONST.reforma789.reforma));
+    this.semana1846 = horasSemana.filter(h => (h.reformaName === CONST.reforma1846.reforma));
     this.semana2101 = horasSemana.filter(h => (h.reformaName === CONST.reforma2101.reforma));
     this.semana2025 = horasSemana.filter(h => (h.reformaName === CONST.reforma2025.reforma));
   }

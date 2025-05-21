@@ -121,15 +121,75 @@
     },
     {
         "id": 3,
+        "reformaLabel": "Ley 1846 de 2017",
+        "reformaName": "1846",
+        "reformaAutor": "Santos",
+        "reformaIndex": 2,
+        "angoInicio": 2017, 
+        "style": "info",
+        "colorFill": "var(--S1846B)",
+        "colorStroke":"#fd7e14",
+        "descripcion": "",
+        "link": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=82756",
+        "smlv": 1423500,
+        "smlvHora": 5931.25,
+        "subsidioTransporte": 200000,
+        "senaLectiva": 50,
+        "senaProductiva": 75,
+        "diasMes": 30,
+        "diaInicio": "06:00 AM",
+        "diaFin": "09:00 PM",
+        "nocheInicio": "09:00 PM",
+        "nocheFin": "06:00 AM",
+        "jornadaLaboralDiaria": 8,
+        "jornadaLaboralSemanal": 48,
+        "jornadaLaboralMensual": 240,
+        "jornadaLaboralDiariaMaxima" : 10,
+        "maximoHorasExtras": 12,
+        "horasDiurnas": {
+            "factor": 1,
+            "porcentaje": 100
+        },
+        "horasNocturnas": {
+            "factor": 1.35,
+            "porcentaje": 35
+        },
+        "horasExtrasDiurnas": {
+            "factor": 1.25,
+            "porcentaje": 25
+        },
+        "horasExtrasNocturnas": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasDiurnasDominicalesOFestivos": {
+            "factor": 1.75,
+            "porcentaje": 75
+        },
+        "horasNocturnasDominicalesFestivos": {
+            "factor": 2.1,
+            "porcentaje": 110
+        },
+        "horasExtrasDiurnasDominicalesFestivas": {
+            "factor": 2,
+            "porcentaje": 100
+        },
+        "horasExtrasNocturnasDominicalesFestivas": {
+            "factor": 2.50,
+            "porcentaje": 150
+        }
+    },
+    {
+        "id": 4,
         "reformaLabel": "Ley 2101 de 2021",
         "reformaName": "2101",
         "reformaAutor": "Duque",
-        "reformaIndex": 2,
+        "reformaIndex": 3,
         "angoInicio": 2026, 
-        "style": "info",
+        "style": "warning",
         "colorFill": "var(--D2101B)",
         "colorStroke":"#fd7e14",
-        "descripcion": "Ley 2101 de 2021 que ajusta la jornada laboral mensual",
+        "descripcion": "",
         "link": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=166506",
         "smlv": 1423500,
         "smlvHora": 6470.4,
@@ -138,8 +198,8 @@
         "senaProductiva": 75,
         "diasMes": 30,
         "diaInicio": "06:00 AM",
-        "diaFin": "10:00 PM",
-        "nocheInicio": "10:00 PM",
+        "diaFin": "09:00 PM",
+        "nocheInicio": "09:00 PM",
         "nocheFin": "06:00 AM",
         "jornadaLaboralDiaria": 7,
         "jornadaLaboralSemanal": 42,
@@ -180,11 +240,11 @@
         }
     },
     {
-        "id": 4,
+        "id": 5,
         "reformaLabel": "Propuesta 2025",
         "reformaName": "2025",
         "reformaAutor": "Petro",
-        "reformaIndex": 3,
+        "reformaIndex": 4,
         "angoInicio": 2029, 
         "style": "success",
         "colorFill": "var(--P2025B)",

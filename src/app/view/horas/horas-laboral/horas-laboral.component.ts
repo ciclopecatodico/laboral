@@ -12,11 +12,13 @@ export class HorasLaboralComponent {
 
   public showReforma1950 = false;
   public showReforma789 = false;
+  public showReforma1846 = false;
   public showReforma2101 = false;
   public showReforma2025 = false;
 
   public reforma1950 = CONST.reforma1950;
   public reforma789 = CONST.reforma789;
+  public reforma1846 = CONST.reforma1846;
   public reforma2101 = CONST.reforma2101;
   public reforma2025 = CONST.reforma2025;
 
@@ -34,6 +36,9 @@ export class HorasLaboralComponent {
         break;
       case "789":
         this.showReforma789 = !this.showReforma789;
+        break;
+      case "1846":
+        this.showReforma1846 = !this.showReforma1846;
         break;
       case "2101":
         this.showReforma2101 = !this.showReforma2101;
@@ -55,6 +60,9 @@ export class HorasLaboralComponent {
 
       case "789":
         return !this.showReforma789;
+
+      case "1846":
+        return !this.showReforma1846;
 
       case "2101":
         return !this.showReforma2101;

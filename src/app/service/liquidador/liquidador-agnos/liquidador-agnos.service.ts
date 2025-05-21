@@ -32,16 +32,18 @@ export class LiquidadorAgnosService {
   /**
 * Horas registradas para cada semana
 */
-  public total1950: ValorHoras;
-  public total789: ValorHoras;
-  public total2101: ValorHoras;
-  public total2025: ValorHoras;
+  public total1950!: ValorHoras;
+  public total789!: ValorHoras;
+  public total1846!: ValorHoras;
+  public total2101!: ValorHoras;
+  public total2025!: ValorHoras;
 
   /**
    * Guarda la liquidación de la historia laboral. 
    */
   public laboral1950 = new Array<ValorHoras>;
   public laboral789 = new Array<ValorHoras>;
+  public laboral1846 = new Array<ValorHoras>;
   public laboral2101 = new Array<ValorHoras>;
   public laboral2025 = new Array<ValorHoras>;
 
@@ -54,6 +56,7 @@ export class LiquidadorAgnosService {
     this.parametros = configurationService.parametros;
     this.total1950 = structuredClone(this.configurationService.valorHoras);
     this.total789 = structuredClone(this.configurationService.valorHoras);
+    this.total1846 = structuredClone(this.configurationService.valorHoras);
     this.total2101 = structuredClone(this.configurationService.valorHoras);
     this.total2025 = structuredClone(this.configurationService.valorHoras);
   }
@@ -73,6 +76,7 @@ export class LiquidadorAgnosService {
     //genera la simulacion para cada reforma 
     this.laboral1950 = this.generarAngos(this.total1950);
     this.laboral789 = this.generarAngos(this.total789);
+    this.laboral1846 = this.generarAngos(this.total1846);
     this.laboral2101 = this.generarAngos(this.total2101);
     this.laboral2025 = this.generarAngos(this.total2025);
     //Despues de simular los años debo calcular las participaciones por reformas
@@ -83,12 +87,13 @@ export class LiquidadorAgnosService {
     //calcular totales para cada simulación. 
     this.calcularTotales(this.laboral1950);
     this.calcularTotales(this.laboral789);
+    this.calcularTotales(this.laboral1846);
     this.calcularTotales(this.laboral2101);
     this.calcularTotales(this.laboral2025);
     let valorHoras = new Array<ValorHoras>();
 
     //retornamos un arreglo que contiene todos los agños calculados. 
-    valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral2101, ...this.laboral2025];
+    valorHoras = [...this.laboral1950, ...this.laboral789, ...this.laboral1846, ...this.laboral2101, ...this.laboral2025];
 
     let barrasSimplesDatos = this.generarBarrasSimpleDatos(this.totales);
     let barrasAcumulados = this.liquidarAcumulados();
@@ -104,6 +109,7 @@ export class LiquidadorAgnosService {
   private filtraTotalPorReforma(agno: ValorHoras[]) {
     this.total1950 = agno.filter(h => (h.reformaName === CONST.reforma1950.reforma && h.name === CONST.total.id))[0];
     this.total789 = agno.filter(h => (h.reformaName === CONST.reforma789.reforma && h.name === CONST.total.id))[0];
+    this.total1846 = agno.filter(h => (h.reformaName === CONST.reforma1846.reforma && h.name === CONST.total.id))[0];
     this.total2101 = agno.filter(h => (h.reformaName === CONST.reforma2101.reforma && h.name === CONST.total.id))[0];
     this.total2025 = agno.filter(h => (h.reformaName === CONST.reforma2025.reforma && h.name === CONST.total.id))[0];
   }
@@ -235,9 +241,11 @@ export class LiquidadorAgnosService {
   private liquidarAcumulados(): ApexAxisChartSeries {
     let sum1950 = 0;
     let sum789 = 0;
+    let sum1846parcial = 0;
     let sum2101parcial = 0;
     let sum2101total = 0;
     let sum2025 = 0;
+    //recorre todo el array de agnos liquidados para las reformas
     for (let i = 0; i < this.laboral1950.length - 1; i++) {
       //sumar todo lo anterior hasta la reforma de uribe
       let vh1950 = this.laboral1950[i];
@@ -245,11 +253,17 @@ export class LiquidadorAgnosService {
       if (agno < this.parametros[CONST.reforma789.index].angoInicio) {
         sum1950 += vh1950.totalValorHoras;
       }
-      //sumar entre la reforma de uribe y la de duque
+      //sumar entre la reforma de uribe y la de santos
       let vh789 = this.laboral789[i];
       agno = parseInt(vh789.name);
-      if (agno >= this.parametros[CONST.reforma789.index].angoInicio && agno < this.parametros[CONST.reforma2101.index].angoInicio) {
+      if (agno >= this.parametros[CONST.reforma789.index].angoInicio && agno < this.parametros[CONST.reforma1846.index].angoInicio) {
         sum789 += vh789.totalValorHoras;
+      }
+      //sumar entre la reforma de santos y duque
+      let vh1846 = this.laboral1846[i];
+      agno = parseInt(vh1846.name);
+      if (agno >= this.parametros[CONST.reforma1846.index].angoInicio && agno < this.parametros[CONST.reforma2101.index].angoInicio) {
+        sum1846parcial += vh1846.totalValorHoras;
       }
       //sumar entre la reforma de duque y petro
       let vh2101 = this.laboral2101[i];
@@ -271,37 +285,43 @@ export class LiquidadorAgnosService {
 
 
     //Estos son los totales con y sin reforma
-    this.totalSinReforma = Math.round(sum1950 + sum789 + sum2101total);
-    this.totalConreforma = Math.round(sum1950 + sum789 + sum2101parcial + sum2025);
-    
-    sum1950 = Math.round(sum1950) ;
-    sum789 = Math.round(sum789) ;
+    this.totalSinReforma = Math.round(sum1950 + sum789 + sum1846parcial + sum2101total);
+    this.totalConreforma = Math.round(sum1950 + sum789 + sum1846parcial + sum2101parcial + sum2025);
+
+    sum1950 = Math.round(sum1950);
+    sum789 = Math.round(sum789);
+    sum1846parcial = Math.round(sum1846parcial);
     sum2101parcial = Math.round(sum2101parcial);
     sum2101total = Math.round(sum2101total);
     sum2025 = Math.round(sum2025);
 
-    let tot1950 = Math.round(this.laboral1950[this.laboral1950.length - 1].totalValorHoras ) ;
-    let tot789 = Math.round(this.laboral789[this.laboral789.length - 1].totalValorHoras );
-    let tot2101 = Math.round(this.laboral2101[this.laboral1950.length - 1].totalValorHoras ) ;
-    let tot2025 = Math.round(this.laboral2025[this.laboral1950.length - 1].totalValorHoras ) ;
+    let tot1950 = Math.round(this.laboral1950[this.laboral1950.length - 1].totalValorHoras);
+    let tot789 = Math.round(this.laboral789[this.laboral789.length - 1].totalValorHoras);
+    let tot1846 = Math.round(this.laboral1846[this.laboral1846.length - 1].totalValorHoras);
+    let tot2101 = Math.round(this.laboral2101[this.laboral2101.length - 1].totalValorHoras);
+    let tot2025 = Math.round(this.laboral2025[this.laboral2025.length - 1].totalValorHoras);
 
 
     let data = [
       {
         name: this.parametros[CONST.reforma1950.index].reformaLabel,
-        data: [tot1950, 0, 0, 0, sum1950, sum1950]
+        data: [tot1950, 0, 0, 0, 0, sum1950, sum1950]
       },
       {
         name: this.parametros[CONST.reforma789.index].reformaLabel,
-        data: [0, tot789, 0, 0, sum789, sum789]
+        data: [0, tot789, 0, 0, 0, sum789, sum789]
+      },
+      {
+        name: this.parametros[CONST.reforma1846.index].reformaLabel,
+        data: [0, 0, tot1846, 0, 0, sum1846parcial, sum1846parcial]
       },
       {
         name: this.parametros[CONST.reforma2101.index].reformaLabel,
-        data: [0, 0, tot2101, 0, sum2101total, sum2101parcial]
+        data: [0, 0, 0, tot2101, 0, sum2101total, sum2101parcial]
       },
       {
         name: this.parametros[CONST.reforma2025.index].reformaLabel,
-        data: [0, 0, 0, tot2025, 0, sum2025]
+        data: [0, 0, 0, 0, tot2025, 0, sum2025]
       }
     ];
 

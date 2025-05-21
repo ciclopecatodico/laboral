@@ -86,7 +86,7 @@ export class BarrasAcumuladoComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: ["Gaviria", "Uribe", "Duque", "Petro", "Sin Reforma", "Con Reforma"],
+        categories: ["Gaviria 1993", "Uribe 2002","Santos 2017", "Duque 2021", "Petro 2025", "Sin Reforma", "Con Reforma"],
         labels: {
           formatter: function (val) {
             let num = parseInt(val);
@@ -166,7 +166,7 @@ export class BarrasAcumuladoComponent implements OnInit {
           colors: ["var(--GrapLabel)"]
         }
       },
-      colors: ["var(--G50BA)", "var(--U789BA)", "var(--D2101BA)", "var(--P2025BA)"]
+      colors: ["var(--G50BA)", "var(--U789BA)", "var(--S1846BA)","var(--D2101BA)", "var(--P2025BA)"]
     };
   }
 

@@ -14,6 +14,7 @@ export class Peticion {
         public duracion?: number,
         public festivos?: boolean,
         public mesId?: number,
+        public jornadaSemanal?: number,
         public turnos?: Turno[]
     ) { }
 }

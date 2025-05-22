@@ -51,7 +51,7 @@ export class LiquidadorHorasService {
       let totalSemana = 0;
       this.horasList.forEach(h => totalSemana += h.totalHoras);
       let horasExtra = totalSemana - parametros.jornadaLaboralSemanal;
-      console.log("Caso 1: " + parametroId + "Total Sem:" + totalSemana +  " pend:" + horasExtra);
+      //console.log("Caso 1: " + parametroId + "Total Sem:" + totalSemana +  " pend:" + horasExtra);
       if (horasExtra > 0) {
         this.calcularHorasExtra(horasExtra, parametros, peticion);
       }
@@ -63,7 +63,7 @@ export class LiquidadorHorasService {
       this.horasList.forEach(h => horasExtraCalculadas += h.horasExtraDiurna + h.horasExtraNocturna);
       horasExtra = totalSemana - parametros.jornadaLaboralSemanal - horasExtraCalculadas;
       
-      console.log("Caso 2: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
+      //console.log("Caso 2: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
       if (horasExtra > 0) {
         this.calcularHorasExtraFinalSemana(horasExtra);
       }
@@ -72,7 +72,10 @@ export class LiquidadorHorasService {
       horasExtraCalculadas = 0
       this.horasList.forEach(h => horasExtraCalculadas += h.horasExtraDiurna + h.horasExtraNocturna);
       horasExtra = totalSemana - parametros.jornadaLaboralSemanal - horasExtraCalculadas;
-      console.log("Caso 3: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
+      //console.log("Caso 3: " + parametroId + "Total Sem:" + totalSemana + " HE calc:" + horasExtraCalculadas + " pend:" + horasExtra);
+      
+      //guardar jornada semanal: 
+      peticion.jornadaSemanal = totalSemana;
     }
     //calcula 
     this.redonderar(this.horasList);

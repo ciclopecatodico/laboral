@@ -199,9 +199,6 @@ export class LiquidadorMesService {
     let diaIndex = CONST.diasSemanaName.findIndex(d => d === mes.diaInicial)
     let mesLiquidar = structuredClone(this.configurationService.valorHoras);
     // El día de descanso se gana cuando se ha trabajado la jornada semanal
-    let jornadaSemanalIngresada = 0;
-    horasSemana.forEach(d => jornadaSemanalIngresada += d.totalHoras);
-
     //Obtengo el valor de la hora dependiendo de los parámetros 
     mesLiquidar.valorHora = valorHora;
     let esFestivo = false;
@@ -209,7 +206,7 @@ export class LiquidadorMesService {
       let j = (i + diaIndex) % 7;
       //validar si no tiene horas ese día se debe contabilizar como jornada diurna normal
       //pues corresponde al día de descanso 
-      if (horasSemana[j].totalHoras === 0 && jornadaSemanalIngresada >= parametros.jornadaLaboralSemanal) {
+      if (horasSemana[j].totalHoras === 0 &&  peticion.jornadaSemanal!= undefined && peticion.jornadaSemanal >= parametros.jornadaLaboralSemanal) {
         //los días de descanso se pagan como una Jornada Laboral Diurna normal.
         mesLiquidar.horasDiurnas += parametros.jornadaLaboralDiaria;
         continue;

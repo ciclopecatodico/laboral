@@ -166,8 +166,8 @@ export class LiquidadorMesService {
         mesLiquidar.horasExtraNocturna += horasSemana[j].horasExtraNocturna;
         //guardando datos en cada día 
         valorHoraDia.horasDiurnas = horasSemana[j].horasDiurnas;
-        valorHoraDia.horasExtraDiurna = horasSemana[j].horasNocturnas;
-        valorHoraDia.horasNocturnas = horasSemana[j].horasExtraDiurna;
+        valorHoraDia.horasExtraDiurna = horasSemana[j].horasExtraDiurna;
+        valorHoraDia.horasNocturnas = horasSemana[j].horasNocturnas;
         valorHoraDia.horasExtraNocturna = horasSemana[j].horasExtraNocturna;
       }
       this.liquidarValorHoras(valorHoraDia, parametros);
